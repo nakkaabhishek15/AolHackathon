@@ -1,0 +1,255 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Design tokens — derived from the Art of Living mark:
+   a rising sun (yellow → amber → ember) over a warm ink horizon.
+   ============================================================ */
+@theme {
+  /* Surfaces — warm but clean; true white is reserved for cards so they
+     lift off the cream rather than blending into it. */
+  --color-cream: #fbf8f3;
+  --color-paper: #ffffff;
+  --color-sand: #f4efe6;
+  --color-sand-deep: #eae2d5;
+  --color-line: #e4ddd0;
+  --color-line-soft: #f0ebe1;
+
+  /* Ink ramp. Every step clears WCAG AA (4.5:1) against cream, sand, paper
+     and gold-tint, so any of them is safe for body-size text. */
+  --color-ink: #171310;
+  --color-ink-2: #423a31;
+  --color-ink-3: #635949;
+  --color-ink-4: #776b5c;
+
+  /* Sun ramp, sampled from the logo's gradient. `gold` is the text-safe
+     member; `sun`/`amber`/`ember` are for fills and strokes only. */
+  --color-sun: #ffc93c;
+  --color-amber: #f0980e;
+  --color-ember: #d2601a;
+  --color-gold: #8c5d0a;
+  --color-gold-tint: #fbf0dc;
+  --color-alert: #b0480f;
+
+  --color-dusk: #211a13;
+  --color-dusk-2: #33291d;
+
+  --font-display: var(--font-eb-garamond), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+
+  --shadow-lift: 0 1px 2px rgb(23 19 16 / 0.03), 0 12px 32px -18px rgb(23 19 16 / 0.14);
+  --shadow-raise: 0 2px 4px rgb(23 19 16 / 0.04), 0 28px 60px -30px rgb(23 19 16 / 0.24);
+
+  --animate-shimmer: shimmer 2.6s var(--ease-in-out-quint) infinite;
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+@layer base {
+  :root {
+    color-scheme: light;
+    --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-sun);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    color: var(--color-ink);
+  }
+
+  h1,
+  h2 {
+    font-weight: 400;
+    letter-spacing: -0.012em;
+  }
+
+  /* Card-level headings sit near body size, where Garamond's small x-height
+     needs the extra weight to hold its own against Inter Tight. */
+  h3 {
+    font-weight: 500;
+    letter-spacing: -0.003em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ============================================================
+   Utilities
+   ============================================================ */
+@utility container-page {
+  width: 100%;
+  max-width: 78rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Small uppercase label used above every section heading. */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+/* Tabular figures for counters and timeline hours. */
+@utility numeric {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Hairline that fades out at both ends — used between sections. */
+@utility rule-fade {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-line), transparent);
+}
+
+/* The sun gradient, reused for text, fills and strokes. */
+@utility sun-gradient {
+  background-image: linear-gradient(
+    160deg,
+    var(--color-sun) 0%,
+    var(--color-amber) 52%,
+    var(--color-ember) 100%
+  );
+}
+
+@utility text-sun-gradient {
+  background-image: linear-gradient(160deg, var(--color-amber) 0%, var(--color-ember) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Paper grain — one inline SVG, no network request. */
+@utility grain {
+  position: relative;
+  isolation: isolate;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0.22;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+}
+
+/* ============================================================
+   Entrance animations.
+
+   The hero uses CSS rather than JS so the headline paints on the
+   first frame (it is the LCP element) and still resolves correctly
+   when JavaScript never arrives. Scroll-linked motion stays in JS
+   as progressive enhancement.
+   ============================================================ */
+@keyframes rise-line {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes draw-ray {
+  from {
+    stroke-dashoffset: 60;
+    opacity: 0;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 0.72;
+  }
+}
+
+@keyframes sun-in {
+  from {
+    transform: scale(0.82);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@utility rise-line {
+  animation: rise-line 0.95s var(--ease-out-expo) both;
+  animation-delay: var(--delay, 0s);
+}
+
+@utility fade-up {
+  animation: fade-up 0.8s var(--ease-out-expo) both;
+  animation-delay: var(--delay, 0s);
+}

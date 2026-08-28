@@ -1,0 +1,930 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:ital,opsz,wght@0,12..96,400..800;1,12..96,500..700&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>AOLF Hackathon</title>
+
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --bg:#F7FAFF;
+    --surface:#FFFFFF;
+    --surface-alt:#EEF3FD;
+    --border:#DCE4F5;
+    --ink:#16223D;
+    --ink-soft:#51607E;
+    --ink-faint:#8794B4;
+    --blue:#2557E0;
+    --blue-ink:#12234F;
+    --gold:#C9821A;
+    --gold-bg:#FFF6E2;
+    --gold-line:#F0D9A6;
+    --shadow: 0 24px 60px -30px rgba(18,35,79,.35);
+    --radius-lg: 28px;
+    --radius-md: 16px;
+    --radius-sm: 10px;
+    --focus: #2557E0;
+
+    /* fixed narrative tokens: these represent a literal time-of-day and are
+       intentionally constant across light/dark OS theme (see design note) */
+    --hero-sky-top:#E3EDFF;
+    --hero-sky-horizon:#FFE7B8;
+    --hero-sun:#F0AE41;
+    --hero-sun-soft:#FBD98A;
+    --hero-ink:#16223D;
+    --hero-ink-soft:#4E5B82;
+    --hero-line: rgba(22,34,61,.14);
+
+    --night-bg:#0B1330;
+    --night-bg2:#16204B;
+    --night-ink:#F2F5FF;
+    --night-ink-soft:#AAB6DE;
+    --night-line:#28315E;
+    --night-gold:#F4C065;
+    --night-blue:#7DA2FF;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0A1122;
+      --surface:#10182E;
+      --surface-alt:#141E3A;
+      --border:#26325C;
+      --ink:#EAF0FF;
+      --ink-soft:#AEBADD;
+      --ink-faint:#7784A8;
+      --blue:#7DA2FF;
+      --blue-ink:#EAF0FF;
+      --gold:#F4C065;
+      --gold-bg:#1E2440;
+      --gold-line:#41402f;
+      --shadow: 0 24px 60px -20px rgba(0,0,0,.65);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0A1122;
+    --surface:#10182E;
+    --surface-alt:#141E3A;
+    --border:#26325C;
+    --ink:#EAF0FF;
+    --ink-soft:#AEBADD;
+    --ink-faint:#7784A8;
+    --blue:#7DA2FF;
+    --blue-ink:#EAF0FF;
+    --gold:#F4C065;
+    --gold-bg:#1E2440;
+    --gold-line:#41402f;
+    --shadow: 0 24px 60px -20px rgba(0,0,0,.65);
+  }
+
+  /* ============ RESET / BASE ============ */
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+  }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Source Sans 3', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    font-weight:700;
+    color:var(--ink);
+    margin:0;
+    text-wrap:balance;
+    letter-spacing:-0.01em;
+  }
+  p{ margin:0; color:var(--ink-soft); }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+  button{ font-family:inherit; }
+  ::selection{ background:var(--gold); color:var(--night-bg); }
+
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
+    outline:3px solid var(--focus);
+    outline-offset:3px;
+    border-radius:6px;
+  }
+
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 28px; }
+  @media (max-width:640px){ .wrap{ padding:0 20px; } }
+
+  .eyebrow{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    font-size:12.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--blue);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-weight:700;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px; border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 0 3px var(--gold-bg);
+  }
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:9px;
+    font-family:'Plus Jakarta Sans', sans-serif; font-weight:600; font-size:15px;
+    padding:14px 26px; border-radius:999px; border:1.5px solid transparent;
+    cursor:pointer; text-decoration:none; white-space:nowrap;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+  }
+  .btn:active{ transform:translateY(1px); }
+  .btn-primary{ background:var(--blue); color:#fff; box-shadow:0 14px 30px -12px rgba(37,87,224,.55); }
+  .btn-primary:hover{ box-shadow:0 18px 36px -12px rgba(37,87,224,.65); transform:translateY(-1px); }
+  .btn-ghost{ background:transparent; color:var(--hero-ink); border-color:var(--hero-line); }
+  .btn-ghost:hover{ border-color:var(--blue); color:var(--blue); }
+  .btn-light{ background:#fff; color:var(--blue-ink); border-color:transparent; box-shadow:0 14px 30px -14px rgba(0,0,0,.3);}
+  .btn-light:hover{ transform:translateY(-1px); }
+  .btn-outline-night{ background:transparent; color:var(--night-ink); border-color:var(--night-line); }
+  .btn-outline-night:hover{ border-color:var(--night-gold); color:var(--night-gold); }
+  .btn[disabled], .btn.is-soon{ cursor:default; }
+
+  .pill{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13px; font-weight:600; font-family:'Plus Jakarta Sans',sans-serif;
+    letter-spacing:.02em;
+    padding:8px 16px; border-radius:999px;
+    background:rgba(255,255,255,.6); border:1px solid var(--hero-line);
+    color:var(--hero-ink);
+  }
+  .pill svg{ width:15px; height:15px; flex:none; }
+
+  section{ position:relative; }
+  .section-pad{ padding:100px 0; }
+  @media (max-width:780px){ .section-pad{ padding:68px 0; } }
+
+  .kicker-row{ display:flex; flex-direction:column; gap:16px; margin-bottom:52px; max-width:640px; }
+  .kicker-row.center{ margin-left:auto; margin-right:auto; text-align:center; align-items:center; }
+  .kicker-row h2{ font-size:clamp(28px,3.6vw,42px); }
+  .kicker-row p{ font-size:17px; }
+
+  /* ============ NAV ============ */
+  .nav-shell{ position:sticky; top:0; z-index:100; padding:16px 20px; }
+  .nav{
+    max-width:1180px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+    background:rgba(255,255,255,.78);
+    -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.6);
+    border-radius:999px; padding:10px 12px 10px 20px;
+    box-shadow:0 18px 40px -26px rgba(18,35,79,.45);
+  }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .nav{ background:rgba(16,24,46,.78); border-color:rgba(255,255,255,.08); } }
+  :root[data-theme="dark"] .nav{ background:rgba(16,24,46,.78); border-color:rgba(255,255,255,.08); }
+
+  .logo{ display:flex; align-items:center; gap:10px; text-decoration:none; flex:none; }
+  .logo svg{ width:30px; height:30px; }
+  .logo-text{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:16.5px; color:var(--ink); line-height:1.15; }
+  .logo-text small{ display:block; font-family:'Plus Jakarta Sans',sans-serif; font-size:9.5px; letter-spacing:.16em; color:var(--ink-faint); font-weight:700; }
+
+  .nav-links{ display:flex; align-items:center; gap:2px; list-style:none; margin:0; padding:0; }
+  .nav-links a{
+    text-decoration:none; color:var(--ink-soft); font-size:14.5px; font-weight:600;
+    padding:9px 14px; border-radius:999px; transition:background .15s ease, color .15s ease;
+  }
+  .nav-links a:hover{ background:var(--surface-alt); color:var(--ink); }
+  .nav-links a.active{ color:var(--blue); background:var(--gold-bg); }
+  .nav-cta{ flex:none; }
+  .nav-cta .btn span.short{ display:none; }
+  .nav-toggle{ display:none; background:none; border:1px solid var(--border); border-radius:10px; padding:8px; }
+  .nav-toggle svg{ width:20px; height:20px; display:block; }
+
+  @media (max-width:920px){
+    .nav-links{ display:none; }
+    .nav-toggle{ display:inline-flex; }
+    .nav-cta .btn span.long{ display:none; }
+    .nav-cta .btn span.short{ display:inline; }
+  }
+  .mobile-menu{
+    max-width:1180px; margin:8px auto 0; display:none; flex-direction:column; gap:2px;
+    background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:10px;
+    box-shadow:var(--shadow);
+  }
+  .mobile-menu.open{ display:flex; }
+  .mobile-menu a{ text-decoration:none; color:var(--ink); font-weight:600; padding:12px 14px; border-radius:12px; }
+  .mobile-menu a:hover{ background:var(--surface-alt); }
+
+  /* ============ HERO (dawn) ============ */
+  .hero{
+    background:
+      radial-gradient(680px 420px at 82% -10%, var(--hero-sun-soft), transparent 60%),
+      linear-gradient(180deg, var(--hero-sky-top) 0%, #F5EFE2 46%, var(--hero-sky-horizon) 100%);
+    padding:64px 0 0;
+    overflow:hidden;
+  }
+  .hero-inner{
+    display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:center;
+    padding:56px 0 90px;
+  }
+  @media (max-width:920px){ .hero-inner{ grid-template-columns:1fr; padding-bottom:60px; } }
+
+  .hero-badges{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:26px; }
+  .hero h1{
+    font-family:'Bricolage Grotesque', 'Plus Jakarta Sans', ui-sans-serif, sans-serif; font-weight:800;
+    color:var(--hero-ink); font-size:clamp(38px,5.6vw,64px); line-height:1.04; margin-bottom:22px;
+  }
+  .hero h1 em{ font-style:italic; font-weight:600; color:var(--gold); }
+  .hero .lede{ color:var(--hero-ink-soft); font-size:18.5px; max-width:520px; margin-bottom:34px; }
+  .hero-actions{ display:flex; flex-wrap:wrap; gap:14px; margin-bottom:30px; }
+  .hero-note{ font-size:13.5px; color:var(--hero-ink-soft); display:flex; gap:8px; align-items:flex-start; max-width:480px; }
+  .hero-note svg{ width:16px; height:16px; flex:none; margin-top:2px; color:var(--gold); }
+
+  .sun-scene{ position:relative; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; }
+  .sun-disc{
+    position:relative; width:62%; aspect-ratio:1/1; border-radius:50%;
+    background:radial-gradient(circle at 34% 30%, #FFE7AE, var(--hero-sun) 55%, #D98A22 100%);
+    box-shadow:0 0 0 14px rgba(240,174,65,.16), 0 0 0 34px rgba(240,174,65,.08);
+    animation:breathe 7s ease-in-out infinite;
+  }
+  @keyframes breathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.045); } }
+  .sun-ring{ position:absolute; inset:0; border-radius:50%; border:1.5px dashed rgba(22,34,61,.18); animation:spin 60s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .sun-orbit-dot{ position:absolute; width:11px; height:11px; border-radius:50%; background:var(--blue); top:6%; left:50%; box-shadow:0 0 0 5px rgba(37,87,224,.18); }
+  .sun-hours{
+    position:absolute; bottom:6%; left:50%; transform:translateX(-50%);
+    font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:14px; letter-spacing:.02em;
+    background:#fff; color:var(--hero-ink); padding:8px 16px; border-radius:999px; box-shadow:var(--shadow);
+    display:flex; align-items:center; gap:8px; white-space:nowrap;
+  }
+  .sun-hours b{ font-size:20px; color:var(--blue); }
+
+  .stat-strip{
+    display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--hero-line);
+  }
+  .stat-strip div{ padding:26px 18px; text-align:center; border-left:1px solid var(--hero-line); }
+  .stat-strip div:first-child{ border-left:none; }
+  .stat-strip strong{ display:block; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:clamp(22px,3vw,30px); color:var(--hero-ink); }
+  .stat-strip span{ font-size:12.5px; color:var(--hero-ink-soft); font-weight:600; letter-spacing:.02em; }
+  @media (max-width:700px){ .stat-strip{ grid-template-columns:repeat(2,1fr); } .stat-strip div:nth-child(3){ border-left:none; } }
+
+  /* ============ MISSION / PILLARS ============ */
+  .pillars{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
+  @media (max-width:920px){ .pillars{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .pillars{ grid-template-columns:1fr; } }
+  .pillar-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md);
+    padding:28px 24px; display:flex; flex-direction:column; gap:16px;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .pillar-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow); border-color:transparent; }
+  .icon-badge{
+    width:46px; height:46px; border-radius:13px; display:flex; align-items:center; justify-content:center;
+    background:var(--gold-bg); color:var(--gold);
+  }
+  .icon-badge svg{ width:23px; height:23px; }
+  .icon-badge.blue{ background:var(--surface-alt); color:var(--blue); }
+  .pillar-card h3{ font-size:18.5px; }
+  .pillar-card p{ font-size:14.5px; }
+
+  .mission-grid{ display:grid; grid-template-columns:.95fr 1.05fr; gap:64px; align-items:start; margin-bottom:64px; }
+  @media (max-width:920px){ .mission-grid{ grid-template-columns:1fr; gap:40px; } }
+  .mission-copy p{ font-size:17px; margin-bottom:16px; }
+  .mission-copy p:last-child{ margin-bottom:0; }
+  .mission-copy strong{ color:var(--ink); }
+
+  /* ============ HOW IT WORKS ============ */
+  .steps{ counter-reset:step; display:grid; gap:0; }
+  .step{
+    display:grid; grid-template-columns:64px 1fr; gap:24px; padding:28px 0; border-top:1px solid var(--border);
+  }
+  .step:last-child{ border-bottom:1px solid var(--border); }
+  .step-num{
+    counter-increment:step; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:15px;
+    color:var(--blue); width:44px; height:44px; border-radius:50%; background:var(--surface);
+    border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center;
+  }
+  .step-num::before{ content: counter(step, decimal-leading-zero); }
+  .step-body h3{ font-size:19px; margin-bottom:8px; }
+  .step-body p{ font-size:15px; max-width:640px; }
+  .step-tag{
+    font-family:'Plus Jakarta Sans',sans-serif; font-size:11.5px; color:var(--gold); text-transform:uppercase;
+    letter-spacing:.1em; font-weight:700; margin-bottom:6px; display:block;
+  }
+
+  /* ============ THE 36 HOURS (night) ============ */
+  .night{
+    background:linear-gradient(175deg, var(--night-bg) 0%, var(--night-bg2) 100%);
+    color:var(--night-ink);
+    padding:104px 0 96px;
+  }
+  .night .eyebrow{ color:var(--night-gold); }
+  .night .eyebrow::before{ background:var(--night-gold); box-shadow:0 0 0 3px rgba(244,192,101,.18); }
+  .night h2{ color:var(--night-ink); }
+  .night .kicker-row p{ color:var(--night-ink-soft); }
+
+  .arc-rail{
+    position:relative; display:flex; justify-content:space-between; gap:6px;
+    padding:0 6px 0; margin:52px 0 8px; overflow-x:auto; scrollbar-width:thin;
+  }
+  .arc-rail::before{
+    content:""; position:absolute; left:26px; right:26px; top:23px; height:2px;
+    background:linear-gradient(90deg, var(--night-gold), var(--night-blue) 32%, var(--night-blue) 68%, var(--night-gold));
+    opacity:.55;
+  }
+  .arc-node{
+    position:relative; background:none; border:none; color:var(--night-ink-soft); cursor:pointer;
+    display:flex; flex-direction:column; align-items:center; gap:10px; flex:1; min-width:96px; padding:0 4px 14px;
+  }
+  .arc-node .dot{
+    width:47px; height:47px; border-radius:50%; background:var(--night-bg2); border:1.5px solid var(--night-line);
+    display:flex; align-items:center; justify-content:center; transition:all .2s ease; color:var(--night-ink-soft);
+  }
+  .arc-node .dot svg{ width:20px; height:20px; }
+  .arc-node .hr{ font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; font-weight:700; letter-spacing:.02em; }
+  .arc-node .lbl{ font-size:12.5px; font-weight:600; text-align:center; line-height:1.25; color:var(--night-ink-soft); }
+  .arc-node:hover .dot{ border-color:var(--night-blue); color:var(--night-blue); }
+  .arc-node.active .dot{ background:var(--night-gold); border-color:var(--night-gold); color:var(--night-bg); box-shadow:0 0 0 7px rgba(244,192,101,.16); }
+  .arc-node.active .lbl{ color:var(--night-ink); }
+  .arc-node.active .hr{ color:var(--night-gold); }
+
+  .arc-detail{
+    margin-top:36px; background:rgba(255,255,255,.04); border:1px solid var(--night-line);
+    border-radius:var(--radius-lg); padding:38px; display:grid; grid-template-columns:auto 1fr; gap:26px; align-items:flex-start;
+  }
+  @media (max-width:640px){ .arc-detail{ grid-template-columns:1fr; padding:28px; } }
+  .arc-detail .dot-lg{
+    width:58px; height:58px; border-radius:16px; background:var(--night-gold); color:var(--night-bg);
+    display:flex; align-items:center; justify-content:center; flex:none;
+  }
+  .arc-detail .dot-lg svg{ width:28px; height:28px; }
+  .arc-detail-time{ font-family:'Plus Jakarta Sans',sans-serif; color:var(--night-gold); font-size:13px; font-weight:700; letter-spacing:.03em; margin-bottom:8px; display:block; }
+  .arc-detail h3{ color:var(--night-ink); font-size:23px; margin-bottom:10px; }
+  .arc-detail p{ color:var(--night-ink-soft); font-size:15.5px; max-width:640px; }
+
+  /* ============ TRACKS (soon) ============ */
+  .tracks-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:34px; }
+  @media (max-width:860px){ .tracks-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .tracks-grid{ grid-template-columns:1fr; } }
+  .track-locked{
+    border:1.5px dashed var(--border); border-radius:var(--radius-md); padding:26px;
+    display:flex; flex-direction:column; gap:14px; background:var(--surface-alt);
+  }
+  .track-locked .lock{
+    width:38px; height:38px; border-radius:10px; background:var(--surface); border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center; color:var(--ink-faint);
+  }
+  .track-locked .lock svg{ width:18px; height:18px; }
+  .track-locked .bar{ height:11px; border-radius:6px; background:linear-gradient(90deg, var(--border), transparent); }
+  .track-locked .bar.short{ width:60%; }
+  .track-note{
+    display:flex; align-items:center; gap:14px; background:var(--gold-bg); border:1px solid var(--gold-line);
+    border-radius:var(--radius-md); padding:20px 24px;
+  }
+  .track-note svg{ width:24px; height:24px; color:var(--gold); flex:none; }
+  .track-note p{ color:var(--ink); font-size:14.5px; }
+  .track-note strong{ color:var(--ink); }
+
+  /* ============ PERKS ============ */
+  .perks-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  @media (max-width:920px){ .perks-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .perks-grid{ grid-template-columns:1fr; } }
+  .perk-card{
+    background:var(--surface); border-radius:var(--radius-md); padding:26px; text-align:left;
+    border:1px solid var(--border);
+  }
+  .perk-card .icon-badge{ margin-bottom:16px; }
+  .perk-card h3{ font-size:16.5px; margin-bottom:6px; }
+  .perk-card p{ font-size:13.5px; }
+
+  /* ============ FAQ ============ */
+  .faq-list{ border-top:1px solid var(--border); }
+  .faq-item{ border-bottom:1px solid var(--border); }
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+    padding:24px 4px; font-family:'Plus Jakarta Sans',sans-serif; font-size:18px; font-weight:700; color:var(--ink);
+  }
+  .faq-q .chev{ width:22px; height:22px; flex:none; color:var(--blue); transition:transform .25s ease; }
+  .faq-item[data-open="true"] .faq-q .chev{ transform:rotate(180deg); }
+  .faq-a{ overflow:hidden; max-height:0; transition:max-height .3s ease; }
+  .faq-item[data-open="true"] .faq-a{ max-height:400px; }
+  .faq-a-inner{ padding:0 4px 26px; max-width:760px; }
+  .faq-a-inner p{ font-size:15.5px; }
+  .faq-a-inner p + p{ margin-top:10px; }
+
+  /* ============ FINAL CTA (dawn again) ============ */
+  .cta-final{
+    background:
+      radial-gradient(600px 360px at 18% 0%, var(--hero-sun-soft), transparent 60%),
+      linear-gradient(180deg, var(--hero-sky-horizon) 0%, #F5EFE2 60%, var(--hero-sky-top) 100%);
+    padding:96px 0;
+  }
+  .cta-final .kicker-row{ margin-bottom:6px; }
+  .cta-final h2{ color:var(--hero-ink); }
+  .cta-final p{ color:var(--hero-ink-soft); }
+  .cta-box{
+    background:#fff; border-radius:var(--radius-lg); padding:44px; margin-top:38px;
+    box-shadow:var(--shadow); display:grid; grid-template-columns:1.2fr auto; gap:30px; align-items:center;
+  }
+  @media (max-width:760px){ .cta-box{ grid-template-columns:1fr; text-align:center; } }
+  .cta-box h3{ font-size:22px; color:var(--hero-ink); margin-bottom:8px; }
+  .cta-box p{ font-size:14.5px; }
+  .cta-box .btn{ width:100%; }
+  .cta-actions{ display:flex; flex-direction:column; gap:10px; }
+  .contact-line{ font-size:13px; color:var(--hero-ink-soft); text-align:center; }
+  .contact-line a{ color:var(--blue); font-weight:600; text-decoration:none; }
+  .contact-line a:hover{ text-decoration:underline; }
+
+  /* ============ FOOTER ============ */
+  footer{ background:var(--night-bg); color:var(--night-ink-soft); padding:48px 0 32px; }
+  .footer-row{ display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; padding-bottom:28px; border-bottom:1px solid var(--night-line); margin-bottom:22px; }
+  .footer-logo{ display:flex; align-items:center; gap:10px; }
+  .footer-logo svg{ width:26px; height:26px; }
+  .footer-logo span{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; color:var(--night-ink); font-size:16px; }
+  .footer-links{ display:flex; gap:22px; list-style:none; padding:0; margin:0; flex-wrap:wrap; }
+  .footer-links a{ color:var(--night-ink-soft); text-decoration:none; font-size:14px; font-weight:500; }
+  .footer-links a:hover{ color:var(--night-gold); }
+  .footer-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12.5px; color:var(--night-ink-soft); }
+
+  /* reveal-on-scroll */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.is-visible{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; } }
+</style>
+
+<!-- ============================================================ NAV ============================================================ -->
+<div class="nav-shell">
+  <nav class="nav">
+    <a class="logo" href="#top" aria-label="AOLF Hackathon home">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="16" cy="20" r="7.5" fill="#F0AE41"/>
+        <path d="M4 20a12 12 0 0 1 24 0" stroke="#2557E0" stroke-width="2" stroke-linecap="round"/>
+        <path d="M16 3v3.5M6.5 7l2.2 2.2M25.5 7l-2.2 2.2" stroke="#2557E0" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">AOLF Hackathon<small>ART OF LIVING FOUNDATION</small></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#mission">Mission</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#the-hours">The 36 Hours</a></li>
+      <li><a href="#tracks">Challenges</a></li>
+      <li><a href="#perks">Perks</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-cta" style="display:flex; align-items:center; gap:8px;">
+      <a class="btn btn-primary" href="mailto:ghl@artofliving.ca?subject=Notify%20me%20-%20AOLF%20Hackathon" style="padding:11px 18px; font-size:14px;">
+        <span class="long">Notify Me</span><span aria-hidden="true" class="short">Notify</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#mission">Mission</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#the-hours">The 36 Hours</a>
+    <a href="#tracks">Challenges</a>
+    <a href="#perks">Perks</a>
+    <a href="#faq">FAQ</a>
+  </div>
+</div>
+
+<!-- ============================================================ HERO ============================================================ -->
+<header class="hero" id="top">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="hero-badges">
+        <span class="pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2" stroke-linecap="round"/></svg>
+          36 hours, dawn to dusk
+        </span>
+        <span class="pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/></svg>
+          Free to join
+        </span>
+        <span class="pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4" stroke-linecap="round"/></svg>
+          Dates &amp; location: to be announced
+        </span>
+      </div>
+      <h1>One community.<br>One sunrise-to-sunrise<br><em>build.</em></h1>
+      <p class="lede">The Art of Living Foundation's first hackathon: 36 hours to build the volunteer tech team that keeps solving problems long after the closing circle, starting with the ones our own community is living with right now.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="mailto:ghl@artofliving.ca?subject=Notify%20me%20-%20AOLF%20Hackathon&amp;body=Please%20notify%20me%20when%20applications%20for%20the%20AOLF%20Hackathon%20open.">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="width:17px;height:17px;"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
+          Notify me when applications open
+        </a>
+        <a class="btn btn-ghost" href="#how-it-works">See how it works</a>
+      </div>
+      <div class="hero-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Applications open once problem statements are finalized from our community survey. Join the list and be first to know.
+      </div>
+    </div>
+    <div class="sun-scene" aria-hidden="true">
+      <div class="sun-ring"></div>
+      <div class="sun-orbit-dot"></div>
+      <div class="sun-disc"></div>
+      <div class="sun-hours"><b>36</b> hour build</div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="stat-strip">
+      <div><strong>36 hrs</strong><span>ONE CONTINUOUS SPRINT</span></div>
+      <div><strong>$0</strong><span>COST TO APPLY OR ATTEND</span></div>
+      <div><strong>1</strong><span>LASTING VOLUNTEER TECH TEAM</span></div>
+      <div><strong>100%</strong><span>PROBLEMS FROM REAL AOLF NEEDS</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ============================================================ MISSION ============================================================ -->
+<section class="section-pad" id="mission">
+  <div class="wrap">
+    <div class="mission-grid reveal">
+      <div>
+        <span class="eyebrow">Why this exists</span>
+        <h2 style="font-size:clamp(26px,3.2vw,36px); margin-top:14px;">This isn't a hackathon looking for a cause. It's a cause looking for hackers.</h2>
+      </div>
+      <div class="mission-copy">
+        <p>Our teachers, ashram teams, organizers, and volunteers run into the same friction points over and over: a manual process here, information that's hard to find there, a bottleneck nobody's had the bandwidth to fix. Real problems, quietly stacking up.</p>
+        <p>The AOLF Hackathon exists to close that gap two ways at once: <strong>build a standing volunteer tech team</strong> that keeps showing up after the event ends, and along the way, <strong>ship real solutions</strong> to problems sourced directly from our own community and program teams, not invented for the occasion.</p>
+        <p>Every challenge you'll work on traces back to an actual person's answer to one question: <em style="font-family:'Bricolage Grotesque','Plus Jakarta Sans',sans-serif; font-weight:600;">if you had a magic wand, what would you fix?</em></p>
+      </div>
+    </div>
+    <div class="pillars reveal">
+      <div class="pillar-card">
+        <div class="icon-badge blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20v-1a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v1"/><circle cx="10" cy="7" r="3.5"/><path d="M22 20v-1a4 4 0 0 0-3-3.87"/><path d="M16.5 3.6a3.5 3.5 0 0 1 0 6.8"/></svg></div>
+        <h3>A team that outlasts the event</h3>
+        <p>The primary goal isn't a demo. It's the volunteers who keep building together afterward.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".6" fill="currentColor"/></svg></div>
+        <h3>Real problems, not prompts</h3>
+        <p>Every challenge is sourced from Operations, Marketing, Data, Executive teams, and a community-wide survey.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon-badge blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.7-10-9.3C.5 8 2 4.5 5.5 4c2-.3 3.7.7 4.9 2.3 1.2-1.6 2.9-2.6 4.9-2.3C18.8 4.5 20.3 8 18.7 11.7 16.2 16.3 12 21 12 21Z"/></svg></div>
+        <h3>Free, always</h3>
+        <p>No application fee, no ticket price. Meals, mentorship, and a place to build are on us.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="4"/></svg></div>
+        <h3>Challenges shared up front</h3>
+        <p>You'll know exactly what you're solving, and propose your approach, before build hours start.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ HOW IT WORKS ============================================================ -->
+<section class="section-pad" id="how-it-works" style="background:var(--surface-alt);">
+  <div class="wrap">
+    <div class="kicker-row reveal">
+      <span class="eyebrow">The path to build day</span>
+      <h2>How it works</h2>
+      <p>Nothing about this hackathon starts cold. The problems, the teams, and the plan are all in place before hour one.</p>
+    </div>
+    <div class="steps reveal">
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <span class="step-tag">Community input</span>
+          <h3>We ask the community for real problems</h3>
+          <p>PTCs, full-time teachers, ashram &amp; retreat center teams, organizers, and volunteers answer one prompt: <em>"if you had a magic wand, what problem would you solve?"</em> That runs alongside direct input from Operations, Marketing, Data, and Executive teams.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <span class="step-tag">Curation</span>
+          <h3>Responses become a short list of challenges</h3>
+          <p>We categorize every response and shape them into a limited set of structured hackathon challenges, each with context and success criteria, sized to roughly 4&ndash;5 teams for simpler problems and 7&ndash;8 for the more complex ones.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <span class="step-tag">Application</span>
+          <h3>You apply with a challenge and a plan</h3>
+          <p>Problem statements are shared with every applicant before the event. Pick one or more that speak to you, and submit a short proposed approach along with your application.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <span class="step-tag">Build</span>
+          <h3>36 hours, start to finish</h3>
+          <p>Actual building happens only during the event itself: one continuous, sunrise-to-sunrise sprint with mentors on hand throughout.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <span class="step-tag">What's next</span>
+          <h3>The team keeps going</h3>
+          <p>Demos and a closing circle wrap the event, along with an open door to join the ongoing AOLF volunteer tech team for anyone who wants to keep building.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ THE 36 HOURS (interactive arc) ============================================================ -->
+<section class="night section-pad" id="the-hours">
+  <div class="wrap">
+    <div class="kicker-row reveal">
+      <span class="eyebrow">Dawn to dusk to dawn</span>
+      <h2>The arc of 36 hours</h2>
+      <p>One overnight push, bookended by two sunrises. Tap a moment below to see what's happening.</p>
+    </div>
+
+    <div class="arc-rail" id="arcRail" role="tablist" aria-label="Hackathon timeline phases">
+      <!-- nodes injected by JS -->
+    </div>
+
+    <div class="arc-detail" id="arcDetail" role="tabpanel"></div>
+  </div>
+</section>
+
+<!-- ============================================================ TRACKS (coming soon) ============================================================ -->
+<section class="section-pad" id="tracks">
+  <div class="wrap">
+    <div class="kicker-row reveal">
+      <span class="eyebrow">Challenge tracks</span>
+      <h2>The challenges are still being written: by you</h2>
+      <p>Right now, real answers from our community survey and program teams are being categorized into a short list of hackathon challenges. Here's what that will look like.</p>
+    </div>
+    <div class="tracks-grid reveal">
+      <div class="track-locked">
+        <div class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+        <div class="bar"></div>
+        <div class="bar short"></div>
+      </div>
+      <div class="track-locked">
+        <div class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+        <div class="bar"></div>
+        <div class="bar short"></div>
+      </div>
+      <div class="track-locked">
+        <div class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+        <div class="bar"></div>
+        <div class="bar short"></div>
+      </div>
+    </div>
+    <div class="track-note reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      <p><strong>Every finalized challenge will be shared with applicants before the event</strong>, with full context and success criteria, so you can choose what excites you and come in with a plan, not a blank page.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ PERKS ============================================================ -->
+<section class="section-pad" id="perks" style="background:var(--surface-alt);">
+  <div class="wrap">
+    <div class="kicker-row reveal">
+      <span class="eyebrow">On us</span>
+      <h2>What's included</h2>
+      <p>Free means free: no entry fee, and everything below is taken care of.</p>
+    </div>
+    <div class="perks-grid reveal">
+      <div class="perk-card">
+        <div class="icon-badge blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10c1.5-4 4.5-6 8-6s6.5 2 8 6"/><path d="M3 10h18l-1.5 8a2 2 0 0 1-2 1.7H6.5A2 2 0 0 1 4.5 18Z"/><path d="M9 10a3 3 0 0 1 6 0"/></svg></div>
+        <h3>Meals &amp; snacks</h3>
+        <p>Fed through all 36 hours, including the overnight stretch, because no one builds well on an empty stomach.</p>
+      </div>
+      <div class="perk-card">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4 4 8l4 3-1 9h10l-1-9 4-3-4-4-4 3-4-3Z"/></svg></div>
+        <h3>Swag &amp; T-shirts</h3>
+        <p>A shirt worth wearing after the event: something to remember the team you built with.</p>
+      </div>
+      <div class="perk-card">
+        <div class="icon-badge blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M8.5 14 7 21l5-2.5L17 21l-1.5-7"/></svg></div>
+        <h3>Certificates &amp; recognition</h3>
+        <p>Formal recognition for every participant, plus shoutouts for standout solutions and teams.</p>
+      </div>
+      <div class="perk-card">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20v-1a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v1"/><circle cx="10" cy="7" r="3.5"/><path d="M22 20v-1a4 4 0 0 0-3-3.87"/><path d="M16.5 3.6a3.5 3.5 0 0 1 0 6.8"/></svg></div>
+        <h3>Mentorship</h3>
+        <p>AOLF tech leads on hand throughout the event, for technical help and for knowing which problem you're really solving.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ FAQ ============================================================ -->
+<section class="section-pad" id="faq">
+  <div class="wrap" style="max-width:860px;">
+    <div class="kicker-row reveal">
+      <span class="eyebrow">Good questions</span>
+      <h2>Frequently asked questions</h2>
+      <p>Everything we know so far. More detail lands as dates, location, and challenges are finalized.</p>
+    </div>
+
+    <div class="faq-list reveal" id="faqList">
+      <div class="faq-item" data-open="true">
+        <button class="faq-q" aria-expanded="true">Is it really free to join?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Yes. There's no cost to apply or to attend. Meals, mentorship, swag, and certificates are all included. This is a community event, not a fundraiser.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Who can apply?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>AOLF volunteers, students, professionals, and anyone in our extended community who wants to help build the volunteer tech team. Building great software takes more than developers: designers, writers, project coordinators, and organizers are just as welcome.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Do I need to know how to code?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>No. Teams need a mix of skills: development, design, content, and coordination all matter. If you can't write code but want in, apply anyway and tell us what you bring.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">When and where is it happening?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Dates and location (or whether it's in-person, virtual, or hybrid) are being finalized and will be announced here. It will always run as one continuous 36-hour block. Sign up for notifications and you'll be the first to know.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How are the challenges chosen?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>From real needs, not brainstorms. Operations, Marketing, Data, and Executive teams contribute problem areas directly, and a community-wide survey asks PTCs, teachers, ashram teams, organizers, and volunteers what they'd fix with a magic wand. Responses are categorized and shaped into a limited set of structured challenges.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How do I apply, and can I apply solo?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Applications open once challenges are finalized. When they do, you'll choose one or more challenge tracks and submit a short proposed approach with your application. Apply solo and we'll help you find a team, or apply as a group you've already formed.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What happens after the closing circle?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>That's the real point of the event. Every participant is invited to join AOLF's ongoing volunteer tech team, and promising solutions get support to move toward real use. Building doesn't stop when the 36 hours do.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Who do I contact with questions?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Email <a href="mailto:ghl@artofliving.ca" style="color:var(--blue); font-weight:600; text-decoration:none;">ghl@artofliving.ca</a>. We read every message.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ FINAL CTA (dawn) ============================================================ -->
+<section class="cta-final" id="join">
+  <div class="wrap">
+    <div class="kicker-row center reveal">
+      <span class="eyebrow">Be first to know</span>
+      <h2>Applications aren't open yet, but your seat can be waiting</h2>
+      <p>We're finalizing challenges, dates, and location. Get on the list and we'll email you the moment applications go live.</p>
+    </div>
+    <div class="cta-box reveal">
+      <div>
+        <h3>Get notified when applications open</h3>
+        <p>One email, sent once, the day applications go live. No spam, no lists sold, nothing else in between.</p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="mailto:ghl@artofliving.ca?subject=Notify%20me%20-%20AOLF%20Hackathon&amp;body=Please%20notify%20me%20when%20applications%20for%20the%20AOLF%20Hackathon%20open.">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="width:17px;height:17px;"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
+          Notify me
+        </a>
+        <span class="contact-line">or reach us directly at <a href="mailto:ghl@artofliving.ca">ghl@artofliving.ca</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div class="footer-logo">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="16" cy="20" r="7.5" fill="#F4C065"/>
+          <path d="M4 20a12 12 0 0 1 24 0" stroke="#7DA2FF" stroke-width="2" stroke-linecap="round"/>
+          <path d="M16 3v3.5M6.5 7l2.2 2.2M25.5 7l-2.2 2.2" stroke="#7DA2FF" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span>AOLF Hackathon</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#mission">Mission</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#the-hours">The 36 Hours</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="mailto:ghl@artofliving.ca">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Art of Living Foundation, built by and for our volunteer community.</span>
+      <span>36 hours &middot; free to join &middot; dates to be announced</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ---- mobile nav ---- */
+  var navToggle = document.getElementById('navToggle');
+  var mobileMenu = document.getElementById('mobileMenu');
+  navToggle.addEventListener('click', function(){
+    var open = mobileMenu.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ mobileMenu.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); });
+  });
+
+  /* ---- active nav link on scroll ---- */
+  var sections = ['mission','how-it-works','the-hours','tracks','perks','faq'].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  var navA = document.querySelectorAll('.nav-links a');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          var id = e.target.id;
+          navA.forEach(function(a){
+            a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+    sections.forEach(function(s){ io.observe(s); });
+  }
+
+  /* ---- reveal on scroll ---- */
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = document.querySelectorAll('.reveal');
+  if(!reduceMotion && 'IntersectionObserver' in window){
+    var ro = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('is-visible'); ro.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(function(el){ ro.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+
+  /* ---- FAQ accordion ---- */
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    var btn = item.querySelector('.faq-q');
+    btn.addEventListener('click', function(){
+      var isOpen = item.getAttribute('data-open') === 'true';
+      item.setAttribute('data-open', isOpen ? 'false' : 'true');
+      btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+    });
+  });
+
+  /* ---- The 36 Hours: interactive arc ---- */
+  var PHASES = [
+    { hr:'HR 00', time:'Morning, Day 1', label:'Opening Circle', icon:'sun',
+      desc:'Teams check in, share a short breath practice together, and lock in the challenge and approach they applied with. Mentors introduce themselves and the 36-hour clock starts.' },
+    { hr:'HR 03', time:'Day 1', label:'Building Begins', icon:'laptop',
+      desc:'Teams split up and start building. Mentors circulate room to room, and the first wave of technical and design questions gets sorted out early.' },
+    { hr:'HR 10', time:'Evening, Day 1', label:'Dinner Check-in', icon:'users',
+      desc:'A shared meal and a quick progress share across teams: a chance to compare notes, borrow ideas, and get unstuck before the night stretch.' },
+    { hr:'HR 16', time:'Night, Day 1', label:'Midnight Momentum', icon:'moon',
+      desc:'The overnight push. Snacks, music, and quieter working space for the teams who do their best work after dark, with mentors still on call.' },
+    { hr:'HR 24', time:'Morning, Day 2', label:'Second Sunrise', icon:'sun',
+      desc:'A fresh sunrise and fresh energy. Teams shift from building new features to tightening what they have. This is where "working" turns into "ready to show."' },
+    { hr:'HR 32', time:'Afternoon, Day 2', label:'Demos &amp; Judging', icon:'screen',
+      desc:'Every team presents to mentors, foundation stakeholders, and the AOLF community. Short, live, and focused on the real problem each team set out to solve.' },
+    { hr:'HR 36', time:'Evening, Day 2', label:'Closing Circle', icon:'confetti',
+      desc:'Celebration and reflection to close the 36 hours, plus an open invitation for every participant to join AOLF’s ongoing volunteer tech team.' }
+  ];
+
+  var ICONS = {
+    sun: '<circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>',
+    laptop: '<rect x="4" y="5" width="16" height="10" rx="1.5"/><path d="M2 19h20l-1.5-2.5h-17Z"/>',
+    users: '<path d="M16 19v-1a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18v1"/><circle cx="9" cy="8" r="3"/><path d="M20 19v-1a3.2 3.2 0 0 0-2.3-3.1"/><path d="M14.8 4.6a3 3 0 0 1 0 5.8"/>',
+    moon: '<path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/>',
+    screen: '<rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M9 20h6M12 16v4"/>',
+    confetti: '<path d="M4 20 20 4M9 4l2 2M4 9l2 2M15 20l2-2M20 15l-2 2" /><circle cx="18" cy="6" r="1.4" fill="currentColor" stroke="none"/><circle cx="6" cy="18" r="1.4" fill="currentColor" stroke="none"/>'
+  };
+
+  var rail = document.getElementById('arcRail');
+  var detail = document.getElementById('arcDetail');
+
+  function renderDetail(i){
+    var p = PHASES[i];
+    detail.innerHTML =
+      '<div class="dot-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + ICONS[p.icon] + '</svg></div>' +
+      '<div><span class="arc-detail-time">' + p.hr + ' &middot; ' + p.time + '</span><h3>' + p.label + '</h3><p>' + p.desc + '</p></div>';
+  }
+
+  PHASES.forEach(function(p, i){
+    var btn = document.createElement('button');
+    btn.className = 'arc-node' + (i === 0 ? ' active' : '');
+    btn.setAttribute('role', 'tab');
+    btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    btn.innerHTML =
+      '<span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + ICONS[p.icon] + '</svg></span>' +
+      '<span class="hr">' + p.hr + '</span><span class="lbl">' + p.label + '</span>';
+    btn.addEventListener('click', function(){
+      rail.querySelectorAll('.arc-node').forEach(function(n){ n.classList.remove('active'); n.setAttribute('aria-selected','false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
+      renderDetail(i);
+    });
+    rail.appendChild(btn);
+  });
+  renderDetail(0);
+
+})();
+</script>

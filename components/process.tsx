@@ -1,0 +1,93 @@
+"use client";
+
+import { motion, useScroll, useSpring, useTransform } from "motion/react";
+import { useRef } from "react";
+import { Reveal, SectionHeading } from "./primitives";
+
+const STEPS = [
+  {
+    tag: "Community input",
+    title: "We ask the community for real problems",
+    body: "PTCs, full-time teachers, ashram and retreat-center teams, organizers and volunteers answer one prompt — if you had a magic wand, what would you fix? That runs alongside direct input from Operations, Marketing, Data and Executive teams.",
+  },
+  {
+    tag: "Curation",
+    title: "Responses become a short list of challenges",
+    body: "Every response is categorized and shaped into a limited set of structured challenges, each with context and success criteria — sized to roughly four or five teams for simpler problems, seven or eight for the harder ones.",
+  },
+  {
+    tag: "Application",
+    title: "You apply with a challenge and a plan",
+    body: "Problem statements go out to every applicant before the event. Pick the ones that speak to you and submit a short proposed approach with your application.",
+  },
+  {
+    tag: "Build",
+    title: "Thirty-six hours, start to finish",
+    body: "Building happens only during the event itself — one continuous sunrise-to-sunrise sprint, with mentors on hand the whole way through.",
+  },
+  {
+    tag: "What's next",
+    title: "The team keeps going",
+    body: "Demos and a closing circle wrap the event, alongside an open door into the ongoing AOLF volunteer tech team for anyone who wants to keep building.",
+  },
+] as const;
+
+export function Process() {
+  const ref = useRef<HTMLOListElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 65%", "end 60%"],
+  });
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.4 });
+  const glowY = useTransform(progress, (v) => `${v * 100}%`);
+
+  return (
+    <section
+      id="process"
+      className="scroll-mt-24 border-t border-line-soft bg-sand/45 py-24 sm:py-32"
+    >
+      <div className="container-page">
+        <SectionHeading
+          eyebrow="The path to build day"
+          title="Nothing about this starts cold"
+          lede="The problems, the teams and the plan are all in place before hour one. Here is the whole sequence, end to end."
+        />
+
+        <ol ref={ref} className="relative mt-16 sm:mt-20">
+          {/* Rail + scroll-linked fill */}
+          <div
+            aria-hidden="true"
+            className="absolute top-3 bottom-6 left-[1.4375rem] w-px bg-line sm:left-[2.1875rem]"
+          >
+            <motion.div
+              style={{ scaleY: progress }}
+              className="h-full w-full origin-top sun-gradient"
+            />
+            <motion.span
+              style={{ top: glowY }}
+              className="absolute -left-[3px] size-[7px] -translate-y-1/2 rounded-full bg-ember shadow-[0_0_0_4px_rgba(210,96,26,0.18)]"
+            />
+          </div>
+
+          {STEPS.map((step, i) => (
+            <Reveal as="li" key={step.tag} index={i} className="relative flex gap-6 pb-12 sm:gap-9">
+              <span className="relative z-10 mt-0.5 flex size-12 shrink-0 items-center justify-center rounded-full border border-line bg-paper font-display numeric text-xl text-ink shadow-lift sm:size-[4.375rem] sm:text-[1.7rem]">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+
+              <div className="pt-1.5 sm:pt-4">
+                <span className="eyebrow">{step.tag}</span>
+                <h3 className="mt-2.5 text-[clamp(1.32rem,2.6vw,1.78rem)] leading-snug">
+                  {step.title}
+                </h3>
+                <p className="mt-3 max-w-2xl text-[0.9875rem] leading-relaxed text-ink-2">
+                  {step.body}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
