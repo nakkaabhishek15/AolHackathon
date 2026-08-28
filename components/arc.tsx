@@ -23,8 +23,8 @@ const PHASES: Phase[] = [
     clock: "Hour 00",
     label: "First light",
     title: "Opening circle",
-    body: "Everyone in one room before a single line is written. A short meditation, the ground rules, and the reminder that the point of the next thirty-six hours is the team, not the trophy.",
-    sky: ["#f6dcb0", "#ffedd2"],
+    body: "Everyone in one room before a single line is written. A short meditation, the ground rules, and the reminder that what you leave with matters more than what you take home.",
+    sky: ["#f7dcc0", "#fff1e0"],
   },
   {
     hour: 2,
@@ -32,7 +32,7 @@ const PHASES: Phase[] = [
     label: "Morning",
     title: "Teams and challenges lock",
     body: "You already picked your challenge in the application. Now teams finalize, mentors are matched, and the plan you proposed meets the people you will actually build it with.",
-    sky: ["#dfe9f5", "#fdf1de"],
+    sky: ["#ece5d6", "#fdf6ec"],
   },
   {
     hour: 6,
@@ -40,7 +40,7 @@ const PHASES: Phase[] = [
     label: "Midday",
     title: "First working thing",
     body: "The bar for the first six hours is deliberately low and deliberately real: something that runs. Scaffolding, data access, a rough screen. Momentum beats architecture this early.",
-    sky: ["#d6e3f0", "#f2f6fa"],
+    sky: ["#e2e2dd", "#f7f5f1"],
   },
   {
     hour: 11,
@@ -48,7 +48,7 @@ const PHASES: Phase[] = [
     label: "Golden hour",
     title: "Mentor rounds",
     body: "AOLF tech leads walk every table. Half the conversation is technical, half is making sure you are solving the problem the community actually described rather than the one that is fun to build.",
-    sky: ["#ffd7a2", "#ffc183"],
+    sky: ["#f6cfa0", "#ffdcae"],
   },
   {
     hour: 16,
@@ -56,7 +56,7 @@ const PHASES: Phase[] = [
     label: "Dusk",
     title: "Scope meets reality",
     body: "The honest checkpoint. Cut what will not land, protect the one thing that makes the demo make sense, and decide as a team what good enough looks like by morning.",
-    sky: ["#8c7099", "#efa267"],
+    sky: ["#8a6a63", "#e8a271"],
   },
   {
     hour: 22,
@@ -64,7 +64,7 @@ const PHASES: Phase[] = [
     label: "The long stretch",
     title: "Overnight",
     body: "Quiet hours. Food stays out, the room stays open, and the teams that pace themselves pull ahead of the ones that sprint. Sleep is allowed. Encouraged, even.",
-    sky: ["#1e2445", "#3a3157"],
+    sky: ["#1a1510", "#3a2c21"],
     night: true,
   },
   {
@@ -72,8 +72,8 @@ const PHASES: Phase[] = [
     clock: "Hour 28",
     label: "Second sunrise",
     title: "Reset and breathe",
-    body: "The second dawn of the event, and the reason it is measured in sunrises. A short guided practice, then back in — with a clearer head than anyone expects at hour twenty-eight.",
-    sky: ["#f2b173", "#ffe3b6"],
+    body: "The second dawn of the event, and the reason it is measured in sunrises. A short guided practice, then back in, with a clearer head than anyone expects at hour twenty-eight.",
+    sky: ["#e8b98a", "#ffe3bd"],
   },
   {
     hour: 33,
@@ -81,7 +81,7 @@ const PHASES: Phase[] = [
     label: "Freeze",
     title: "Code freeze and rehearsal",
     body: "Hands off the keyboard, onto the story. Three minutes to show what you built and who it is for. Teams that rehearse twice always demo better than teams that commit twice.",
-    sky: ["#dee7f2", "#fcefd6"],
+    sky: ["#e8e4dc", "#f8f5ef"],
   },
   {
     hour: 36,
@@ -89,7 +89,7 @@ const PHASES: Phase[] = [
     label: "Closing",
     title: "Demos and the open door",
     body: "Every team presents. Then the part that matters most: an open invitation to keep going with the AOLF volunteer tech team, and a plan for moving the strongest work toward real use.",
-    sky: ["#ffdcaa", "#fff1d8"],
+    sky: ["#f3ddba", "#fff2dc"],
   },
 ];
 
@@ -128,7 +128,7 @@ export function Arc() {
   };
 
   return (
-    <section id="arc" className="scroll-mt-24 border-t border-line-soft py-24 sm:py-32">
+    <section id="arc" className="scroll-mt-24 py-24 sm:py-32">
       <div className="container-page">
         <SectionHeading
           eyebrow="Dawn, dark, dawn"
@@ -137,7 +137,7 @@ export function Arc() {
         />
 
         <Reveal className="mt-14">
-          <div className="overflow-hidden rounded-3xl border border-line bg-paper shadow-lift">
+          <div className="overflow-hidden rounded-3xl border border-line bg-paper shadow-raise">
             {/* ---------------------------------------------- sky + arc */}
             <div className="relative">
               <motion.div
@@ -150,7 +150,7 @@ export function Arc() {
               />
 
               {/* The tablist overlay must share the SVG's exact box so the
-                  percentage-positioned hit targets land on the drawn nodes —
+                  percentage-positioned hit targets land on the drawn nodes,
                   hence the padding lives on the outer element and the inner
                   wrapper is sized purely by the SVG. */}
               <div className="px-4 pt-8 pb-6 sm:px-8">
@@ -163,7 +163,7 @@ export function Arc() {
                     <path
                       d={`M${P0.x} ${P0.y} Q${P1.x} ${P1.y} ${P2.x} ${P2.y}`}
                       fill="none"
-                      stroke={active.night ? "rgba(255,255,255,0.32)" : "rgba(23,19,16,0.2)"}
+                      stroke={active.night ? "rgba(255,255,255,0.32)" : "rgba(28,23,18,0.22)"}
                       strokeWidth="1.5"
                       strokeDasharray="5 7"
                       className="transition-[stroke] duration-700"
@@ -181,7 +181,7 @@ export function Arc() {
                               cy={y}
                               r="17"
                               fill={
-                                active.night ? "rgba(255,255,255,0.16)" : "rgba(210,96,26,0.16)"
+                                active.night ? "rgba(255,255,255,0.16)" : "rgba(180,83,27,0.18)"
                               }
                               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                             />
@@ -192,10 +192,10 @@ export function Arc() {
                             r={isActive ? 7 : 4}
                             fill={
                               isActive
-                                ? "var(--color-ember)"
+                                ? "var(--color-amber)"
                                 : active.night
                                   ? "rgba(255,255,255,0.55)"
-                                  : "rgba(23,19,16,0.32)"
+                                  : "rgba(28,23,18,0.34)"
                             }
                             className="transition-all duration-500"
                           />
@@ -237,7 +237,7 @@ export function Arc() {
                           )}
                         >
                           <span className="sr-only">
-                            {phase.clock} — {phase.title}
+                            {phase.clock}: {phase.title}
                           </span>
                         </button>
                       );
@@ -251,7 +251,7 @@ export function Arc() {
                 aria-hidden="true"
                 className={cn(
                   "relative flex items-center justify-between border-t px-6 py-3 text-[0.6875rem] font-semibold tracking-[0.18em] uppercase transition-colors duration-700 sm:px-10",
-                  active.night ? "border-white/15 text-white/55" : "border-ink/10 text-ink/50",
+                  active.night ? "border-white/15 text-white/60" : "border-ink/10 text-ink/55",
                 )}
               >
                 <span>Sunrise · hour 00</span>
@@ -268,7 +268,7 @@ export function Arc() {
               className="grid gap-8 border-t border-line bg-paper p-7 sm:grid-cols-[13rem_minmax(0,1fr)] sm:p-10"
             >
               <div className="flex flex-col gap-1.5">
-                <span className="font-display numeric text-[3.1rem] leading-none text-ink">
+                <span className="numeric text-[3.1rem] leading-none font-bold tracking-[-0.045em] text-ink">
                   {String(active.hour).padStart(2, "0")}
                 </span>
                 <span className="eyebrow">{active.label}</span>
@@ -282,10 +282,10 @@ export function Arc() {
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <h3 className="text-[clamp(1.45rem,2.9vw,1.95rem)] leading-snug">
+                  <h3 className="text-[clamp(1.4rem,2.9vw,1.85rem)] leading-snug">
                     {active.title}
                   </h3>
-                  <p className="mt-3 max-w-2xl text-[0.9875rem] leading-relaxed text-ink-2">
+                  <p className="mt-3 max-w-2xl text-[0.9875rem] leading-relaxed font-medium text-ink-2">
                     {active.body}
                   </p>
                 </motion.div>
@@ -293,7 +293,7 @@ export function Arc() {
             </div>
           </div>
 
-          <p className="mt-4 text-center text-[0.8125rem] text-ink-4">
+          <p className="mt-4 text-center text-[0.8125rem] font-medium text-ink-4">
             Hover, tap or use arrow keys to move through the arc. Exact clock times land with the
             schedule.
           </p>

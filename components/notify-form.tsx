@@ -39,7 +39,7 @@ export function NotifyForm() {
         return;
       }
 
-      // No provider wired up yet — hand the visitor a pre-filled email instead
+      // No provider wired up yet, so hand the visitor a pre-filled email instead
       // of a confirmation we can't honour.
       setState({ kind: "fallback" });
       window.location.href = NOTIFY_MAILTO;
@@ -56,9 +56,9 @@ export function NotifyForm() {
             key="done"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-3 rounded-2xl border border-amber/40 bg-gold-tint px-5 py-4 text-[0.9375rem] text-ink"
+            className="flex items-center gap-3 rounded-2xl border border-amber/35 bg-gold-tint px-5 py-4 text-[0.9375rem] font-medium text-ink"
           >
-            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-ink text-cream">
+            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-ink text-white">
               <svg
                 viewBox="0 0 16 16"
                 fill="none"
@@ -96,7 +96,7 @@ export function NotifyForm() {
                   if (state.kind === "error") setState({ kind: "idle" });
                 }}
                 aria-invalid={state.kind === "error"}
-                className="min-w-0 flex-1 rounded-full border border-line bg-paper px-5 py-3.5 text-[0.9375rem] text-ink transition-colors duration-300 placeholder:text-ink-4 focus:border-amber focus:outline-none"
+                className="min-w-0 flex-1 rounded-full border border-line bg-paper px-5 py-3.5 text-[0.9375rem] font-medium text-ink shadow-lift transition-[border-color,box-shadow] duration-300 placeholder:text-ink-4 focus:border-amber focus:shadow-raise focus:outline-none"
               />
               <Button type="submit" variant="primary" disabled={state.kind === "sending"}>
                 {state.kind === "sending" ? "Sending…" : "Notify me"}
@@ -105,15 +105,15 @@ export function NotifyForm() {
             </div>
 
             <p
-              className="mt-3 min-h-5 text-[0.8125rem] text-ink-3"
+              className="mt-3 min-h-5 text-[0.8125rem] font-medium text-ink-3"
               role={state.kind === "error" ? "alert" : undefined}
             >
               {state.kind === "error" ? (
-                <span className="text-alert">{state.message}</span>
+                <span className="text-ember">{state.message}</span>
               ) : state.kind === "fallback" ? (
                 <>
-                  Opening a pre-filled email to {siteConfig.email} &mdash; hit send and you&rsquo;re
-                  on the list.
+                  Opening a pre-filled email to {siteConfig.email}. Hit send and you&rsquo;re on the
+                  list.
                 </>
               ) : (
                 <>One email, sent once, the day applications go live. Nothing else, ever.</>

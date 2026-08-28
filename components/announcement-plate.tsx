@@ -62,12 +62,12 @@ export function AnnouncementPlate() {
     getServerSnapshot,
   );
 
-  // The venue line is shown in every state — it just changes from a pending
+  // The venue line is shown in every state; it just changes from a pending
   // marker to a real place once it is known.
   const venueField = (
     <Field label="Venue">
       {venue.status === "set" ? (
-        <span className="font-display text-[1.4rem] text-ink">{venue.value.city}</span>
+        <span className="text-[1.35rem] font-bold tracking-[-0.03em] text-white">{venue.value.city}</span>
       ) : (
         <Pending>To be announced</Pending>
       )}
@@ -84,7 +84,7 @@ export function AnnouncementPlate() {
         {venueField}
         <Divider />
         <Field label="Duration">
-          <span className="font-display numeric text-[1.4rem] text-ink">
+          <span className="numeric text-[1.35rem] font-bold tracking-[-0.03em] text-white">
             {siteConfig.durationHours} hours
           </span>
         </Field>
@@ -100,7 +100,7 @@ export function AnnouncementPlate() {
     return (
       <Plate>
         <Field label="Dates">
-          <span className="font-display text-[1.4rem] text-ink">{eventWindow.value.label}</span>
+          <span className="text-[1.35rem] font-bold tracking-[-0.03em] text-white">{eventWindow.value.label}</span>
         </Field>
         <Divider />
         {venueField}
@@ -114,7 +114,7 @@ export function AnnouncementPlate() {
         <div key={unit} className="flex items-end gap-5">
           {i > 0 ? <Divider /> : null}
           <Field label={unit}>
-            <span className="font-display numeric text-[1.7rem] leading-none text-ink">
+            <span className="numeric text-[1.7rem] leading-none font-bold tracking-[-0.03em] text-white">
               {String(remaining[unit]).padStart(2, "0")}
             </span>
           </Field>
@@ -128,7 +128,7 @@ export function AnnouncementPlate() {
 
 function Plate({ children }: { children: React.ReactNode }) {
   return (
-    <div className="inline-flex flex-wrap items-end gap-x-5 gap-y-3 rounded-2xl border border-line bg-paper/60 px-5 py-4 backdrop-blur">
+    <div className="inline-flex flex-wrap items-end gap-x-5 gap-y-3 rounded-2xl border border-white/15 bg-white/[0.07] px-5 py-4 backdrop-blur-md">
       {children}
     </div>
   );
@@ -137,7 +137,7 @@ function Plate({ children }: { children: React.ReactNode }) {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <span className="flex flex-col gap-1.5">
-      <span className="text-[0.625rem] font-semibold tracking-[0.18em] text-ink-4 uppercase">
+      <span className="text-[0.625rem] font-bold tracking-[0.18em] text-white/45 uppercase">
         {label}
       </span>
       {children}
@@ -146,18 +146,18 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 }
 
 function Divider() {
-  return <span aria-hidden="true" className="h-8 w-px self-center bg-line" />;
+  return <span aria-hidden="true" className="h-8 w-px self-center bg-white/15" />;
 }
 
-/** A value we genuinely do not know yet — signalled rather than faked. */
+/** A value we genuinely do not know yet, signalled rather than faked. */
 function Pending({ children }: { children: React.ReactNode }) {
   return (
-    <span className="flex items-center gap-2 font-display text-[1.4rem] text-ink">
+    <span className="flex items-center gap-2 text-[1.35rem] font-bold tracking-[-0.03em] text-white">
       <motion.span
         aria-hidden="true"
         animate={{ opacity: [0.35, 1, 0.35] }}
         transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
-        className="size-1.5 rounded-full bg-amber"
+        className="size-1.5 rounded-full bg-ember-fill"
       />
       {children}
     </span>

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { NOTIFY_MAILTO } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import { ButtonLink } from "./primitives";
-import { Wordmark } from "./sun-mark";
+import { Wordmark } from "./wordmark";
 
 const NAV = [
   { href: "#mission", label: "Mission" },
@@ -50,19 +50,23 @@ export function SiteHeader() {
     };
   }, [open]);
 
+  // At the top the bar floats over the dark hero, so it wears light type.
+  // Once the page scrolls it becomes a pale glass rail over light sections.
+  const onDark = !condensed && !open;
+
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <motion.div
         animate={{
-          backgroundColor: condensed ? "rgba(250,246,238,0.82)" : "rgba(250,246,238,0)",
-          borderBottomColor: condensed ? "var(--color-line-soft)" : "rgba(228,217,197,0)",
+          backgroundColor: onDark ? "rgba(26,21,16,0)" : "rgba(250,247,241,0.85)",
+          borderBottomColor: onDark ? "rgba(255,255,255,0)" : "rgba(230,222,208,1)",
         }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
         className="border-b backdrop-blur-xl backdrop-saturate-150"
       >
         <nav className="container-page flex h-[4.5rem] items-center justify-between gap-6">
-          <Link href="#top" aria-label={`${"AOLF Hackathon"} — top of page`}>
-            <Wordmark />
+          <Link href="#top" className="group/mark" aria-label="AOLF Hackathon, top of page">
+            <Wordmark invert={onDark} />
           </Link>
 
           <ul className="hidden items-center gap-1 lg:flex">
@@ -71,15 +75,24 @@ export function SiteHeader() {
                 <Link
                   href={item.href}
                   className={cn(
-                    "relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-200",
-                    active === item.href ? "text-ink" : "text-ink-3 hover:text-ink",
+                    "relative rounded-full px-3.5 py-2 text-sm font-semibold transition-colors duration-300",
+                    onDark
+                      ? active === item.href
+                        ? "text-white"
+                        : "text-white/60 hover:text-white"
+                      : active === item.href
+                        ? "text-ink"
+                        : "text-ink-3 hover:text-ink",
                   )}
                 >
                   {item.label}
                   {active === item.href ? (
                     <motion.span
                       layoutId="nav-active"
-                      className="absolute inset-x-3 -bottom-0.5 h-px bg-gold"
+                      className={cn(
+                        "absolute inset-x-3 -bottom-0.5 h-px",
+                        onDark ? "bg-glow" : "bg-amber",
+                      )}
                       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                     />
                   ) : null}
@@ -91,7 +104,7 @@ export function SiteHeader() {
           <div className="flex items-center gap-2">
             <ButtonLink
               href={NOTIFY_MAILTO}
-              variant="primary"
+              variant={onDark ? "invert" : "primary"}
               className="hidden px-5 py-2.5 text-sm sm:inline-flex"
             >
               Notify me
@@ -102,7 +115,12 @@ export function SiteHeader() {
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-label={open ? "Close menu" : "Open menu"}
-              className="flex size-10 items-center justify-center rounded-full border border-line bg-paper/70 text-ink lg:hidden"
+              className={cn(
+                "flex size-10 items-center justify-center rounded-full border transition-colors duration-300 lg:hidden",
+                onDark
+                  ? "border-white/20 bg-white/10 text-white"
+                  : "border-line bg-paper/70 text-ink",
+              )}
             >
               <span className="relative block h-3 w-4">
                 <motion.span
@@ -128,19 +146,24 @@ export function SiteHeader() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="border-b border-line bg-cream/95 backdrop-blur-xl lg:hidden"
+            className="border-b border-line bg-shell/95 backdrop-blur-xl lg:hidden"
           >
             <ul className="container-page flex flex-col py-4">
-              {NAV.map((item) => (
-                <li key={item.href}>
+              {NAV.map((item, i) => (
+                <motion.li
+                  key={item.href}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.05 + i * 0.05, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                >
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block border-b border-line-soft py-4 font-display text-2xl text-ink last:border-0"
+                    className="block border-b border-line-soft py-4 text-2xl font-bold tracking-[-0.03em] text-ink last:border-0"
                   >
                     {item.label}
                   </Link>
-                </li>
+                </motion.li>
               ))}
               <li className="pt-4">
                 <ButtonLink href={NOTIFY_MAILTO} className="w-full" onClick={() => setOpen(false)}>

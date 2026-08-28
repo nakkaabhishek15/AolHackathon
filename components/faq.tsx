@@ -13,7 +13,7 @@ const FAQS = [
   },
   {
     q: "Who can apply?",
-    a: "AOLF volunteers, students, professionals, and anyone in our extended community who wants to help build the volunteer tech team. Good software takes more than developers — designers, writers, project coordinators and organizers are just as welcome.",
+    a: "AOLF volunteers, students, professionals, and anyone in our extended community who wants to help build the volunteer tech team. Good software takes more than developers: designers, writers, project coordinators and organizers are just as welcome.",
   },
   {
     q: "Do I need to know how to code?",
@@ -32,6 +32,10 @@ const FAQS = [
     a: "Applications open once the challenges are finalized. When they do, you will choose one or more tracks and submit a short proposed approach alongside your application. Apply solo and we will help you find a team, or apply as a group you have already formed.",
   },
   {
+    q: "Are there prizes?",
+    a: "Yes. There are exciting prizes for the teams whose work stands out, and details go out with the rest of the schedule. Worth saying plainly though: the prize is not the reason to come. The team you leave with is.",
+  },
+  {
     q: "What happens after the closing circle?",
     a: "That is the real point of the event. Every participant is invited into AOLF's ongoing volunteer tech team, and promising solutions get support to move toward real use. Building does not stop when the thirty-six hours do.",
   },
@@ -41,7 +45,7 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="scroll-mt-24 border-t border-line-soft bg-sand/45 py-24 sm:py-32">
+    <section id="faq" className="scroll-mt-24 py-24 sm:py-32">
       <div className="container-page max-w-3xl">
         <SectionHeading
           eyebrow="Good questions"
@@ -60,11 +64,11 @@ export function Faq() {
                     onClick={() => setOpen(isOpen ? null : i)}
                     aria-expanded={isOpen}
                     aria-controls={`faq-panel-${i}`}
-                    className="flex w-full items-start justify-between gap-6 py-6 text-left"
+                    className="group flex w-full items-start justify-between gap-6 py-6 text-left"
                   >
                     <span
                       className={cn(
-                        "font-display text-[1.18rem] leading-snug transition-colors duration-300 sm:text-[1.32rem]",
+                        "text-[1.1rem] leading-snug font-bold tracking-[-0.02em] transition-colors duration-300 sm:text-[1.22rem]",
                         isOpen ? "text-ink" : "text-ink-2 hover:text-ink",
                       )}
                     >
@@ -73,7 +77,9 @@ export function Faq() {
                     <span
                       className={cn(
                         "mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full border transition-colors duration-300",
-                        isOpen ? "border-amber bg-gold-tint text-gold" : "border-line text-ink-3",
+                        isOpen
+                          ? "border-amber bg-gold-tint text-gold"
+                          : "border-line text-ink-3 group-hover:border-ink-4",
                       )}
                     >
                       <motion.svg
@@ -103,7 +109,7 @@ export function Faq() {
                       transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="max-w-2xl pr-10 pb-7 text-[0.9875rem] leading-relaxed text-ink-2">
+                      <p className="max-w-2xl pr-10 pb-7 text-[0.9875rem] leading-relaxed font-medium text-ink-2">
                         {item.a}
                       </p>
                     </motion.div>
@@ -114,15 +120,15 @@ export function Faq() {
           })}
         </Reveal>
 
-        <Reveal className="mt-8 text-center text-[0.9375rem] text-ink-3">
+        <Reveal className="mt-8 text-center text-[0.9375rem] font-medium text-ink-3">
           Still have a question?{" "}
           <a
             href={`mailto:${siteConfig.email}`}
-            className="font-medium text-gold underline decoration-amber/40 underline-offset-4 transition-colors hover:decoration-amber"
+            className="font-bold text-gold underline decoration-amber/50 underline-offset-4 transition-colors hover:decoration-amber"
           >
             {siteConfig.email}
-          </a>{" "}
-          &mdash; we read every message.
+          </a>
+          . We read every message.
         </Reveal>
       </div>
     </section>

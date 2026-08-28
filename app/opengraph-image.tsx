@@ -1,45 +1,30 @@
 import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/site-config";
 
-export const alt = `${siteConfig.name} — ${siteConfig.tagline}`;
+export const alt = `${siteConfig.name} · ${siteConfig.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+/** Satoshi Bold, as static TTF. Satori needs real font data and cannot read woff2. */
+const SATOSHI_BOLD_TTF =
+  "https://cdn.fontshare.com/wf/LAFFD4SDUCDVQEXFPDC7C53EQ4ZELWQI/PXCT3G6LO6ICM5I3NTYENYPWJAECAWDD/GHM6WVH6MILNYOOCXHXB5GTSGNTMGXZR.ttf";
+
 /**
- * Satori needs real font data and cannot read woff2, so the display face is
- * fetched as TTF at build time. If that fetch fails the card still renders in
- * the bundled default — a build should never break over a social image.
+ * Fetched once at build time. If the fetch fails the card still renders in the
+ * bundled default; a build should never break over a social image.
  */
-async function loadGaramond(): Promise<ArrayBuffer | null> {
+async function loadSatoshi(): Promise<ArrayBuffer | null> {
   try {
-    const css = await fetch(
-      "https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400&display=swap",
-      { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 6.1; rv:6.0) Gecko/20110814" } },
-    ).then((r) => r.text());
-
-    const url = /src:\s*url\((https:\/\/[^)]+\.ttf)\)/.exec(css)?.[1];
-    if (!url) return null;
-
-    return await fetch(url).then((r) => r.arrayBuffer());
+    const response = await fetch(SATOSHI_BOLD_TTF);
+    if (!response.ok) return null;
+    return await response.arrayBuffer();
   } catch {
     return null;
   }
 }
 
 export default async function OpengraphImage() {
-  const garamond = await loadGaramond();
-
-  const rays = Array.from({ length: 33 }, (_, i) => {
-    const angle = Math.PI * (i / 32);
-    const inner = 150;
-    const outer = i % 2 === 0 ? 214 : 184;
-    return {
-      x1: 600 - Math.cos(angle) * inner,
-      y1: 630 - Math.sin(angle) * inner,
-      x2: 600 - Math.cos(angle) * outer,
-      y2: 630 - Math.sin(angle) * outer,
-    };
-  });
+  const satoshi = await loadSatoshi();
 
   return new ImageResponse(
     <div
@@ -49,27 +34,23 @@ export default async function OpengraphImage() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        background: "linear-gradient(160deg, #fbf8f3 0%, #fbf0dc 58%, #ffe3b0 100%)",
+        background: "linear-gradient(140deg, #1a1510 0%, #2a2219 55%, #3a3025 100%)",
         padding: "72px 80px",
         position: "relative",
+        fontFamily: satoshi ? "Satoshi" : "sans-serif",
       }}
     >
-      <svg width="1200" height="630" style={{ position: "absolute", left: 0, bottom: 0 }}>
-        <defs>
-          <linearGradient id="og-sun" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#d2601a" />
-            <stop offset="52%" stopColor="#f0980e" />
-            <stop offset="100%" stopColor="#ffc93c" />
-          </linearGradient>
-        </defs>
-        <g stroke="#171310" strokeWidth="2" strokeLinecap="round" opacity="0.5">
-          {rays.map((ray, i) => (
-            <line key={i} {...ray} />
-          ))}
-        </g>
-        <path d="M470 630a130 130 0 0 1 260 0Z" fill="url(#og-sun)" />
-        <path d="M470 630a130 130 0 0 1 260 0" fill="none" stroke="#171310" strokeWidth="3" />
-      </svg>
+      <div
+        style={{
+          position: "absolute",
+          right: -160,
+          top: -160,
+          width: 620,
+          height: 620,
+          borderRadius: 620,
+          background: "radial-gradient(circle, rgba(224,167,46,0.30), rgba(224,167,46,0) 68%)",
+        }}
+      />
 
       <div
         style={{
@@ -77,8 +58,8 @@ export default async function OpengraphImage() {
           fontSize: 21,
           letterSpacing: 5,
           textTransform: "uppercase",
-          color: "#8c5d0a",
-          fontWeight: 600,
+          color: "#ecd8ae",
+          fontWeight: 700,
         }}
       >
         The Art of Living Foundation
@@ -88,25 +69,25 @@ export default async function OpengraphImage() {
         <div
           style={{
             display: "flex",
-            fontFamily: garamond ? "EB Garamond" : "sans-serif",
-            fontSize: garamond ? 94 : 82,
-            lineHeight: 1.04,
-            color: "#171310",
-            letterSpacing: -2,
-            maxWidth: 840,
+            fontSize: 88,
+            fontWeight: 700,
+            lineHeight: 1.02,
+            color: "#ffffff",
+            letterSpacing: -3.5,
+            maxWidth: 860,
           }}
         >
           Thirty-six hours between one sunrise and the next.
         </div>
-        <div style={{ display: "flex", fontSize: 26, color: "#423a31" }}>
+        <div style={{ display: "flex", fontSize: 26, color: "rgba(255,255,255,0.6)" }}>
           A hackathon that builds the volunteer tech team · Free to join · Dates to be announced
         </div>
       </div>
     </div>,
     {
       ...size,
-      ...(garamond
-        ? { fonts: [{ name: "EB Garamond", data: garamond, style: "normal", weight: 400 }] }
+      ...(satoshi
+        ? { fonts: [{ name: "Satoshi", data: satoshi, style: "normal", weight: 700 }] }
         : {}),
     },
   );

@@ -12,30 +12,40 @@ const LINKS = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-line bg-cream">
-      <div className="container-page py-14">
-        <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+    <footer className="relative isolate overflow-hidden bg-night text-white">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        <div className="grid-lines absolute inset-0 [mask-image:linear-gradient(180deg,black,transparent_70%)]" />
+        <div className="drift-a absolute top-[-40%] left-[30%] size-[30rem] rounded-full bg-[radial-gradient(circle,rgba(224,167,46,0.3),transparent_68%)] blur-3xl" />
+      </div>
+
+      <div className="container-page py-16">
+        <div className="flex flex-col gap-12 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
-            <Image
-              src="/brand/aol-logo.png"
-              alt={siteConfig.org}
-              width={2287}
-              height={967}
-              sizes="200px"
-              className="h-auto w-[11.5rem]"
-            />
-            <p className="mt-5 text-[0.9375rem] leading-relaxed text-ink-3">
+            {/* The mark is black linework on transparent, so it needs a light
+                plate to sit on rather than the night ground. */}
+            <span className="inline-flex rounded-2xl bg-white px-5 py-4 shadow-deep">
+              <Image
+                src="/brand/aol-logo.png"
+                alt={siteConfig.org}
+                width={2287}
+                height={967}
+                sizes="200px"
+                className="h-auto w-[10.5rem]"
+              />
+            </span>
+            <p className="mt-6 text-[0.9375rem] leading-relaxed font-medium text-white/55">
               Built by and for the volunteer community of the {siteConfig.org}.
             </p>
           </div>
 
           <nav aria-label="Footer">
-            <ul className="grid grid-cols-2 gap-x-12 gap-y-3 sm:grid-cols-2">
+            <span className="eyebrow-invert">Explore</span>
+            <ul className="mt-5 grid grid-cols-2 gap-x-12 gap-y-3">
               {LINKS.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-[0.9375rem] text-ink-2 transition-colors hover:text-ink"
+                    className="text-[0.9375rem] font-medium text-white/65 transition-colors hover:text-white"
                   >
                     {link.label}
                   </Link>
@@ -44,7 +54,7 @@ export function SiteFooter() {
               <li>
                 <a
                   href={`mailto:${siteConfig.email}`}
-                  className="text-[0.9375rem] text-ink-2 transition-colors hover:text-ink"
+                  className="text-[0.9375rem] font-medium text-white/65 transition-colors hover:text-white"
                 >
                   Contact
                 </a>
@@ -53,7 +63,7 @@ export function SiteFooter() {
           </nav>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-line-soft pt-6 text-[0.8125rem] text-ink-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-3 border-t border-white/10 pt-6 text-[0.8125rem] font-medium text-white/40 sm:flex-row sm:items-center sm:justify-between">
           <span>
             &copy; {new Date().getFullYear()} {siteConfig.org}
           </span>

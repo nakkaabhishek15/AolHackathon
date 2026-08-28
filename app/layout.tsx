@@ -1,27 +1,46 @@
 import type { Metadata, Viewport } from "next";
-import { EB_Garamond, Inter_Tight } from "next/font/google";
+import { Merriweather } from "next/font/google";
+import localFont from "next/font/local";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
-const ebGaramond = EB_Garamond({
-  subsets: ["latin"],
+/**
+ * Satoshi carries the whole page: UI, body and headings. It ships as a
+ * single 300-900 variable file per style, so the full weight range costs
+ * two requests rather than six.
+ */
+const satoshi = localFont({
+  variable: "--font-satoshi",
   display: "swap",
-  variable: "--font-eb-garamond",
-  style: ["normal", "italic"],
-  weight: ["400", "500", "600"],
+  fallback: ["ui-sans-serif", "system-ui", "-apple-system", "sans-serif"],
+  src: [
+    {
+      path: "../public/fonts/Satoshi-Variable.woff2",
+      weight: "300 900",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Satoshi-VariableItalic.woff2",
+      weight: "300 900",
+      style: "italic",
+    },
+  ],
 });
 
-const interTight = Inter_Tight({
+/** Reserved for pull quotes, where a serif is the only voice change needed. */
+const merriweather = Merriweather({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter-tight",
+  variable: "--font-merriweather",
+  style: ["normal", "italic"],
+  weight: ["300", "400"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} — ${siteConfig.tagline}`,
-    template: `%s — ${siteConfig.name}`,
+    default: `${siteConfig.name} · ${siteConfig.tagline}`,
+    template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
@@ -36,26 +55,26 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: siteConfig.url,
-    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    title: `${siteConfig.name} · ${siteConfig.tagline}`,
     description: siteConfig.description,
     siteName: siteConfig.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    title: `${siteConfig.name} · ${siteConfig.tagline}`,
     description: siteConfig.description,
   },
   robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fbf8f3",
+  themeColor: "#14162e",
   colorScheme: "light",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${ebGaramond.variable} ${interTight.variable}`}>
+    <html lang="en" className={`${satoshi.variable} ${merriweather.variable}`}>
       <head>
         {/* Scroll reveals are JS-driven; without JS they would never resolve. */}
         <noscript>
@@ -65,7 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="antialiased">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:rounded-full focus:bg-ink focus:px-5 focus:py-2.5 focus:text-sm focus:font-medium focus:text-cream"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:rounded-full focus:bg-ink focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-white"
         >
           Skip to content
         </a>

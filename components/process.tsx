@@ -8,12 +8,12 @@ const STEPS = [
   {
     tag: "Community input",
     title: "We ask the community for real problems",
-    body: "PTCs, full-time teachers, ashram and retreat-center teams, organizers and volunteers answer one prompt — if you had a magic wand, what would you fix? That runs alongside direct input from Operations, Marketing, Data and Executive teams.",
+    body: "PTCs, full-time teachers, ashram and retreat-center teams, organizers and volunteers answer one prompt: if you had a magic wand, what would you fix? That runs alongside direct input from Operations, Marketing, Data and Executive teams.",
   },
   {
     tag: "Curation",
     title: "Responses become a short list of challenges",
-    body: "Every response is categorized and shaped into a limited set of structured challenges, each with context and success criteria — sized to roughly four or five teams for simpler problems, seven or eight for the harder ones.",
+    body: "Every response is categorized and shaped into a limited set of structured challenges, each with context and success criteria, sized to roughly four or five teams for simpler problems, seven or eight for the harder ones.",
   },
   {
     tag: "Application",
@@ -23,7 +23,7 @@ const STEPS = [
   {
     tag: "Build",
     title: "Thirty-six hours, start to finish",
-    body: "Building happens only during the event itself — one continuous sunrise-to-sunrise sprint, with mentors on hand the whole way through.",
+    body: "Building happens only during the event itself: one continuous sunrise-to-sunrise sprint, with mentors on hand the whole way through.",
   },
   {
     tag: "What's next",
@@ -44,7 +44,7 @@ export function Process() {
   return (
     <section
       id="process"
-      className="scroll-mt-24 border-t border-line-soft bg-sand/45 py-24 sm:py-32"
+      className="scroll-mt-24 border-y border-line bg-sand py-24 sm:py-32"
     >
       <div className="container-page">
         <SectionHeading
@@ -61,26 +61,31 @@ export function Process() {
           >
             <motion.div
               style={{ scaleY: progress }}
-              className="h-full w-full origin-top sun-gradient"
+              className="h-full w-full origin-top bg-[linear-gradient(180deg,var(--color-night-2),var(--color-amber)_55%,var(--color-ember-fill))]"
             />
             <motion.span
               style={{ top: glowY }}
-              className="absolute -left-[3px] size-[7px] -translate-y-1/2 rounded-full bg-ember shadow-[0_0_0_4px_rgba(210,96,26,0.18)]"
+              className="absolute -left-[3px] size-[7px] -translate-y-1/2 rounded-full bg-ember-fill shadow-[0_0_0_4px_rgba(224,122,52,0.22)]"
             />
           </div>
 
           {STEPS.map((step, i) => (
-            <Reveal as="li" key={step.tag} index={i} className="relative flex gap-6 pb-12 sm:gap-9">
-              <span className="relative z-10 mt-0.5 flex size-12 shrink-0 items-center justify-center rounded-full border border-line bg-paper font-display numeric text-xl text-ink shadow-lift sm:size-[4.375rem] sm:text-[1.7rem]">
+            <Reveal
+              as="li"
+              key={step.tag}
+              index={i}
+              className="group relative flex gap-6 pb-12 sm:gap-9"
+            >
+              <span className="relative z-10 mt-0.5 flex size-12 shrink-0 items-center justify-center rounded-full border border-line bg-paper numeric text-xl font-bold tracking-[-0.04em] text-ink shadow-lift transition-[transform,border-color,color] duration-500 ease-[var(--ease-spring)] group-hover:-translate-y-1 group-hover:border-amber/40 group-hover:text-gold sm:size-[4.375rem] sm:text-[1.7rem]">
                 {String(i + 1).padStart(2, "0")}
               </span>
 
               <div className="pt-1.5 sm:pt-4">
                 <span className="eyebrow">{step.tag}</span>
-                <h3 className="mt-2.5 text-[clamp(1.32rem,2.6vw,1.78rem)] leading-snug">
+                <h3 className="mt-2.5 text-[clamp(1.28rem,2.6vw,1.7rem)] leading-snug">
                   {step.title}
                 </h3>
-                <p className="mt-3 max-w-2xl text-[0.9875rem] leading-relaxed text-ink-2">
+                <p className="mt-3 max-w-2xl text-[0.9875rem] leading-relaxed font-medium text-ink-2">
                   {step.body}
                 </p>
               </div>
