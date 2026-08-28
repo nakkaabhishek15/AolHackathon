@@ -34,8 +34,8 @@ export function Included() {
     <section className="relative isolate overflow-hidden bg-night py-24 text-white sm:py-32">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
         <div className="grid-lines absolute inset-0 [mask-image:radial-gradient(70%_60%_at_50%_35%,black,transparent)]" />
-        <div className="drift-b absolute top-[-20%] right-[-8%] size-[34rem] rounded-full bg-[radial-gradient(circle,rgba(224,167,46,0.42),transparent_66%)] blur-3xl" />
-        <div className="drift-a absolute bottom-[-30%] left-[-10%] size-[30rem] rounded-full bg-[radial-gradient(circle,rgba(224,122,52,0.2),transparent_66%)] blur-3xl" />
+        <div className="drift-b absolute top-[-20%] right-[-8%] size-[34rem] rounded-full bg-[radial-gradient(circle,rgba(79,83,255,0.45),transparent_66%)] blur-3xl" />
+        <div className="drift-a absolute bottom-[-30%] left-[-10%] size-[30rem] rounded-full bg-[radial-gradient(circle,rgba(253,112,98,0.20),transparent_66%)] blur-3xl" />
       </div>
 
       <div className="container-page">
@@ -55,10 +55,10 @@ export function Included() {
               className={"wide" in item && item.wide ? "md:col-span-2" : undefined}
             >
               <SpotlightCard
-                tint="rgba(236,216,174,0.16)"
+                tint="rgba(145,179,250,0.18)"
                 className="flex h-full flex-col gap-4 rounded-2xl border border-white/12 bg-white/[0.045] p-8 backdrop-blur-sm transition-[border-color,transform,background-color] duration-500 hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.07]"
               >
-                <span className="flex size-11 items-center justify-center rounded-xl border border-white/15 bg-white/8 text-glow transition-colors duration-500 group-hover:text-white">
+                <span className="flex size-11 items-center justify-center rounded-xl border border-white/15 bg-white/8 text-periwinkle transition-colors duration-500 group-hover:text-white">
                   <Icon name={item.icon} />
                 </span>
                 <h3 className="text-[1.24rem] leading-snug text-white">{item.title}</h3>

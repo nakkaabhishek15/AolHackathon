@@ -78,7 +78,7 @@ export function Faq() {
                       className={cn(
                         "mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full border transition-colors duration-300",
                         isOpen
-                          ? "border-amber bg-gold-tint text-gold"
+                          ? "border-accent bg-tint text-accent"
                           : "border-line text-ink-3 group-hover:border-ink-4",
                       )}
                     >
@@ -124,7 +124,7 @@ export function Faq() {
           Still have a question?{" "}
           <a
             href={`mailto:${siteConfig.email}`}
-            className="font-bold text-gold underline decoration-amber/50 underline-offset-4 transition-colors hover:decoration-amber"
+            className="font-bold text-accent underline decoration-accent/45 underline-offset-4 transition-colors hover:decoration-accent"
           >
             {siteConfig.email}
           </a>

@@ -61,11 +61,11 @@ export function Process() {
           >
             <motion.div
               style={{ scaleY: progress }}
-              className="h-full w-full origin-top bg-[linear-gradient(180deg,var(--color-night-2),var(--color-amber)_55%,var(--color-ember-fill))]"
+              className="h-full w-full origin-top bg-[linear-gradient(180deg,var(--color-night-2),var(--color-accent-fill)_55%,var(--color-coral-fill))]"
             />
             <motion.span
               style={{ top: glowY }}
-              className="absolute -left-[3px] size-[7px] -translate-y-1/2 rounded-full bg-ember-fill shadow-[0_0_0_4px_rgba(224,122,52,0.22)]"
+              className="absolute -left-[3px] size-[7px] -translate-y-1/2 rounded-full bg-coral-fill shadow-[0_0_0_4px_rgba(253,112,98,0.22)]"
             />
           </div>
 
@@ -76,7 +76,7 @@ export function Process() {
               index={i}
               className="group relative flex gap-6 pb-12 sm:gap-9"
             >
-              <span className="relative z-10 mt-0.5 flex size-12 shrink-0 items-center justify-center rounded-full border border-line bg-paper numeric text-xl font-bold tracking-[-0.04em] text-ink shadow-lift transition-[transform,border-color,color] duration-500 ease-[var(--ease-spring)] group-hover:-translate-y-1 group-hover:border-amber/40 group-hover:text-gold sm:size-[4.375rem] sm:text-[1.7rem]">
+              <span className="relative z-10 mt-0.5 flex size-12 shrink-0 items-center justify-center rounded-full border border-line bg-paper numeric text-xl font-bold tracking-[-0.04em] text-ink shadow-lift transition-[transform,border-color,color] duration-500 ease-[var(--ease-spring)] group-hover:-translate-y-1 group-hover:border-accent/40 group-hover:text-accent sm:size-[4.375rem] sm:text-[1.7rem]">
                 {String(i + 1).padStart(2, "0")}
               </span>
 

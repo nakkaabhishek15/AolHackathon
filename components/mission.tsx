@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Reveal, SpotlightCard, WordReveal } from "./primitives";
 
 const PILLARS = [
@@ -32,14 +33,30 @@ export function Mission() {
             <Reveal>
               <span className="eyebrow">Why this exists</span>
             </Reveal>
-            <h2 className="mt-5 text-[clamp(2.05rem,4.4vw,3.3rem)] leading-[1.06]">
+            <h2 className="mt-5 text-[clamp(1.85rem,6vw,3.3rem)] leading-[1.06]">
               <WordReveal text="Not a hackathon looking for a cause." />{" "}
               <WordReveal
                 text="A cause looking for hackers."
-                className="text-dawn-gradient"
+                className="text-emphasis"
                 delay={0.18}
               />
             </h2>
+
+            <Reveal index={1} className="mt-10">
+              {/* The page palette is sampled from this artwork, so it keeps its
+                  own colour and multiplies onto the tint band to drop the white
+                  box out. */}
+              <div className="relative mx-auto max-w-sm overflow-hidden rounded-3xl bg-sand lg:mx-0">
+                <Image
+                  src="/illustrations/developer-community.webp"
+                  alt="Four volunteers building together around a laptop"
+                  width={616}
+                  height={616}
+                  sizes="(max-width: 1023px) 20rem, 24rem"
+                  className="artwork-blend h-auto w-full"
+                />
+              </div>
+            </Reveal>
           </div>
 
           <div className="flex flex-col gap-6 text-[1.0625rem] leading-relaxed font-medium text-ink-2">
@@ -64,11 +81,11 @@ export function Mission() {
               <figure className="relative mt-4 overflow-hidden rounded-3xl border border-line bg-sand p-7 sm:p-9">
                 <div
                   aria-hidden="true"
-                  className="drift-a pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-[radial-gradient(circle,rgba(224,167,46,0.2),transparent_65%)] blur-2xl"
+                  className="drift-a pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-[radial-gradient(circle,rgba(79,83,255,0.16),transparent_65%)] blur-2xl"
                 />
                 <span
                   aria-hidden="true"
-                  className="absolute top-1 left-5 font-serif text-8xl leading-none text-gold/20 select-none"
+                  className="absolute top-1 left-5 font-serif text-8xl leading-none text-accent/20 select-none"
                 >
                   &ldquo;
                 </span>
@@ -87,8 +104,8 @@ export function Mission() {
         <ul className="mt-20 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PILLARS.map((pillar, i) => (
             <Reveal as="li" key={pillar.title} index={i}>
-              <SpotlightCard className="flex h-full flex-col gap-4 rounded-2xl border border-line bg-paper p-7 transition-[border-color,box-shadow,transform] duration-500 hover:-translate-y-1 hover:border-amber/30 hover:shadow-lift">
-                <span className="flex size-11 items-center justify-center rounded-xl border border-line bg-sand text-gold transition-colors duration-500 group-hover:border-amber/40 group-hover:bg-gold-tint">
+              <SpotlightCard className="flex h-full flex-col gap-4 rounded-2xl border border-line bg-paper p-7 transition-[border-color,box-shadow,transform] duration-500 hover:-translate-y-1 hover:border-accent/30 hover:shadow-lift">
+                <span className="flex size-11 items-center justify-center rounded-xl border border-line bg-sand text-accent transition-colors duration-500 group-hover:border-accent/40 group-hover:bg-tint">
                   <PillarIcon name={pillar.icon} />
                 </span>
                 <h3 className="text-[1.2rem] leading-snug">{pillar.title}</h3>

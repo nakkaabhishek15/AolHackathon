@@ -24,7 +24,7 @@ const PHASES: Phase[] = [
     label: "First light",
     title: "Opening circle",
     body: "Everyone in one room before a single line is written. A short meditation, the ground rules, and the reminder that what you leave with matters more than what you take home.",
-    sky: ["#f7dcc0", "#fff1e0"],
+    sky: ["#cfd9fb", "#ffe6d8"],
   },
   {
     hour: 2,
@@ -32,7 +32,7 @@ const PHASES: Phase[] = [
     label: "Morning",
     title: "Teams and challenges lock",
     body: "You already picked your challenge in the application. Now teams finalize, mentors are matched, and the plan you proposed meets the people you will actually build it with.",
-    sky: ["#ece5d6", "#fdf6ec"],
+    sky: ["#d5e2fb", "#eef3fe"],
   },
   {
     hour: 6,
@@ -40,7 +40,7 @@ const PHASES: Phase[] = [
     label: "Midday",
     title: "First working thing",
     body: "The bar for the first six hours is deliberately low and deliberately real: something that runs. Scaffolding, data access, a rough screen. Momentum beats architecture this early.",
-    sky: ["#e2e2dd", "#f7f5f1"],
+    sky: ["#c8d8f8", "#eaf1fe"],
   },
   {
     hour: 11,
@@ -48,7 +48,7 @@ const PHASES: Phase[] = [
     label: "Golden hour",
     title: "Mentor rounds",
     body: "AOLF tech leads walk every table. Half the conversation is technical, half is making sure you are solving the problem the community actually described rather than the one that is fun to build.",
-    sky: ["#f6cfa0", "#ffdcae"],
+    sky: ["#f4cdb2", "#ffd9be"],
   },
   {
     hour: 16,
@@ -56,7 +56,7 @@ const PHASES: Phase[] = [
     label: "Dusk",
     title: "Scope meets reality",
     body: "The honest checkpoint. Cut what will not land, protect the one thing that makes the demo make sense, and decide as a team what good enough looks like by morning.",
-    sky: ["#8a6a63", "#e8a271"],
+    sky: ["#5a5f9e", "#e79b83"],
   },
   {
     hour: 22,
@@ -64,7 +64,7 @@ const PHASES: Phase[] = [
     label: "The long stretch",
     title: "Overnight",
     body: "Quiet hours. Food stays out, the room stays open, and the teams that pace themselves pull ahead of the ones that sprint. Sleep is allowed. Encouraged, even.",
-    sky: ["#1a1510", "#3a2c21"],
+    sky: ["#141a3d", "#2b3468"],
     night: true,
   },
   {
@@ -73,7 +73,7 @@ const PHASES: Phase[] = [
     label: "Second sunrise",
     title: "Reset and breathe",
     body: "The second dawn of the event, and the reason it is measured in sunrises. A short guided practice, then back in, with a clearer head than anyone expects at hour twenty-eight.",
-    sky: ["#e8b98a", "#ffe3bd"],
+    sky: ["#c3b2e0", "#ffdcc4"],
   },
   {
     hour: 33,
@@ -81,7 +81,7 @@ const PHASES: Phase[] = [
     label: "Freeze",
     title: "Code freeze and rehearsal",
     body: "Hands off the keyboard, onto the story. Three minutes to show what you built and who it is for. Teams that rehearse twice always demo better than teams that commit twice.",
-    sky: ["#e8e4dc", "#f8f5ef"],
+    sky: ["#dde6f8", "#f2f6fe"],
   },
   {
     hour: 36,
@@ -89,7 +89,7 @@ const PHASES: Phase[] = [
     label: "Closing",
     title: "Demos and the open door",
     body: "Every team presents. Then the part that matters most: an open invitation to keep going with the AOLF volunteer tech team, and a plan for moving the strongest work toward real use.",
-    sky: ["#f3ddba", "#fff2dc"],
+    sky: ["#dbe2fb", "#ffeada"],
   },
 ];
 
@@ -157,13 +157,13 @@ export function Arc() {
                 <div className="relative">
                   <svg
                     viewBox="0 0 1000 210"
-                    className="block h-auto w-full overflow-visible"
+                    className="hidden h-auto w-full overflow-visible sm:block"
                     aria-hidden="true"
                   >
                     <path
                       d={`M${P0.x} ${P0.y} Q${P1.x} ${P1.y} ${P2.x} ${P2.y}`}
                       fill="none"
-                      stroke={active.night ? "rgba(255,255,255,0.32)" : "rgba(28,23,18,0.22)"}
+                      stroke={active.night ? "rgba(255,255,255,0.32)" : "rgba(20,26,61,0.22)"}
                       strokeWidth="1.5"
                       strokeDasharray="5 7"
                       className="transition-[stroke] duration-700"
@@ -181,7 +181,7 @@ export function Arc() {
                               cy={y}
                               r="17"
                               fill={
-                                active.night ? "rgba(255,255,255,0.16)" : "rgba(180,83,27,0.18)"
+                                active.night ? "rgba(255,255,255,0.16)" : "rgba(79,83,255,0.16)"
                               }
                               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                             />
@@ -192,10 +192,10 @@ export function Arc() {
                             r={isActive ? 7 : 4}
                             fill={
                               isActive
-                                ? "var(--color-amber)"
+                                ? "var(--color-accent-fill)"
                                 : active.night
                                   ? "rgba(255,255,255,0.55)"
-                                  : "rgba(28,23,18,0.34)"
+                                  : "rgba(20,26,61,0.34)"
                             }
                             className="transition-all duration-500"
                           />
@@ -209,7 +209,10 @@ export function Arc() {
                     role="tablist"
                     aria-label="Hackathon timeline"
                     onKeyDown={onKeyDown}
-                    className="pointer-events-none absolute inset-0"
+                    className={cn(
+                      "flex snap-x snap-mandatory gap-2 overflow-x-auto pb-1",
+                      "sm:pointer-events-none sm:absolute sm:inset-0 sm:block sm:gap-0 sm:overflow-visible sm:pb-0",
+                    )}
                   >
                     {PHASES.map((phase, i) => {
                       const { x, y } = pointAt(phase.hour / 36);
@@ -229,13 +232,22 @@ export function Arc() {
                           onPointerEnter={() => setIndex(i)}
                           style={{ left: `${(x / 1000) * 100}%`, top: `${(y / 210) * 100}%` }}
                           className={cn(
-                            "pointer-events-auto absolute size-11 -translate-x-1/2 -translate-y-1/2 rounded-full",
+                            "pointer-events-auto shrink-0 snap-start rounded-full border px-3 py-1.5",
+                            "text-[0.6875rem] font-bold tracking-[0.1em] whitespace-nowrap uppercase transition-colors duration-300",
+                            "sm:absolute sm:size-11 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:border-0 sm:bg-transparent sm:p-0",
                             "focus-visible:outline-2 focus-visible:outline-offset-2",
                             active.night
-                              ? "focus-visible:outline-white"
-                              : "focus-visible:outline-ink",
+                              ? "border-white/25 text-white/70 focus-visible:outline-white"
+                              : "border-ink/15 text-ink/60 focus-visible:outline-accent",
+                            isActive &&
+                              (active.night
+                                ? "border-white/60 bg-white/15 text-white"
+                                : "border-accent/50 bg-accent/10 text-accent"),
                           )}
                         >
+                          <span aria-hidden="true" className="sm:hidden">
+                            {phase.clock}
+                          </span>
                           <span className="sr-only">
                             {phase.clock}: {phase.title}
                           </span>
@@ -250,7 +262,7 @@ export function Arc() {
               <div
                 aria-hidden="true"
                 className={cn(
-                  "relative flex items-center justify-between border-t px-6 py-3 text-[0.6875rem] font-semibold tracking-[0.18em] uppercase transition-colors duration-700 sm:px-10",
+                  "relative hidden items-center justify-between border-t px-6 py-3 text-[0.6875rem] font-semibold tracking-[0.18em] uppercase transition-colors duration-700 sm:flex sm:px-10",
                   active.night ? "border-white/15 text-white/60" : "border-ink/10 text-ink/55",
                 )}
               >
@@ -265,7 +277,7 @@ export function Arc() {
               role="tabpanel"
               id={`${baseId}-panel`}
               aria-labelledby={`${baseId}-tab-${index}`}
-              className="grid gap-8 border-t border-line bg-paper p-7 sm:grid-cols-[13rem_minmax(0,1fr)] sm:p-10"
+              className="grid gap-6 border-t border-line bg-paper p-6 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-8 sm:p-10"
             >
               <div className="flex flex-col gap-1.5">
                 <span className="numeric text-[3.1rem] leading-none font-bold tracking-[-0.045em] text-ink">
@@ -294,8 +306,8 @@ export function Arc() {
           </div>
 
           <p className="mt-4 text-center text-[0.8125rem] font-medium text-ink-4">
-            Hover, tap or use arrow keys to move through the arc. Exact clock times land with the
-            schedule.
+            Tap a point or use the arrow keys to move through the timeline. Exact clock times land
+            with the schedule.
           </p>
         </Reveal>
       </div>

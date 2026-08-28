@@ -1,48 +1,50 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Design tokens — warm sunrise, used with restraint.
+   Design tokens, sampled from the community illustration.
 
-   The Art of Living mark is a rising sun, but a page built entirely
-   from that sun turns into a wall of orange. So the palette is carried
-   by warm neutrals and a deep espresso dark; gold and ember appear
-   only where something should catch.
+   The artwork is periwinkle and royal blue over a pale blue tint, with
+   coral as its one warm accent. The page uses the same three, in the
+   same proportions: blue carries structure, coral is used sparingly for
+   the phrase or marker that should catch, and everything else is a
+   blue-tinted neutral.
 
    Every foreground token here clears WCAG AA (4.5:1) on shell, paper,
-   sand and cream. `amber` and `ember-fill` are fills only — they are
-   used behind ink, never as text on light surfaces.
+   mist and tint. `blue-fill`, `periwinkle` and `coral-fill` are fills
+   only, used behind ink or on night surfaces, never as text on light.
    ============================================================ */
 @theme {
-  /* ── Surfaces ─────────────────────────────────────────────
-     shell is the page; paper lifts cards off it; sand and cream are
-     the two warm bands that carry the section rhythm. */
-  --color-shell: #faf7f1;
+  /* ── Surfaces ───────────────────────────────────────────── */
+  --color-shell: #f6f8fe;
   --color-paper: #ffffff;
-  --color-sand: #f3eee4;
-  --color-cream: #fdf5e7;
+  --color-sand: #e8effd;
+  --color-cream: #eef3fe;
 
-  --color-line: #e6ded0;
-  --color-line-soft: #f0e9dd;
+  --color-line: #dbe4f8;
+  --color-line-soft: #e9effb;
 
-  /* ── Ink ramp (warm, never neutral grey) ────────────────── */
-  --color-ink: #1c1712;
-  --color-ink-2: #463d31;
-  --color-ink-3: #665b4b;
-  --color-ink-4: #7a6e5c;
+  /* ── Ink ramp (blue-tinted, never neutral grey) ─────────── */
+  --color-ink: #141a3d;
+  --color-ink-2: #39406b;
+  --color-ink-3: #575e88;
+  --color-ink-4: #666d95;
 
   /* ── Night: the deep surface. Hero, footer, dark bands. ─── */
-  --color-night: #1a1510;
-  --color-night-2: #2a2219;
-  --color-night-3: #3a3025;
+  --color-night: #141a3d;
+  --color-night-2: #1b2350;
+  --color-night-3: #262f66;
 
-  /* ── Sunrise: the accent. Text-safe members are gold/ember. ── */
-  --color-gold: #7d5f10;
-  --color-amber: #e0a72e;
-  --color-ember: #b4531b;
-  --color-ember-fill: #e07a34;
-  --color-gold-tint: #fbf0d8;
-  /* The light warm tone that carries type on night surfaces. */
-  --color-glow: #ecd8ae;
+  /* ── Accents, straight from the artwork ─────────────────── */
+  --color-accent: #3438c9;
+  --color-accent-fill: #4f53ff;
+  --color-periwinkle: #91b3fa;
+  --color-glow: #a9c2fb;
+
+  --color-coral: #b8381f;
+  --color-coral-fill: #fd7062;
+
+  --color-tint: #eef3fe;
+  --color-alert: #c0261a;
 
   /* ── Type ──────────────────────────────────────────────── */
   --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, -apple-system, sans-serif;

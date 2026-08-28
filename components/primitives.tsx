@@ -164,7 +164,6 @@ const base =
 const variants = {
   primary:
     "sheen bg-ink px-6 py-3.5 text-white shadow-lift hover:-translate-y-0.5 hover:bg-night-2 hover:shadow-raise",
-  dawn: "sheen dawn-gradient px-6 py-3.5 text-white shadow-lift hover:-translate-y-0.5 hover:shadow-raise",
   outline:
     "border border-line bg-paper/70 px-6 py-3.5 text-ink backdrop-blur hover:-translate-y-0.5 hover:border-ink-4 hover:bg-paper",
   invert:
@@ -263,7 +262,7 @@ export function Magnetic({
 export function SpotlightCard({
   children,
   className,
-  tint = "rgba(224,167,46,0.13)",
+  tint = "rgba(79,83,255,0.09)",
   as = "div",
 }: {
   children: ReactNode;
@@ -328,8 +327,8 @@ export function Pill({
     >
       {dot ? (
         <span aria-hidden="true" className="relative flex size-1.5">
-          <span className="absolute inset-0 animate-[pulse-ring_2.4s_ease-out_infinite] rounded-full bg-ember-fill" />
-          <span className="relative size-1.5 rounded-full bg-ember" />
+          <span className="absolute inset-0 animate-[pulse-ring_2.4s_ease-out_infinite] rounded-full bg-coral-fill" />
+          <span className="relative size-1.5 rounded-full bg-coral" />
         </span>
       ) : null}
       {children}
@@ -356,7 +355,7 @@ export function SectionHeading({
   className?: string;
 }) {
   const headingClass = cn(
-    "text-[clamp(2rem,4.4vw,3.15rem)] leading-[1.08] text-balance",
+    "text-[clamp(1.8rem,6vw,3.15rem)] leading-[1.08] text-balance",
     invert && "text-white",
   );
 

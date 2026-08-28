@@ -10,7 +10,7 @@ export function Wordmark({ className, invert = false }: { className?: string; in
       <span
         className={cn(
           "flex size-9 shrink-0 items-center justify-center rounded-xl border text-[0.8125rem] font-bold tracking-[-0.03em] transition-transform duration-500 ease-[var(--ease-spring)] group-hover/mark:-translate-y-0.5",
-          invert ? "border-white/25 bg-white/10 text-white" : "border-line bg-sand text-ink",
+          invert ? "border-white/25 bg-white/10 text-white" : "border-line bg-sand text-accent",
         )}
       >
         36

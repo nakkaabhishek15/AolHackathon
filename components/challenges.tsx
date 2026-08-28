@@ -12,7 +12,7 @@ export function Challenges() {
           title={
             <>
               The challenges are still being written{" "}
-              <span className="text-dawn-gradient">by you</span>
+              <span className="text-emphasis">by you</span>
             </>
           }
           lede="Survey answers and program-team input are being categorized into a short list of structured challenges right now. This is where they will appear."
@@ -46,8 +46,8 @@ export function Challenges() {
         )}
 
         <Reveal className="mt-10">
-          <div className="flex flex-col gap-4 rounded-2xl border border-amber/25 bg-gold-tint/70 p-7 sm:flex-row sm:items-start sm:gap-5 sm:p-8">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-paper text-gold shadow-lift">
+          <div className="flex flex-col gap-4 rounded-2xl border border-accent/25 bg-tint/70 p-7 sm:flex-row sm:items-start sm:gap-5 sm:p-8">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-paper text-accent shadow-lift">
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -79,8 +79,8 @@ export function Challenges() {
 function LockedTrack({ index }: { index: number }) {
   return (
     <Reveal as="li" index={index}>
-      <SpotlightCard className="flex min-h-[13rem] flex-col justify-between rounded-2xl border border-dashed border-line bg-paper/60 p-7 transition-colors duration-500 hover:border-amber/35">
-        <span className="flex size-9 items-center justify-center rounded-lg border border-line bg-sand text-ink-4 transition-colors duration-500 group-hover:text-gold">
+      <SpotlightCard className="flex min-h-[13rem] flex-col justify-between rounded-2xl border border-dashed border-line bg-paper/60 p-7 transition-colors duration-500 hover:border-accent/35">
+        <span className="flex size-9 items-center justify-center rounded-lg border border-line bg-sand text-ink-4 transition-colors duration-500 group-hover:text-accent">
           <svg
             viewBox="0 0 24 24"
             fill="none"

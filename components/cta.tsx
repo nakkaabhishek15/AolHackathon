@@ -16,11 +16,11 @@ export function Cta() {
         />
         <div
           aria-hidden="true"
-          className="drift-a pointer-events-none absolute top-[-12%] left-[6%] size-[30rem] rounded-full bg-[radial-gradient(circle,rgba(224,167,46,0.22),transparent_66%)] blur-3xl"
+          className="drift-a pointer-events-none absolute top-[-12%] left-[6%] size-[30rem] rounded-full bg-[radial-gradient(circle,rgba(79,83,255,0.42),transparent_66%)] blur-3xl"
         />
         <div
           aria-hidden="true"
-          className="drift-b pointer-events-none absolute right-[4%] bottom-[-24%] size-[32rem] rounded-full bg-[radial-gradient(circle,rgba(224,122,52,0.14),transparent_66%)] blur-3xl"
+          className="drift-b pointer-events-none absolute right-[4%] bottom-[-24%] size-[32rem] rounded-full bg-[radial-gradient(circle,rgba(253,112,98,0.14),transparent_66%)] blur-3xl"
         />
 
         <div className="relative container-page py-24 sm:py-32">
@@ -29,12 +29,12 @@ export function Cta() {
               <span className="eyebrow">Be first to know</span>
             </Reveal>
 
-            <h2 className="mt-5 text-[clamp(2.15rem,5vw,3.6rem)] leading-[1.04]">
+            <h2 className="mt-5 text-[clamp(1.85rem,6.4vw,3.6rem)] leading-[1.04]">
               <WordReveal text="Applications aren't open yet." />
               <span className="block">
                 <WordReveal
                   text="Your seat can be waiting."
-                  className="text-dawn-gradient"
+                  className="text-emphasis"
                   delay={0.16}
                 />
               </span>
@@ -56,7 +56,7 @@ export function Cta() {
                 Or reach us directly at{" "}
                 <a
                   href={`mailto:${siteConfig.email}`}
-                  className="font-bold text-ink underline decoration-amber/60 underline-offset-4 transition-colors hover:decoration-amber"
+                  className="font-bold text-ink underline decoration-coral/50 underline-offset-4 transition-colors hover:decoration-accent"
                 >
                   {siteConfig.email}
                 </a>

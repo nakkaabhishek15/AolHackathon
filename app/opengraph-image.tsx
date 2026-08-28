@@ -34,7 +34,7 @@ export default async function OpengraphImage() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        background: "linear-gradient(140deg, #1a1510 0%, #2a2219 55%, #3a3025 100%)",
+        background: "linear-gradient(140deg, #141a3d 0%, #1b2350 55%, #2b3468 100%)",
         padding: "72px 80px",
         position: "relative",
         fontFamily: satoshi ? "Satoshi" : "sans-serif",
@@ -48,7 +48,7 @@ export default async function OpengraphImage() {
           width: 620,
           height: 620,
           borderRadius: 620,
-          background: "radial-gradient(circle, rgba(224,167,46,0.30), rgba(224,167,46,0) 68%)",
+          background: "radial-gradient(circle, rgba(79,83,255,0.55), rgba(79,83,255,0) 68%)",
         }}
       />
 
@@ -58,7 +58,7 @@ export default async function OpengraphImage() {
           fontSize: 21,
           letterSpacing: 5,
           textTransform: "uppercase",
-          color: "#ecd8ae",
+          color: "#a9c2fb",
           fontWeight: 700,
         }}
       >

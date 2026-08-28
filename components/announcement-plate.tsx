@@ -157,7 +157,7 @@ function Pending({ children }: { children: React.ReactNode }) {
         aria-hidden="true"
         animate={{ opacity: [0.35, 1, 0.35] }}
         transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
-        className="size-1.5 rounded-full bg-ember-fill"
+        className="size-1.5 rounded-full bg-coral-fill"
       />
       {children}
     </span>

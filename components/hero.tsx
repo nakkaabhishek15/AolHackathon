@@ -55,10 +55,10 @@ export function Hero() {
         <div className="max-w-3xl">
           <div className="flex fade-up flex-wrap gap-2">
             <HeroPill dot>Applications opening soon</HeroPill>
-            <HeroPill>Open to every skill, not just code</HeroPill>
+            <HeroPill>Every skill welcome</HeroPill>
           </div>
 
-          <h1 className="mt-8 text-[clamp(2.9rem,8vw,6.1rem)] leading-[0.99] font-bold tracking-[-0.042em] text-white">
+          <h1 className="mt-8 text-[clamp(2.05rem,8.6vw,6.1rem)] leading-[0.99] font-bold tracking-[-0.042em] text-white">
             {HEADLINE.map((line, i) => (
               <span key={line} className="block overflow-hidden pb-[0.06em]">
                 <span className="block rise-line" style={delay(0.08 + i * 0.09)}>
@@ -68,7 +68,7 @@ export function Hero() {
             ))}
             <span className="block overflow-hidden pb-[0.1em]">
               <span className="block rise-line" style={delay(0.35)}>
-                <span className="text-dawn-gradient-invert">the next.</span>
+                <span className="text-emphasis-invert">the next.</span>
               </span>
             </span>
           </h1>
@@ -108,7 +108,7 @@ export function Hero() {
             >
               <dt className="sr-only">{stat.label}</dt>
               <dd>
-                <span className="flex items-baseline text-[2.6rem] leading-none font-bold tracking-[-0.04em] text-white">
+                <span className="flex items-baseline text-[clamp(2.1rem,9vw,2.6rem)] leading-none font-bold tracking-[-0.04em] text-white">
                   {stat.prefix ? <span className="text-glow">{stat.prefix}</span> : null}
                   <Counter value={stat.value} />
                   {stat.unit ? (
@@ -154,12 +154,12 @@ function HeroBackdrop() {
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       <div className="grid-lines absolute inset-0 [mask-image:linear-gradient(180deg,black,transparent_78%)]" />
 
-      <div className="drift-a absolute top-[-22%] right-[-8%] size-[46rem] rounded-full bg-[radial-gradient(circle,rgba(224,167,46,0.22),transparent_66%)] blur-3xl" />
-      <div className="drift-b absolute bottom-[-28%] left-[-12%] size-[36rem] rounded-full bg-[radial-gradient(circle,rgba(224,122,52,0.16),transparent_66%)] blur-3xl" />
-      <div className="drift-a absolute top-[34%] right-[26%] size-[26rem] rounded-full bg-[radial-gradient(circle,rgba(236,216,174,0.09),transparent_68%)] blur-3xl" />
+      <div className="drift-a absolute top-[-22%] right-[-8%] size-[46rem] rounded-full bg-[radial-gradient(circle,rgba(79,83,255,0.42),transparent_66%)] blur-3xl" />
+      <div className="drift-b absolute bottom-[-28%] left-[-12%] size-[36rem] rounded-full bg-[radial-gradient(circle,rgba(253,112,98,0.26),transparent_66%)] blur-3xl" />
+      <div className="drift-a absolute top-[34%] right-[26%] size-[26rem] rounded-full bg-[radial-gradient(circle,rgba(145,179,250,0.20),transparent_68%)] blur-3xl" />
 
       {/* Floor gradient, so the ribbon reads as ground. */}
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,transparent,rgba(12,9,6,0.6))]" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,transparent,rgba(9,12,32,0.62))]" />
     </div>
   );
 }

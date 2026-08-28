@@ -58,8 +58,8 @@ export function SiteHeader() {
     <header className="fixed inset-x-0 top-0 z-50">
       <motion.div
         animate={{
-          backgroundColor: onDark ? "rgba(26,21,16,0)" : "rgba(250,247,241,0.85)",
-          borderBottomColor: onDark ? "rgba(255,255,255,0)" : "rgba(230,222,208,1)",
+          backgroundColor: onDark ? "rgba(20,26,61,0)" : "rgba(246,248,254,0.85)",
+          borderBottomColor: onDark ? "rgba(255,255,255,0)" : "rgba(219,228,248,1)",
         }}
         transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
         className="border-b backdrop-blur-xl backdrop-saturate-150"
@@ -91,7 +91,7 @@ export function SiteHeader() {
                       layoutId="nav-active"
                       className={cn(
                         "absolute inset-x-3 -bottom-0.5 h-px",
-                        onDark ? "bg-glow" : "bg-amber",
+                        onDark ? "bg-glow" : "bg-accent",
                       )}
                       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                     />
