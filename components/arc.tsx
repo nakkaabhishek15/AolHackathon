@@ -87,8 +87,8 @@ const PHASES: Phase[] = [
     hour: 36,
     clock: "Hour 36",
     label: "Closing",
-    title: "Demos and the open door",
-    body: "Every team presents. Then the part that matters most: an open invitation to keep going with the AOLF volunteer tech team, and a plan for moving the strongest work toward real use.",
+    title: "Demos and closing circle",
+    body: "Every team presents what they built and who it is for. Then everyone sits together one last time to close out the thirty-six hours.",
     sky: ["#dbe2fb", "#ffeada"],
   },
 ];

@@ -26,9 +26,9 @@ const STEPS = [
     body: "Building happens only during the event itself: one continuous sunrise-to-sunrise sprint, with mentors on hand the whole way through.",
   },
   {
-    tag: "What's next",
-    title: "The team keeps going",
-    body: "Demos and a closing circle wrap the event, alongside an open door into the ongoing AOLF volunteer tech team for anyone who wants to keep building.",
+    tag: "Demo day",
+    title: "You show what you built",
+    body: "Three minutes per team to walk through the problem you took on and what you shipped, followed by a closing circle to end the thirty-six hours together.",
   },
 ] as const;
 

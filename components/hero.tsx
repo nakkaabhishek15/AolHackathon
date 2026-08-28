@@ -21,7 +21,7 @@ const RIBBON = [
   "Every skill welcome",
   "Mentors on the floor",
   "Exciting prizes",
-  "A team that keeps going",
+  "Two sunrises",
 ] as const;
 
 /** Typed helper for the `--delay` custom property used by the CSS entrances. */
@@ -78,8 +78,8 @@ export function Hero() {
             style={delay(0.42)}
           >
             The {siteConfig.org}&rsquo;s first hackathon. One continuous build against problems our
-            own community is living with right now, and, when the last demo ends, a standing
-            volunteer tech team that keeps solving them.
+            own community is living with right now, with mentors on the floor and everything you
+            need for the full thirty-six hours.
           </p>
 
           <div className="mt-9 flex fade-up flex-col gap-5" style={delay(0.52)}>

@@ -38,9 +38,9 @@ export type Track = {
 export const siteConfig = {
   name: "AOLF Hackathon",
   org: "Art of Living Foundation",
-  tagline: "36 hours. One sunrise. One team that keeps going.",
+  tagline: "36 hours. Two sunrises. One build.",
   description:
-    "The Art of Living Foundation's first hackathon: 36 continuous hours building real solutions to problems sourced from our own community, and the standing volunteer tech team that keeps solving them afterward.",
+    "The Art of Living Foundation's first hackathon: 36 continuous hours building real solutions to problems sourced from our own community.",
   url: "https://hackathon.artofliving.ca",
   email: "hackathon@artofliving.ca",
   durationHours: 36,

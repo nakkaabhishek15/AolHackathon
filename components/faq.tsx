@@ -13,7 +13,7 @@ const FAQS = [
   },
   {
     q: "Who can apply?",
-    a: "AOLF volunteers, students, professionals, and anyone in our extended community who wants to help build the volunteer tech team. Good software takes more than developers: designers, writers, project coordinators and organizers are just as welcome.",
+    a: "AOLF volunteers, students, professionals, and anyone in our extended community who wants to build something useful. Good software takes more than developers: designers, writers, project coordinators and organizers are just as welcome.",
   },
   {
     q: "Do I need to know how to code?",
@@ -36,8 +36,8 @@ const FAQS = [
     a: "Yes. There are exciting prizes for the teams whose work stands out, and details go out with the rest of the schedule. Worth saying plainly though: the prize is not the reason to come. The team you leave with is.",
   },
   {
-    q: "What happens after the closing circle?",
-    a: "That is the real point of the event. Every participant is invited into AOLF's ongoing volunteer tech team, and promising solutions get support to move toward real use. Building does not stop when the thirty-six hours do.",
+    q: "What happens to what we build?",
+    a: "The strongest solutions get support to move toward real use inside the organization, so the work does not stop at the demo. You will hear what happened to your build rather than watching it disappear after the weekend.",
   },
 ] as const;
 

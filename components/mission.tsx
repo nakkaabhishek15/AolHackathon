@@ -1,10 +1,9 @@
-import Image from "next/image";
 import { Reveal, SpotlightCard, WordReveal } from "./primitives";
 
 const PILLARS = [
   {
-    title: "A team that outlasts the event",
-    body: "The deliverable isn't a demo. It's the volunteers who keep building together the week after.",
+    title: "Small teams, real scope",
+    body: "Challenges are sized so a team of four or five can finish something that actually runs.",
     icon: "team",
   },
   {
@@ -29,7 +28,7 @@ export function Mission() {
     <section id="mission" className="scroll-mt-24 py-24 sm:py-32">
       <div className="container-page">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
-          <div className="lg:sticky lg:top-32 lg:self-start">
+          <div>
             <Reveal>
               <span className="eyebrow">Why this exists</span>
             </Reveal>
@@ -41,63 +40,17 @@ export function Mission() {
                 delay={0.18}
               />
             </h2>
-
-            <Reveal index={1} className="mt-10">
-              {/* The page palette is sampled from this artwork, so it keeps its
-                  own colour and multiplies onto the tint band to drop the white
-                  box out. */}
-              <div className="relative mx-auto max-w-sm overflow-hidden rounded-3xl bg-sand lg:mx-0">
-                <Image
-                  src="/illustrations/developer-community.webp"
-                  alt="Four volunteers building together around a laptop"
-                  width={616}
-                  height={616}
-                  sizes="(max-width: 1023px) 20rem, 24rem"
-                  className="artwork-blend h-auto w-full"
-                />
-              </div>
-            </Reveal>
           </div>
 
           <div className="flex flex-col gap-6 text-[1.0625rem] leading-relaxed font-medium text-ink-2">
             <Reveal index={1}>
               <p>
-                Our teachers, ashram teams, organizers and volunteers hit the same friction points
-                over and over. A manual process here. Information nobody can find there. A
-                bottleneck no one has had the bandwidth to fix. Real problems, quietly stacking up.
-              </p>
-            </Reveal>
-            <Reveal index={2}>
-              <p>
-                This event closes that gap from both ends at once: it{" "}
-                <strong className="text-ink">builds a standing volunteer tech team</strong> that
-                keeps showing up after the closing circle, and along the way it{" "}
-                <strong className="text-ink">ships real solutions</strong> to problems sourced from
-                our own community rather than invented for the occasion.
+                Every challenge on the list came from someone inside the organization describing a
+                problem they run into over and over. You get the context, the constraints and what a
+                good outcome looks like before you write a line of code.
               </p>
             </Reveal>
 
-            <Reveal index={3} as="figure">
-              <figure className="relative mt-4 overflow-hidden rounded-3xl border border-line bg-sand p-7 sm:p-9">
-                <div
-                  aria-hidden="true"
-                  className="drift-a pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-[radial-gradient(circle,rgba(79,83,255,0.16),transparent_65%)] blur-2xl"
-                />
-                <span
-                  aria-hidden="true"
-                  className="absolute top-1 left-5 font-serif text-8xl leading-none text-accent/20 select-none"
-                >
-                  &ldquo;
-                </span>
-                <blockquote className="relative font-serif text-[clamp(1.32rem,2.6vw,1.72rem)] leading-snug font-light text-ink italic">
-                  If you had a magic wand, what problem would you solve?
-                </blockquote>
-                <figcaption className="relative mt-5 text-sm font-medium text-ink-3">
-                  The one question behind every challenge on the list. Each track traces back to a
-                  real person&rsquo;s answer.
-                </figcaption>
-              </figure>
-            </Reveal>
           </div>
         </div>
 

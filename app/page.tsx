@@ -5,6 +5,7 @@ import { Faq } from "@/components/faq";
 import { Hero } from "@/components/hero";
 import { Included } from "@/components/included";
 import { Mission } from "@/components/mission";
+import { PhotoStrip } from "@/components/photo-strip";
 import { Process } from "@/components/process";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { SiteFooter } from "@/components/site-footer";
@@ -18,6 +19,7 @@ export default function Page() {
       <main id="main" className="grain">
         <Hero />
         <Mission />
+        <PhotoStrip />
         <Process />
         <Arc />
         <Challenges />
