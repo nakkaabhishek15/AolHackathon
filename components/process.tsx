@@ -8,8 +8,8 @@ import { Reveal, SectionHeading } from "./primitives";
 const STEPS = [
   {
     tag: "Community input",
-    title: "We ask the community for real problems",
-    body: "PTCs, full-time teachers, ashram and retreat-center teams, organizers and volunteers answer one prompt: if you had a magic wand, what would you fix? That runs alongside direct input from Operations, Marketing, Data and Executive teams.",
+    title: "Nothing on the list is invented for the occasion",
+    body: "One prompt goes out across the organization — PTCs, full-time teachers, ashram and retreat-center teams, organizers and volunteers, alongside the Operations, Marketing, Data and Executive teams: if you had a magic wand, what would you fix? Every answer is something a real person runs into, over and over. That is what you will be solving.",
   },
   {
     tag: "Curation",

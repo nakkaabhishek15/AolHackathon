@@ -30,24 +30,29 @@ export function Mission() {
         <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
           <div>
             <Reveal>
-              <span className="eyebrow">Why this exists</span>
+              <span className="eyebrow">Who it is for</span>
             </Reveal>
             <h2 className="mt-5 text-[clamp(1.85rem,6vw,3.3rem)] leading-[1.06]">
-              <WordReveal text="Not a hackathon looking for a cause." />{" "}
-              <WordReveal
-                text="A cause looking for hackers."
-                className="text-emphasis"
-                delay={0.18}
-              />
+              <WordReveal text="First build or twentieth," />{" "}
+              <WordReveal text="you belong here." className="text-emphasis" delay={0.18} />
             </h2>
           </div>
 
           <div className="flex flex-col gap-6 text-[1.0625rem] leading-relaxed font-medium text-ink-2">
             <Reveal index={1}>
               <p>
-                Every challenge on the list came from someone inside the organization describing a
-                problem they run into over and over. You get the context, the constraints and what a
-                good outcome looks like before you write a line of code.
+                If you have barely written a line of code, come. If you have done twenty of these,
+                come. A team that ships needs developers, and it needs designers, writers,
+                coordinators, and people who know the community&rsquo;s problems from the inside.
+              </p>
+            </Reveal>
+
+            <Reveal index={2}>
+              <p>
+                What you are solving is real. Every challenge on the list came from someone inside
+                the organization describing a problem they run into over and over, and you get the
+                context, the constraints and what a good outcome looks like before you write a line
+                of code.
               </p>
             </Reveal>
           </div>

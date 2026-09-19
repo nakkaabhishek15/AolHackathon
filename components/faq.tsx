@@ -20,6 +20,26 @@ const FAQS = [
     a: "No. Teams need a mix of skills: development, design, content and coordination all matter. If you cannot write code but want in, apply anyway and tell us what you bring.",
   },
   {
+    q: "Who is running it?",
+    a: "The Art of Living Foundation. It is organized by people inside the organization, and AOLF tech leads are on the floor the whole way through as mentors — both for the technical problem and for the question of which problem you are really solving.",
+  },
+  {
+    q: "How big is a team?",
+    a: "Small. Challenges are deliberately sized so four or five people can finish something that actually runs in thirty-six hours. Come with a team you have already formed, or come alone and we will help you find one.",
+  },
+  {
+    q: "Can I start building before the event?",
+    a: "Thinking, yes. Building, no. You will have the challenges well before the event and you submit a proposed approach with your application, so arriving with a plan is expected. The implementation itself happens inside the thirty-six hours, which is what keeps it fair for everyone.",
+  },
+  {
+    q: "What should I bring?",
+    a: "A laptop and a charger at minimum. A full list goes out once the venue and format are confirmed.",
+  },
+  {
+    q: "Do I have to stay awake the whole time?",
+    a: "No, and the teams that pace themselves usually pull ahead of the ones that sprint. Quiet hours run overnight, the room stays open, food stays out, and sleep is encouraged. Rest arrangements are confirmed with the venue.",
+  },
+  {
     q: "When and where is it happening?",
     a: "Dates, location, and whether it runs in person, virtually or as a hybrid are still being finalized and will be announced here first. What is fixed is the shape: one continuous thirty-six-hour block. Join the notify list and you will hear the moment it is set.",
   },
@@ -38,6 +58,10 @@ const FAQS = [
   {
     q: "What happens to what we build?",
     a: "The strongest solutions get support to move toward real use inside the organization, so the work does not stop at the demo. You will hear what happened to your build rather than watching it disappear after the weekend.",
+  },
+  {
+    q: "Still have a question?",
+    a: `Write to us at ${siteConfig.email} and a person will answer. If it is a question other people are likely to have, it ends up on this list.`,
   },
 ] as const;
 

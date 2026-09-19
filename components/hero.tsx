@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef, type CSSProperties } from "react";
 import { NOTIFY_MAILTO, siteConfig } from "@/lib/site-config";
@@ -148,20 +149,46 @@ function HeroPill({ children, dot }: { children: React.ReactNode; dot?: boolean 
 /* ------------------------------------------------------------------ backdrop */
 
 /**
- * Light, not illustration. A faint grid plus two slow warm washes, so the
- * hero has depth without a graphic competing with the headline.
+ * A sunrise rather than a flat field. The plum ground is lit from the lower
+ * right by a sun disc and a real photograph of dawn, both dissolved into the
+ * palette so no foreign colour survives. Everything left of centre stays
+ * under a scrim, because that is where the type lives.
  */
 function HeroBackdrop() {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 grid-lines [mask-image:linear-gradient(180deg,black,transparent_78%)]" />
+      {/* Ground: dawn breaking from the lower right. */}
+      <div className="absolute inset-0 bg-[radial-gradient(130%_105%_at_74%_106%,#7a3f4c_0%,#4a2b35_44%,#2e1b21_100%)]" />
 
-      <div className="absolute top-[-22%] right-[-8%] size-[46rem] drift-a rounded-full bg-[radial-gradient(circle,rgba(217,155,160,0.40),transparent_66%)] blur-3xl" />
-      <div className="absolute bottom-[-28%] left-[-12%] size-[36rem] drift-b rounded-full bg-[radial-gradient(circle,rgba(232,163,60,0.24),transparent_66%)] blur-3xl" />
-      <div className="absolute top-[34%] right-[26%] size-[26rem] drift-a rounded-full bg-[radial-gradient(circle,rgba(194,103,123,0.30),transparent_68%)] blur-3xl" />
+      {/* Sky. Masked so it only ever surfaces away from the headline. */}
+      <div className="absolute inset-0 [mask-image:linear-gradient(180deg,transparent,black_48%)] opacity-55 lg:[mask-image:linear-gradient(90deg,transparent_16%,black_64%)]">
+        <Image
+          src="/photos/sunrise.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+      </div>
+
+      {/* Pulls the photograph into the palette instead of letting its own
+          colour temperature sit next to the plum. */}
+      <div className="absolute inset-0 bg-[linear-gradient(200deg,rgba(217,155,160,0.26),rgba(232,163,60,0.20))] mix-blend-overlay" />
+
+      {/* Type scrim: heavy on the left, lifting toward the light. */}
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(46,27,33,0.9)_0%,rgba(46,27,33,0.74)_52%,rgba(46,27,33,0.8)_100%)] lg:bg-[linear-gradient(90deg,rgba(46,27,33,0.95)_0%,rgba(46,27,33,0.84)_46%,rgba(46,27,33,0.46)_100%)]" />
+
+      {/* The sun itself, just clear of the horizon and breathing slowly. */}
+      <div className="absolute top-[16%] right-[8%] size-[22rem] animate-breathe rounded-full bg-[radial-gradient(circle,rgba(232,163,60,0.55),rgba(217,155,160,0.26)_46%,transparent_70%)] blur-2xl sm:size-[27rem]" />
+
+      <div className="absolute inset-0 grid-lines [mask-image:linear-gradient(180deg,black,transparent_62%)] opacity-70" />
+
+      <div className="absolute top-[-22%] right-[-8%] size-[46rem] drift-a rounded-full bg-[radial-gradient(circle,rgba(217,155,160,0.28),transparent_66%)] blur-3xl" />
+      <div className="absolute bottom-[-28%] left-[-12%] size-[36rem] drift-b rounded-full bg-[radial-gradient(circle,rgba(232,163,60,0.20),transparent_66%)] blur-3xl" />
 
       {/* Floor gradient, so the ribbon reads as ground. */}
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,transparent,rgba(31,17,21,0.70))]" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,transparent,rgba(31,17,21,0.72))]" />
     </div>
   );
 }
