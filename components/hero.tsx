@@ -154,12 +154,12 @@ function HeroBackdrop() {
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       <div className="absolute inset-0 grid-lines [mask-image:linear-gradient(180deg,black,transparent_78%)]" />
 
-      <div className="absolute top-[-22%] right-[-8%] size-[46rem] drift-a rounded-full bg-[radial-gradient(circle,rgba(217,155,160,0.34),transparent_66%)] blur-3xl" />
+      <div className="absolute top-[-22%] right-[-8%] size-[46rem] drift-a rounded-full bg-[radial-gradient(circle,rgba(217,155,160,0.40),transparent_66%)] blur-3xl" />
       <div className="absolute bottom-[-28%] left-[-12%] size-[36rem] drift-b rounded-full bg-[radial-gradient(circle,rgba(232,163,60,0.24),transparent_66%)] blur-3xl" />
-      <div className="absolute top-[34%] right-[26%] size-[26rem] drift-a rounded-full bg-[radial-gradient(circle,rgba(126,196,190,0.22),transparent_68%)] blur-3xl" />
+      <div className="absolute top-[34%] right-[26%] size-[26rem] drift-a rounded-full bg-[radial-gradient(circle,rgba(194,103,123,0.30),transparent_68%)] blur-3xl" />
 
       {/* Floor gradient, so the ribbon reads as ground. */}
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,transparent,rgba(15,54,54,0.66))]" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,transparent,rgba(31,17,21,0.70))]" />
     </div>
   );
 }

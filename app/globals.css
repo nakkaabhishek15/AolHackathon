@@ -1,27 +1,28 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Design tokens — Lotus Pink · Marigold · Cream.
+   Design tokens — Cream · Lotus Pink · Plum.
 
-   Warm cream is the ground, deep teal carries structure and every
-   dark surface, plum is the ink, and marigold is the one warm accent
-   used sparingly for the phrase or marker that should catch. Lotus
-   pink is the soft decorative note: washes, halos, light-on-teal type.
+   Warm cream is the ground and covers most of the page. Rose carries
+   structure — links, markers, filled controls — and deepens into plum
+   for every dark band. Lotus pink is the soft note that sits on top of
+   both: washes, halos, light type on plum. Marigold is the single warm
+   pop, and deep teal appears once, as the overnight sky in the arc.
 
    Every foreground token here clears WCAG AA (4.5:1) on shell, paper,
-   sand and tint. `accent-fill`, `lotus` and `marigold` are fills only,
-   used behind ink or on night surfaces, never as small text on light —
-   `accent` and `ember` are their text-safe counterparts.
+   sand and tint. `lotus`, `marigold` and `accent-fill` are fills only,
+   never small text on light — `accent` and `ember` are their text-safe
+   counterparts.
    ============================================================ */
 @theme {
-  /* ── Surfaces ───────────────────────────────────────────── */
+  /* ── Surfaces: cream, warmed toward pink ────────────────── */
   --color-shell: #faf6ee;
   --color-paper: #ffffff;
-  --color-sand: #f2e9dc;
+  --color-sand: #f6e9e2;
   --color-cream: #faf6ee;
 
-  --color-line: #e7dbc9;
-  --color-line-soft: #f2e9db;
+  --color-line: #ebdad2;
+  --color-line-soft: #f5e7e1;
 
   /* ── Ink ramp (plum-tinted, never neutral grey) ─────────── */
   --color-ink: #2e1b21;
@@ -29,25 +30,29 @@
   --color-ink-3: #6b4a53;
   --color-ink-4: #7a5a62;
 
-  /* ── Night: the deep surface. Hero, footer, dark bands. ─── */
-  --color-night: #1f5757;
-  --color-night-2: #256565;
-  --color-night-3: #2e7373;
+  /* ── Night: the deep plum surface. Hero, footer, dark bands. */
+  --color-night: #3a222a;
+  --color-night-2: #4a2b35;
+  --color-night-3: #5c3a45;
 
-  /* ── Accents, straight from the palette ─────────────────── */
-  /* Deep teal: structure, links, every filled control. */
-  --color-accent: #1f5757;
-  --color-accent-fill: #2c7a76;
+  /* ── Accents ────────────────────────────────────────────── */
 
-  /* Lotus pink: decorative washes, halos, light type on teal. */
+  /* Rose: structure, links, every filled control. */
+  --color-accent: #a33b52;
+  --color-accent-fill: #c2677b;
+
+  /* Lotus pink: decorative washes, halos, light type on plum. */
   --color-lotus: #d99ba0;
   --color-glow: #f0c4c7;
 
-  /* Marigold: the one warm accent. `ember` is its text-safe twin. */
+  /* Marigold: the one warm pop. `ember` is its text-safe twin. */
   --color-ember: #8a4f10;
   --color-marigold: #e8a33c;
 
-  --color-tint: #f7ede9;
+  /* Deep teal: held back for the overnight moment in the arc. */
+  --color-teal: #1f5757;
+
+  --color-tint: #fbebe9;
   --color-alert: #a32d22;
 
   /* ── Type ──────────────────────────────────────────────── */

@@ -34,7 +34,7 @@ export default async function OpengraphImage() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        background: "linear-gradient(140deg, #123f3f 0%, #1f5757 55%, #2e7373 100%)",
+        background: "linear-gradient(140deg, #2e1b21 0%, #4a2b35 55%, #5c3a45 100%)",
         padding: "72px 80px",
         position: "relative",
         fontFamily: satoshi ? "Satoshi" : "sans-serif",

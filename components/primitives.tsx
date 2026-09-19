@@ -265,7 +265,7 @@ export function Magnetic({
 export function SpotlightCard({
   children,
   className,
-  tint = "rgba(31,87,87,0.09)",
+  tint = "rgba(163,59,82,0.10)",
   as = "div",
 }: {
   children: ReactNode;

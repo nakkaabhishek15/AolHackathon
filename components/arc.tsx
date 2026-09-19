@@ -24,7 +24,7 @@ const PHASES: Phase[] = [
     label: "First light",
     title: "Opening circle",
     body: "Everyone in one room before a single line is written. A short meditation, the ground rules, and the reminder that what you leave with matters more than what you take home.",
-    sky: ["#f5d8d6", "#faf0e0"],
+    sky: ["#f6d5d5", "#fbf0e3"],
   },
   {
     hour: 2,
@@ -32,7 +32,7 @@ const PHASES: Phase[] = [
     label: "Morning",
     title: "Teams and challenges lock",
     body: "You already picked your challenge in the application. Now teams finalize, mentors are matched, and the plan you proposed meets the people you will actually build it with.",
-    sky: ["#e3efeb", "#faf6ee"],
+    sky: ["#f5e0dc", "#fbf5ee"],
   },
   {
     hour: 6,
@@ -40,7 +40,7 @@ const PHASES: Phase[] = [
     label: "Midday",
     title: "First working thing",
     body: "The bar for the first six hours is deliberately low and deliberately real: something that runs. Scaffolding, data access, a rough screen. Momentum beats architecture this early.",
-    sky: ["#d4e8e3", "#f4faf7"],
+    sky: ["#f9ece1", "#fefaf4"],
   },
   {
     hour: 11,
@@ -48,7 +48,7 @@ const PHASES: Phase[] = [
     label: "Golden hour",
     title: "Mentor rounds",
     body: "AOLF tech leads walk every table. Half the conversation is technical, half is making sure you are solving the problem the community actually described rather than the one that is fun to build.",
-    sky: ["#edb863", "#f7dca9"],
+    sky: ["#edb863", "#f8dfb0"],
   },
   {
     hour: 16,
@@ -81,7 +81,7 @@ const PHASES: Phase[] = [
     label: "Freeze",
     title: "Code freeze and rehearsal",
     body: "Hands off the keyboard, onto the story. Three minutes to show what you built and who it is for. Teams that rehearse twice always demo better than teams that commit twice.",
-    sky: ["#e8efeb", "#faf6ee"],
+    sky: ["#f2e6de", "#fbf6ef"],
   },
   {
     hour: 36,
@@ -89,7 +89,7 @@ const PHASES: Phase[] = [
     label: "Closing",
     title: "Demos and closing circle",
     body: "Every team presents what they built and who it is for. Then everyone sits together one last time to close out the thirty-six hours.",
-    sky: ["#f0dcdb", "#fbf2e6"],
+    sky: ["#f3dcda", "#fcf3e8"],
   },
 ];
 
@@ -180,7 +180,9 @@ export function Arc() {
                               cx={x}
                               cy={y}
                               r="17"
-                              fill={active.night ? "rgba(255,255,255,0.16)" : "rgba(31,87,87,0.18)"}
+                              fill={
+                                active.night ? "rgba(255,255,255,0.16)" : "rgba(163,59,82,0.18)"
+                              }
                               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                             />
                           ) : null}
