@@ -24,7 +24,7 @@ const PHASES: Phase[] = [
     label: "First light",
     title: "Opening circle",
     body: "Everyone in one room before a single line is written. A short meditation, the ground rules, and the reminder that what you leave with matters more than what you take home.",
-    sky: ["#cfd9fb", "#ffe6d8"],
+    sky: ["#f5d8d6", "#faf0e0"],
   },
   {
     hour: 2,
@@ -32,7 +32,7 @@ const PHASES: Phase[] = [
     label: "Morning",
     title: "Teams and challenges lock",
     body: "You already picked your challenge in the application. Now teams finalize, mentors are matched, and the plan you proposed meets the people you will actually build it with.",
-    sky: ["#d5e2fb", "#eef3fe"],
+    sky: ["#e3efeb", "#faf6ee"],
   },
   {
     hour: 6,
@@ -40,7 +40,7 @@ const PHASES: Phase[] = [
     label: "Midday",
     title: "First working thing",
     body: "The bar for the first six hours is deliberately low and deliberately real: something that runs. Scaffolding, data access, a rough screen. Momentum beats architecture this early.",
-    sky: ["#c8d8f8", "#eaf1fe"],
+    sky: ["#d4e8e3", "#f4faf7"],
   },
   {
     hour: 11,
@@ -48,7 +48,7 @@ const PHASES: Phase[] = [
     label: "Golden hour",
     title: "Mentor rounds",
     body: "AOLF tech leads walk every table. Half the conversation is technical, half is making sure you are solving the problem the community actually described rather than the one that is fun to build.",
-    sky: ["#f4cdb2", "#ffd9be"],
+    sky: ["#edb863", "#f7dca9"],
   },
   {
     hour: 16,
@@ -56,7 +56,7 @@ const PHASES: Phase[] = [
     label: "Dusk",
     title: "Scope meets reality",
     body: "The honest checkpoint. Cut what will not land, protect the one thing that makes the demo make sense, and decide as a team what good enough looks like by morning.",
-    sky: ["#5a5f9e", "#e79b83"],
+    sky: ["#5c3a45", "#e8a33c"],
   },
   {
     hour: 22,
@@ -64,7 +64,7 @@ const PHASES: Phase[] = [
     label: "The long stretch",
     title: "Overnight",
     body: "Quiet hours. Food stays out, the room stays open, and the teams that pace themselves pull ahead of the ones that sprint. Sleep is allowed. Encouraged, even.",
-    sky: ["#141a3d", "#2b3468"],
+    sky: ["#123f3f", "#1f5757"],
     night: true,
   },
   {
@@ -73,7 +73,7 @@ const PHASES: Phase[] = [
     label: "Second sunrise",
     title: "Reset and breathe",
     body: "The second dawn of the event, and the reason it is measured in sunrises. A short guided practice, then back in, with a clearer head than anyone expects at hour twenty-eight.",
-    sky: ["#c3b2e0", "#ffdcc4"],
+    sky: ["#d99ba0", "#f6d9a8"],
   },
   {
     hour: 33,
@@ -81,7 +81,7 @@ const PHASES: Phase[] = [
     label: "Freeze",
     title: "Code freeze and rehearsal",
     body: "Hands off the keyboard, onto the story. Three minutes to show what you built and who it is for. Teams that rehearse twice always demo better than teams that commit twice.",
-    sky: ["#dde6f8", "#f2f6fe"],
+    sky: ["#e8efeb", "#faf6ee"],
   },
   {
     hour: 36,
@@ -89,7 +89,7 @@ const PHASES: Phase[] = [
     label: "Closing",
     title: "Demos and closing circle",
     body: "Every team presents what they built and who it is for. Then everyone sits together one last time to close out the thirty-six hours.",
-    sky: ["#dbe2fb", "#ffeada"],
+    sky: ["#f0dcdb", "#fbf2e6"],
   },
 ];
 
@@ -163,7 +163,7 @@ export function Arc() {
                     <path
                       d={`M${P0.x} ${P0.y} Q${P1.x} ${P1.y} ${P2.x} ${P2.y}`}
                       fill="none"
-                      stroke={active.night ? "rgba(255,255,255,0.32)" : "rgba(20,26,61,0.22)"}
+                      stroke={active.night ? "rgba(255,255,255,0.32)" : "rgba(46,27,33,0.22)"}
                       strokeWidth="1.5"
                       strokeDasharray="5 7"
                       className="transition-[stroke] duration-700"
@@ -180,9 +180,7 @@ export function Arc() {
                               cx={x}
                               cy={y}
                               r="17"
-                              fill={
-                                active.night ? "rgba(255,255,255,0.16)" : "rgba(79,83,255,0.16)"
-                              }
+                              fill={active.night ? "rgba(255,255,255,0.16)" : "rgba(31,87,87,0.18)"}
                               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                             />
                           ) : null}
@@ -195,7 +193,7 @@ export function Arc() {
                                 ? "var(--color-accent-fill)"
                                 : active.night
                                   ? "rgba(255,255,255,0.55)"
-                                  : "rgba(20,26,61,0.34)"
+                                  : "rgba(46,27,33,0.34)"
                             }
                             className="transition-all duration-500"
                           />

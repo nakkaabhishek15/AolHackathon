@@ -11,8 +11,7 @@ export function Challenges() {
           eyebrow="Challenge tracks"
           title={
             <>
-              The challenges are still being written{" "}
-              <span className="text-emphasis">by you</span>
+              The challenges are still being written <span className="text-emphasis">by you</span>
             </>
           }
           lede="Survey answers and program-team input are being categorized into a short list of structured challenges right now. This is where they will appear."
@@ -66,8 +65,8 @@ export function Challenges() {
               <strong className="text-ink">
                 Every finalized challenge goes out to applicants before the event
               </strong>{" "}
-              with full context and success criteria, so you choose what genuinely interests
-              you and arrive with a plan instead of a blank page.
+              with full context and success criteria, so you choose what genuinely interests you and
+              arrive with a plan instead of a blank page.
             </p>
           </div>
         </Reveal>
@@ -102,7 +101,7 @@ function LockedTrack({ index }: { index: number }) {
           {[80, 60, 40].map((width, i) => (
             <span
               key={width}
-              className="animate-breathe h-2.5 rounded-full bg-line"
+              className="h-2.5 animate-breathe rounded-full bg-line"
               style={{ width: `${width}%`, animationDelay: `${index * 0.15 + i * 0.22}s` }}
             />
           ))}

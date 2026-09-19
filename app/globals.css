@@ -1,50 +1,54 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Design tokens, sampled from the community illustration.
+   Design tokens — Lotus Pink · Marigold · Cream.
 
-   The artwork is periwinkle and royal blue over a pale blue tint, with
-   coral as its one warm accent. The page uses the same three, in the
-   same proportions: blue carries structure, coral is used sparingly for
-   the phrase or marker that should catch, and everything else is a
-   blue-tinted neutral.
+   Warm cream is the ground, deep teal carries structure and every
+   dark surface, plum is the ink, and marigold is the one warm accent
+   used sparingly for the phrase or marker that should catch. Lotus
+   pink is the soft decorative note: washes, halos, light-on-teal type.
 
    Every foreground token here clears WCAG AA (4.5:1) on shell, paper,
-   mist and tint. `blue-fill`, `periwinkle` and `coral-fill` are fills
-   only, used behind ink or on night surfaces, never as text on light.
+   sand and tint. `accent-fill`, `lotus` and `marigold` are fills only,
+   used behind ink or on night surfaces, never as small text on light —
+   `accent` and `ember` are their text-safe counterparts.
    ============================================================ */
 @theme {
   /* ── Surfaces ───────────────────────────────────────────── */
-  --color-shell: #f6f8fe;
+  --color-shell: #faf6ee;
   --color-paper: #ffffff;
-  --color-sand: #e8effd;
-  --color-cream: #eef3fe;
+  --color-sand: #f2e9dc;
+  --color-cream: #faf6ee;
 
-  --color-line: #dbe4f8;
-  --color-line-soft: #e9effb;
+  --color-line: #e7dbc9;
+  --color-line-soft: #f2e9db;
 
-  /* ── Ink ramp (blue-tinted, never neutral grey) ─────────── */
-  --color-ink: #141a3d;
-  --color-ink-2: #39406b;
-  --color-ink-3: #575e88;
-  --color-ink-4: #666d95;
+  /* ── Ink ramp (plum-tinted, never neutral grey) ─────────── */
+  --color-ink: #2e1b21;
+  --color-ink-2: #5c3a45;
+  --color-ink-3: #6b4a53;
+  --color-ink-4: #7a5a62;
 
   /* ── Night: the deep surface. Hero, footer, dark bands. ─── */
-  --color-night: #141a3d;
-  --color-night-2: #1b2350;
-  --color-night-3: #262f66;
+  --color-night: #1f5757;
+  --color-night-2: #256565;
+  --color-night-3: #2e7373;
 
-  /* ── Accents, straight from the artwork ─────────────────── */
-  --color-accent: #3438c9;
-  --color-accent-fill: #4f53ff;
-  --color-periwinkle: #91b3fa;
-  --color-glow: #a9c2fb;
+  /* ── Accents, straight from the palette ─────────────────── */
+  /* Deep teal: structure, links, every filled control. */
+  --color-accent: #1f5757;
+  --color-accent-fill: #2c7a76;
 
-  --color-coral: #b8381f;
-  --color-coral-fill: #fd7062;
+  /* Lotus pink: decorative washes, halos, light type on teal. */
+  --color-lotus: #d99ba0;
+  --color-glow: #f0c4c7;
 
-  --color-tint: #eef3fe;
-  --color-alert: #c0261a;
+  /* Marigold: the one warm accent. `ember` is its text-safe twin. */
+  --color-ember: #8a4f10;
+  --color-marigold: #e8a33c;
+
+  --color-tint: #f7ede9;
+  --color-alert: #a32d22;
 
   /* ── Type ──────────────────────────────────────────────── */
   --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -56,9 +60,9 @@
   --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  --shadow-lift: 0 1px 2px rgb(28 23 18 / 0.04), 0 12px 32px -18px rgb(28 23 18 / 0.16);
-  --shadow-raise: 0 2px 4px rgb(28 23 18 / 0.05), 0 28px 60px -30px rgb(28 23 18 / 0.28);
-  --shadow-deep: 0 40px 80px -40px rgb(28 23 18 / 0.45);
+  --shadow-lift: 0 1px 2px rgb(46 27 33 / 0.05), 0 12px 32px -18px rgb(46 27 33 / 0.18);
+  --shadow-raise: 0 2px 4px rgb(46 27 33 / 0.06), 0 28px 60px -30px rgb(46 27 33 / 0.3);
+  --shadow-deep: 0 40px 80px -40px rgb(46 27 33 / 0.45);
 }
 
 /* ============================================================
@@ -86,7 +90,7 @@
   }
 
   ::selection {
-    background: var(--color-periwinkle);
+    background: var(--color-lotus);
     color: var(--color-ink);
   }
 
@@ -207,17 +211,15 @@
    Colour utilities
    ============================================================ */
 
-/* The accent gradient. Gold into ember, never the full-saturation
-   orange that swamped the earlier version. */
 /* Emphasis without a second colour fighting the headline: the display
    grotesk hands off to a serif italic for the one phrase that should
-   carry weight, tinted with the artwork's coral. */
+   carry weight, tinted with the palette's marigold ember. */
 @utility text-emphasis {
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 300;
   letter-spacing: -0.012em;
-  color: var(--color-coral);
+  color: var(--color-ember);
 }
 
 @utility text-emphasis-invert {
@@ -225,7 +227,7 @@
   font-style: italic;
   font-weight: 300;
   letter-spacing: -0.012em;
-  color: var(--color-coral-fill);
+  color: var(--color-marigold);
 }
 
 /* Paper grain — one inline SVG, no network request. */

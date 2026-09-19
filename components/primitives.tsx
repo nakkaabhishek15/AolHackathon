@@ -90,7 +90,10 @@ export function WordReveal({
   return (
     <Tag className={className}>
       {words.map((word, i) => (
-        <span key={`${word}-${i}`} className="inline-block overflow-hidden pb-[0.12em] align-bottom">
+        <span
+          key={`${word}-${i}`}
+          className="inline-block overflow-hidden pb-[0.12em] align-bottom"
+        >
           <motion.span
             className="inline-block"
             initial={{ y: "108%" }}
@@ -262,7 +265,7 @@ export function Magnetic({
 export function SpotlightCard({
   children,
   className,
-  tint = "rgba(79,83,255,0.09)",
+  tint = "rgba(31,87,87,0.09)",
   as = "div",
 }: {
   children: ReactNode;
@@ -327,8 +330,8 @@ export function Pill({
     >
       {dot ? (
         <span aria-hidden="true" className="relative flex size-1.5">
-          <span className="absolute inset-0 animate-[pulse-ring_2.4s_ease-out_infinite] rounded-full bg-coral-fill" />
-          <span className="relative size-1.5 rounded-full bg-coral" />
+          <span className="absolute inset-0 animate-[pulse-ring_2.4s_ease-out_infinite] rounded-full bg-marigold" />
+          <span className="relative size-1.5 rounded-full bg-ember" />
         </span>
       ) : null}
       {children}
@@ -416,8 +419,11 @@ export function Marquee({
   const run = [...items, ...items];
 
   return (
-    <div className={cn("marquee-mask overflow-hidden", className)} aria-hidden="true">
-      <div className="marquee-track" style={{ "--marquee-duration": `${duration}s` } as CSSProperties}>
+    <div className={cn("overflow-hidden marquee-mask", className)} aria-hidden="true">
+      <div
+        className="marquee-track"
+        style={{ "--marquee-duration": `${duration}s` } as CSSProperties}
+      >
         {run.map((item, i) => (
           <span key={i} className="flex shrink-0 items-center gap-6 pr-6">
             <span className="text-[0.8125rem] font-bold tracking-[0.22em] whitespace-nowrap uppercase">

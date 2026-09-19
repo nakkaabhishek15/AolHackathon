@@ -42,10 +42,7 @@ export function Process() {
   const glowY = useTransform(progress, (v) => `${v * 100}%`);
 
   return (
-    <section
-      id="process"
-      className="scroll-mt-24 border-y border-line bg-sand py-24 sm:py-32"
-    >
+    <section id="process" className="scroll-mt-24 border-y border-line bg-sand py-24 sm:py-32">
       <div className="container-page">
         <SectionHeading
           eyebrow="The path to build day"
@@ -61,11 +58,11 @@ export function Process() {
           >
             <motion.div
               style={{ scaleY: progress }}
-              className="h-full w-full origin-top bg-[linear-gradient(180deg,var(--color-night-2),var(--color-accent-fill)_55%,var(--color-coral-fill))]"
+              className="h-full w-full origin-top bg-[linear-gradient(180deg,var(--color-night-2),var(--color-accent-fill)_55%,var(--color-marigold))]"
             />
             <motion.span
               style={{ top: glowY }}
-              className="absolute -left-[3px] size-[7px] -translate-y-1/2 rounded-full bg-coral-fill shadow-[0_0_0_4px_rgba(253,112,98,0.22)]"
+              className="absolute -left-[3px] size-[7px] -translate-y-1/2 rounded-full bg-marigold shadow-[0_0_0_4px_rgba(232,163,60,0.26)]"
             />
           </div>
 

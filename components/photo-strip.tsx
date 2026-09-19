@@ -8,7 +8,8 @@ import { Reveal } from "./primitives";
  * one for one.
  *
  * Each frame is lightly desaturated and carries a thin accent wash, so the
- * photography sits inside the flat blue palette instead of fighting it.
+ * photography sits inside the warm cream and teal palette instead of
+ * fighting it.
  */
 const PHOTOS = [
   {

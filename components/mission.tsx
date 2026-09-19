@@ -50,7 +50,6 @@ export function Mission() {
                 good outcome looks like before you write a line of code.
               </p>
             </Reveal>
-
           </div>
         </div>
 

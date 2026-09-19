@@ -16,11 +16,11 @@ export function Cta() {
         />
         <div
           aria-hidden="true"
-          className="drift-a pointer-events-none absolute top-[-12%] left-[6%] size-[30rem] rounded-full bg-[radial-gradient(circle,rgba(79,83,255,0.42),transparent_66%)] blur-3xl"
+          className="pointer-events-none absolute top-[-12%] left-[6%] size-[30rem] drift-a rounded-full bg-[radial-gradient(circle,rgba(217,155,160,0.32),transparent_66%)] blur-3xl"
         />
         <div
           aria-hidden="true"
-          className="drift-b pointer-events-none absolute right-[4%] bottom-[-24%] size-[32rem] rounded-full bg-[radial-gradient(circle,rgba(253,112,98,0.14),transparent_66%)] blur-3xl"
+          className="pointer-events-none absolute right-[4%] bottom-[-24%] size-[32rem] drift-b rounded-full bg-[radial-gradient(circle,rgba(232,163,60,0.16),transparent_66%)] blur-3xl"
         />
 
         <div className="relative container-page py-24 sm:py-32">
@@ -56,7 +56,7 @@ export function Cta() {
                 Or reach us directly at{" "}
                 <a
                   href={`mailto:${siteConfig.email}`}
-                  className="font-bold text-ink underline decoration-coral/50 underline-offset-4 transition-colors hover:decoration-accent"
+                  className="font-bold text-ink underline decoration-ember/50 underline-offset-4 transition-colors hover:decoration-accent"
                 >
                   {siteConfig.email}
                 </a>

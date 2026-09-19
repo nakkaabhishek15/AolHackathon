@@ -14,8 +14,8 @@ export function SiteFooter() {
   return (
     <footer className="relative isolate overflow-hidden bg-night text-white">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
-        <div className="grid-lines absolute inset-0 [mask-image:linear-gradient(180deg,black,transparent_70%)]" />
-        <div className="drift-a absolute top-[-40%] left-[30%] size-[30rem] rounded-full bg-[radial-gradient(circle,rgba(79,83,255,0.40),transparent_68%)] blur-3xl" />
+        <div className="absolute inset-0 grid-lines [mask-image:linear-gradient(180deg,black,transparent_70%)]" />
+        <div className="absolute top-[-40%] left-[30%] size-[30rem] drift-a rounded-full bg-[radial-gradient(circle,rgba(217,155,160,0.30),transparent_68%)] blur-3xl" />
       </div>
 
       <div className="container-page py-16">

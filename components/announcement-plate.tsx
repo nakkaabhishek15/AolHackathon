@@ -67,7 +67,9 @@ export function AnnouncementPlate() {
   const venueField = (
     <Field label="Venue">
       {venue.status === "set" ? (
-        <span className="text-[1.35rem] font-bold tracking-[-0.03em] text-white">{venue.value.city}</span>
+        <span className="text-[1.35rem] font-bold tracking-[-0.03em] text-white">
+          {venue.value.city}
+        </span>
       ) : (
         <Pending>To be announced</Pending>
       )}
@@ -100,7 +102,9 @@ export function AnnouncementPlate() {
     return (
       <Plate>
         <Field label="Dates">
-          <span className="text-[1.35rem] font-bold tracking-[-0.03em] text-white">{eventWindow.value.label}</span>
+          <span className="text-[1.35rem] font-bold tracking-[-0.03em] text-white">
+            {eventWindow.value.label}
+          </span>
         </Field>
         <Divider />
         {venueField}
@@ -157,7 +161,7 @@ function Pending({ children }: { children: React.ReactNode }) {
         aria-hidden="true"
         animate={{ opacity: [0.35, 1, 0.35] }}
         transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
-        className="size-1.5 rounded-full bg-coral-fill"
+        className="size-1.5 rounded-full bg-marigold"
       />
       {children}
     </span>
