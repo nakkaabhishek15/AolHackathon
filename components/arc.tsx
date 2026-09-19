@@ -280,8 +280,21 @@ export function Arc() {
               className="grid gap-6 border-t border-line bg-paper p-6 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-8 sm:p-10"
             >
               <div className="flex flex-col gap-1.5">
-                <span className="numeric text-[3.1rem] leading-none font-bold tracking-[-0.045em] text-ink">
-                  {String(active.hour).padStart(2, "0")}
+                {/* The hour rolls rather than swaps, so moving along the arc
+                    reads as time advancing. */}
+                <span className="relative block h-[3.1rem] overflow-hidden">
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.span
+                      key={active.hour}
+                      initial={{ y: "100%" }}
+                      animate={{ y: 0 }}
+                      exit={{ y: "-100%" }}
+                      transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+                      className="block numeric text-[3.1rem] leading-none font-bold tracking-[-0.045em] text-ink"
+                    >
+                      {String(active.hour).padStart(2, "0")}
+                    </motion.span>
+                  </AnimatePresence>
                 </span>
                 <span className="eyebrow">{active.label}</span>
               </div>

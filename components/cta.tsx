@@ -12,11 +12,11 @@ export function Cta() {
       <div className="grain relative overflow-hidden">
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(180deg,var(--color-shell)_0%,var(--color-sand)_38%,var(--color-cream)_100%)]"
+          className="absolute inset-0 bg-[linear-gradient(180deg,var(--color-shell)_0%,var(--color-tint)_42%,var(--color-blush)_100%)]"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-[-12%] left-[6%] size-[30rem] drift-a rounded-full bg-[radial-gradient(circle,rgba(217,155,160,0.32),transparent_66%)] blur-3xl"
+          className="pointer-events-none absolute top-[-12%] left-[6%] size-[30rem] drift-a rounded-full bg-[radial-gradient(circle,rgba(217,155,160,0.42),transparent_66%)] blur-3xl"
         />
         <div
           aria-hidden="true"

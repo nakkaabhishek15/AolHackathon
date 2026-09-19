@@ -1,4 +1,4 @@
-import { Reveal, SpotlightCard, WordReveal } from "./primitives";
+import { DrawIn, Reveal, SpotlightCard, WordReveal } from "./primitives";
 
 const PILLARS = [
   {
@@ -57,9 +57,12 @@ export function Mission() {
           {PILLARS.map((pillar, i) => (
             <Reveal as="li" key={pillar.title} index={i}>
               <SpotlightCard className="flex h-full flex-col gap-4 rounded-2xl border border-line bg-paper p-7 transition-[border-color,box-shadow,transform] duration-500 hover:-translate-y-1 hover:border-accent/30 hover:shadow-lift">
-                <span className="flex size-11 items-center justify-center rounded-xl border border-line bg-sand text-accent transition-colors duration-500 group-hover:border-accent/40 group-hover:bg-tint">
+                <DrawIn
+                  delay={i * 0.08}
+                  className="flex size-11 items-center justify-center rounded-xl border border-line bg-sand text-accent transition-colors duration-500 group-hover:border-accent/40 group-hover:bg-tint"
+                >
                   <PillarIcon name={pillar.icon} />
-                </span>
+                </DrawIn>
                 <h3 className="text-[1.2rem] leading-snug">{pillar.title}</h3>
                 <p className="text-[0.9375rem] leading-relaxed font-medium text-ink-3">
                   {pillar.body}

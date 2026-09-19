@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NOTIFY_MAILTO } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import { ButtonLink } from "./primitives";
@@ -21,8 +21,20 @@ export function SiteHeader() {
   const [condensed, setCondensed] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>("");
+  const [tucked, setTucked] = useState(false);
+  const lastY = useRef(0);
 
-  useMotionValueEvent(scrollY, "change", (y) => setCondensed(y > 40));
+  useMotionValueEvent(scrollY, "change", (y) => {
+    setCondensed(y > 40);
+
+    /* Reading down hides the bar; any upward movement brings it straight
+       back. The 6px deadzone keeps momentum scrolling from flickering it. */
+    const delta = y - lastY.current;
+    if (Math.abs(delta) > 6) {
+      setTucked(y > 420 && delta > 0);
+      lastY.current = y;
+    }
+  });
 
   // Scroll-spy: the last section whose top has passed a third of the viewport.
   useEffect(() => {
@@ -55,7 +67,11 @@ export function SiteHeader() {
   const onDark = !condensed && !open;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <motion.header
+      animate={{ y: tucked && !open ? "-100%" : 0 }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed inset-x-0 top-0 z-50"
+    >
       <motion.div
         animate={{
           backgroundColor: onDark ? "rgba(58,34,42,0)" : "rgba(250,246,238,0.88)",
@@ -174,6 +190,6 @@ export function SiteHeader() {
           </motion.div>
         ) : null}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }

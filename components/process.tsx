@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useScroll, useSpring, useTransform } from "motion/react";
-import { useRef } from "react";
+import { motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "motion/react";
+import { useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 import { Reveal, SectionHeading } from "./primitives";
 
 const STEPS = [
@@ -41,6 +42,13 @@ export function Process() {
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.4 });
   const glowY = useTransform(progress, (v) => `${v * 100}%`);
 
+  /* The rail's leading edge lights each step as it passes it. Tracking the
+     index rather than the raw value means one render per step, not per frame. */
+  const [reached, setReached] = useState(-1);
+  useMotionValueEvent(progress, "change", (v) => {
+    setReached(Math.floor(v * STEPS.length - 0.35));
+  });
+
   return (
     <section id="process" className="scroll-mt-24 border-y border-line bg-sand py-24 sm:py-32">
       <div className="container-page">
@@ -73,7 +81,17 @@ export function Process() {
               index={i}
               className="group relative flex gap-6 pb-12 sm:gap-9"
             >
-              <span className="relative z-10 mt-0.5 flex size-12 shrink-0 items-center justify-center rounded-full border border-line bg-paper numeric text-xl font-bold tracking-[-0.04em] text-ink shadow-lift transition-[transform,border-color,color] duration-500 ease-[var(--ease-spring)] group-hover:-translate-y-1 group-hover:border-accent/40 group-hover:text-accent sm:size-[4.375rem] sm:text-[1.7rem]">
+              <span
+                className={cn(
+                  "relative z-10 mt-0.5 flex size-12 shrink-0 items-center justify-center rounded-full border numeric text-xl font-bold tracking-[-0.04em] shadow-lift",
+                  "transition-[transform,border-color,color,background-color,box-shadow] duration-700 ease-[var(--ease-spring)]",
+                  "group-hover:-translate-y-1 group-hover:border-accent/40 group-hover:text-accent",
+                  "sm:size-[4.375rem] sm:text-[1.7rem]",
+                  reached >= i
+                    ? "-translate-y-0.5 border-accent/45 bg-tint text-accent shadow-raise"
+                    : "border-line bg-paper text-ink",
+                )}
+              >
                 {String(i + 1).padStart(2, "0")}
               </span>
 

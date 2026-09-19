@@ -6,7 +6,9 @@ import {
   useMotionTemplate,
   useMotionValue,
   useReducedMotion,
+  useScroll,
   useSpring,
+  useTransform,
   animate,
   type Variants,
 } from "motion/react";
@@ -398,6 +400,90 @@ export function SectionHeading({
         </Reveal>
       ) : null}
     </div>
+  );
+}
+
+/* ---------------------------------------------------------------- Parallax */
+
+/**
+ * Drifts its child vertically as the element crosses the viewport. The child
+ * must be laid out taller than its frame (see PhotoStrip) so the drift never
+ * exposes an edge. Scroll-linked rather than time-based, so it tracks the
+ * user's own movement instead of playing at them.
+ */
+export function Parallax({
+  children,
+  range = 28,
+  className,
+}: {
+  children: ReactNode;
+  /** Peak offset in pixels, applied as -range at entry and +range at exit. */
+  range?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [-range, range]);
+
+  if (reduced) {
+    return (
+      <div ref={ref} className={className}>
+        {children}
+      </div>
+    );
+  }
+
+  return (
+    <motion.div ref={ref} style={{ y }} className={className}>
+      {children}
+    </motion.div>
+  );
+}
+
+/* ----------------------------------------------------------------- DrawIn */
+
+/**
+ * Draws a line icon on, stroke-first, the first time it scrolls into view.
+ * The dash maths lives in the `icon-draw` utility and is driven by a single
+ * data attribute, so the icon sets stay plain SVG nodes and the animation
+ * runs on the compositor rather than through React.
+ */
+export function DrawIn({
+  children,
+  className,
+  delay = 0,
+  style,
+}: {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+  style?: CSSProperties;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-15% 0px" });
+  const reduced = useReducedMotion();
+
+  if (reduced) {
+    return (
+      <span className={className} style={style}>
+        {children}
+      </span>
+    );
+  }
+
+  return (
+    <span
+      ref={ref}
+      data-drawn={inView ? "" : undefined}
+      style={{ ...style, transitionDelay: `${delay}s` }}
+      className={cn("icon-draw", className)}
+    >
+      {children}
+    </span>
   );
 }
 

@@ -1,41 +1,56 @@
-import { Reveal, SectionHeading, SpotlightCard } from "./primitives";
+import type { CSSProperties } from "react";
+import { cn } from "@/lib/utils";
+import { DrawIn, Reveal, SectionHeading, SpotlightCard } from "./primitives";
 
 const ITEMS = [
   {
     title: "Meals and snacks",
+    tone: "lotus",
     body: "Fed through all thirty-six hours, overnight stretch included. Nobody builds well on an empty stomach.",
     icon: "bowl",
     wide: true,
   },
   {
     title: "Swag and shirts",
+    tone: "marigold",
     body: "Something worth wearing after the event, a reminder of the team you built it with.",
     icon: "shirt",
   },
   {
     title: "Exciting prizes",
+    tone: "rose",
     body: "There are exciting prizes for the teams whose work stands out. Details land with the rest of the schedule.",
     icon: "gift",
   },
   {
     title: "Certificates and recognition",
+    tone: "mauve",
     body: "Formal recognition for every participant, plus a spotlight on standout solutions.",
     icon: "award",
   },
   {
     title: "Mentorship throughout",
+    tone: "sand",
     body: "AOLF tech leads on the floor the whole way, for the technical problem and for the question of which problem you are really solving.",
     icon: "compass",
   },
 ] as const;
 
+/* Static class strings, not interpolated, so Tailwind can see every one. */
+const TONES = {
+  lotus: "bg-tint-lotus",
+  marigold: "bg-tint-marigold",
+  rose: "bg-tint-rose",
+  mauve: "bg-tint-mauve",
+  sand: "bg-tint-sand",
+} as const;
+
 export function Included() {
   return (
-    <section className="relative isolate overflow-hidden bg-night py-24 text-white sm:py-32">
+    <section className="relative isolate overflow-hidden border-y border-line bg-[linear-gradient(180deg,var(--color-tint)_0%,var(--color-blush)_55%,var(--color-tint)_100%)] py-24 sm:py-32">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 grid-lines [mask-image:radial-gradient(70%_60%_at_50%_35%,black,transparent)]" />
-        <div className="absolute top-[-20%] right-[-8%] size-[34rem] drift-b rounded-full bg-[radial-gradient(circle,rgba(217,155,160,0.34),transparent_66%)] blur-3xl" />
-        <div className="absolute bottom-[-30%] left-[-10%] size-[30rem] drift-a rounded-full bg-[radial-gradient(circle,rgba(232,163,60,0.20),transparent_66%)] blur-3xl" />
+        <div className="absolute top-[-20%] right-[-8%] size-[34rem] drift-b rounded-full bg-[radial-gradient(circle,rgba(217,155,160,0.45),transparent_66%)] blur-3xl" />
+        <div className="absolute bottom-[-30%] left-[-10%] size-[30rem] drift-a rounded-full bg-[radial-gradient(circle,rgba(232,163,60,0.22),transparent_66%)] blur-3xl" />
       </div>
 
       <div className="container-page">
@@ -43,7 +58,6 @@ export function Included() {
           eyebrow="On us"
           title="What is covered"
           lede="No entry fee and no ticket. Everything below is covered for every participant."
-          invert
         />
 
         <ul className="mt-14 grid gap-5 md:grid-cols-3">
@@ -55,14 +69,23 @@ export function Included() {
               className={"wide" in item && item.wide ? "md:col-span-2" : undefined}
             >
               <SpotlightCard
-                tint="rgba(217,155,160,0.20)"
-                className="flex h-full flex-col gap-4 rounded-2xl border border-white/12 bg-white/[0.045] p-8 backdrop-blur-sm transition-[border-color,transform,background-color] duration-500 hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.07]"
+                tint="rgba(255,255,255,0.55)"
+                className={cn(
+                  "flex h-full flex-col gap-4 rounded-2xl border border-ink/10 p-8 shadow-lift",
+                  "transition-[border-color,transform,box-shadow] duration-500 ease-[var(--ease-spring)]",
+                  "hover:-translate-y-1.5 hover:border-ink/20 hover:shadow-raise",
+                  TONES[item.tone],
+                )}
               >
-                <span className="flex size-11 items-center justify-center rounded-xl border border-white/15 bg-white/8 text-lotus transition-colors duration-500 group-hover:text-white">
+                <DrawIn
+                  delay={i * 0.08}
+                  className="flex size-11 animate-float items-center justify-center rounded-xl border border-ink/10 bg-paper/70 text-ink shadow-lift transition-colors duration-500 group-hover:bg-paper"
+                  style={{ "--delay": `${i * 0.55}s` } as CSSProperties}
+                >
                   <Icon name={item.icon} />
-                </span>
-                <h3 className="text-[1.24rem] leading-snug text-white">{item.title}</h3>
-                <p className="max-w-md text-[0.9375rem] leading-relaxed font-medium text-white/60">
+                </DrawIn>
+                <h3 className="text-[1.24rem] leading-snug text-ink">{item.title}</h3>
+                <p className="max-w-md text-[0.9375rem] leading-relaxed font-medium text-ink-2">
                   {item.body}
                 </p>
               </SpotlightCard>

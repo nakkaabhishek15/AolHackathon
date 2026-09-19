@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Reveal } from "./primitives";
+import { Parallax, Reveal } from "./primitives";
 
 /**
  * Mood imagery, not event documentation. These are CC0 (public domain)
@@ -46,17 +46,23 @@ export function PhotoStrip() {
           {PHOTOS.map((photo, i) => (
             <Reveal as="li" key={photo.src} index={i}>
               <div className="group relative aspect-4/3 overflow-hidden rounded-2xl bg-sand">
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  width={photo.width}
-                  height={photo.height}
-                  sizes="(max-width: 639px) 45vw, 22vw"
-                  className="h-full w-full object-cover saturate-75 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105"
-                />
+                {/* The frame is inset past its own bounds top and bottom so the
+                    parallax drift always has cover to move into. Each photo
+                    travels a little further than the last, which keeps the row
+                    from reading as one sliding block. */}
+                <Parallax range={22 + i * 6} className="absolute inset-x-0 -inset-y-[10%]">
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    width={photo.width}
+                    height={photo.height}
+                    sizes="(max-width: 639px) 45vw, 22vw"
+                    className="h-full w-full object-cover saturate-75 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105"
+                  />
+                </Parallax>
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 bg-accent/12 transition-opacity duration-500 group-hover:opacity-0"
+                  className="pointer-events-none absolute inset-0 bg-lotus/25 transition-opacity duration-500 group-hover:opacity-0"
                 />
               </div>
             </Reveal>
