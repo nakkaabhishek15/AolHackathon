@@ -125,7 +125,9 @@ export function Hero() {
       </motion.div>
 
       {/* ------------------------------------------------------- ribbon */}
-      <div className="relative border-t border-white/10 bg-white/[0.03] py-3.5 text-white/50 backdrop-blur-sm">
+      {/* A solid lotus band rather than another pane of white glass: it closes
+          the dark hero and hands off to the cream page below. */}
+      <div className="relative bg-lotus py-3.5 text-ink">
         <Marquee items={RIBBON} duration={46} />
       </div>
     </section>
