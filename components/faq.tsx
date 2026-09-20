@@ -73,7 +73,6 @@ export function Faq() {
     <section id="faq" className="scroll-mt-24 py-24 sm:py-32">
       <div className="container-page max-w-5xl">
         <SectionHeading
-          eyebrow="Good questions"
           title="Everything we know so far"
           lede="More detail lands here as dates, venue and challenges are locked in."
         />

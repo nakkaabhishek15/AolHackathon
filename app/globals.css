@@ -54,6 +54,13 @@
   /* Deep teal: held back for the overnight moment in the arc. */
   --color-teal: #1f5757;
 
+  /* The hero sky, top to bottom. Same golden-hour ramp the arc uses at
+     hour eleven, so the opening and the timeline agree about what dawn
+     looks like here. */
+  --color-dawn: #edb863;
+  --color-dawn-2: #f8dfb0;
+  --color-dawn-3: #fbeedb;
+
   --color-tint: #fbebe9;
   --color-alert: #a32d22;
 

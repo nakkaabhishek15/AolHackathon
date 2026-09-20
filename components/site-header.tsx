@@ -62,9 +62,9 @@ export function SiteHeader() {
     };
   }, [open]);
 
-  // At the top the bar floats over the dark hero, so it wears light type.
-  // Once the page scrolls it becomes a pale glass rail over light sections.
-  const onDark = !condensed && !open;
+  // The hero is a light sky now, so the bar wears dark type the whole way
+  // down; only its own background changes as the page scrolls.
+  const onDark = false;
 
   return (
     <motion.header

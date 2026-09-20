@@ -351,7 +351,8 @@ export function SectionHeading({
   invert = false,
   className,
 }: {
-  eyebrow: string;
+  /** Optional: some sections read better with the heading standing alone. */
+  eyebrow?: string;
   /** Plain strings get the per-word lift; nodes are revealed as one block. */
   title: ReactNode;
   lede?: ReactNode;
@@ -372,12 +373,14 @@ export function SectionHeading({
         className,
       )}
     >
-      <Reveal>
-        <span className={invert ? "eyebrow-invert" : "eyebrow"}>
-          <span aria-hidden="true" className="h-px w-6 shrink-0 bg-current opacity-50" />
-          {eyebrow}
-        </span>
-      </Reveal>
+      {eyebrow ? (
+        <Reveal>
+          <span className={invert ? "eyebrow-invert" : "eyebrow"}>
+            <span aria-hidden="true" className="h-px w-6 shrink-0 bg-current opacity-50" />
+            {eyebrow}
+          </span>
+        </Reveal>
+      ) : null}
 
       {typeof title === "string" ? (
         <WordReveal as="h2" text={title} className={headingClass} delay={0.05} />

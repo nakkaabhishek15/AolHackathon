@@ -67,7 +67,7 @@ export function AnnouncementPlate() {
   const venueField = (
     <Field label="Venue">
       {venue.status === "set" ? (
-        <span className="text-[1.35rem] font-bold tracking-[-0.03em] text-white">
+        <span className="text-[1.35rem] font-bold tracking-[-0.03em] text-ink">
           {venue.value.city}
         </span>
       ) : (
@@ -86,7 +86,7 @@ export function AnnouncementPlate() {
         {venueField}
         <Divider />
         <Field label="Duration">
-          <span className="numeric text-[1.35rem] font-bold tracking-[-0.03em] text-white">
+          <span className="numeric text-[1.35rem] font-bold tracking-[-0.03em] text-ink">
             {siteConfig.durationHours} hours
           </span>
         </Field>
@@ -102,7 +102,7 @@ export function AnnouncementPlate() {
     return (
       <Plate>
         <Field label="Dates">
-          <span className="text-[1.35rem] font-bold tracking-[-0.03em] text-white">
+          <span className="text-[1.35rem] font-bold tracking-[-0.03em] text-ink">
             {eventWindow.value.label}
           </span>
         </Field>
@@ -118,7 +118,7 @@ export function AnnouncementPlate() {
         <div key={unit} className="flex items-end gap-5">
           {i > 0 ? <Divider /> : null}
           <Field label={unit}>
-            <span className="numeric text-[1.7rem] leading-none font-bold tracking-[-0.03em] text-white">
+            <span className="numeric text-[1.7rem] leading-none font-bold tracking-[-0.03em] text-ink">
               {String(remaining[unit]).padStart(2, "0")}
             </span>
           </Field>
@@ -132,7 +132,7 @@ export function AnnouncementPlate() {
 
 function Plate({ children }: { children: React.ReactNode }) {
   return (
-    <div className="inline-flex flex-wrap items-end gap-x-5 gap-y-3 rounded-2xl border border-white/15 bg-white/[0.07] px-5 py-4 backdrop-blur-md">
+    <div className="inline-flex flex-wrap items-end gap-x-5 gap-y-3 rounded-2xl border border-ink/10 bg-paper/65 px-5 py-4 shadow-lift backdrop-blur-md">
       {children}
     </div>
   );
@@ -141,7 +141,7 @@ function Plate({ children }: { children: React.ReactNode }) {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <span className="flex flex-col gap-1.5">
-      <span className="text-[0.625rem] font-bold tracking-[0.18em] text-white/45 uppercase">
+      <span className="text-[0.625rem] font-bold tracking-[0.18em] text-ink-4 uppercase">
         {label}
       </span>
       {children}
@@ -150,13 +150,13 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 }
 
 function Divider() {
-  return <span aria-hidden="true" className="h-8 w-px self-center bg-white/15" />;
+  return <span aria-hidden="true" className="h-8 w-px self-center bg-ink/12" />;
 }
 
 /** A value we genuinely do not know yet, signalled rather than faked. */
 function Pending({ children }: { children: React.ReactNode }) {
   return (
-    <span className="flex items-center gap-2 text-[1.35rem] font-bold tracking-[-0.03em] text-white">
+    <span className="flex items-center gap-2 text-[1.35rem] font-bold tracking-[-0.03em] text-ink">
       <motion.span
         aria-hidden="true"
         animate={{ opacity: [0.35, 1, 0.35] }}

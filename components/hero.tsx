@@ -45,7 +45,7 @@ export function Hero() {
     <section
       ref={ref}
       id="top"
-      className="relative isolate overflow-hidden bg-night pt-[7.5rem] pb-0 text-white lg:pt-[10rem]"
+      className="relative isolate overflow-hidden bg-[linear-gradient(180deg,var(--color-dawn)_0%,var(--color-dawn-2)_34%,var(--color-dawn-3)_66%,var(--color-shell)_100%)] pt-[7.5rem] pb-0 text-ink lg:pt-[10rem]"
     >
       <HeroBackdrop />
 
@@ -59,7 +59,7 @@ export function Hero() {
             <HeroPill>Every skill welcome</HeroPill>
           </div>
 
-          <h1 className="mt-8 text-[clamp(2.05rem,8.6vw,6.1rem)] leading-[0.99] font-bold tracking-[-0.042em] text-white">
+          <h1 className="mt-8 text-[clamp(2.05rem,8.6vw,6.1rem)] leading-[0.99] font-bold tracking-[-0.042em] text-ink">
             {HEADLINE.map((line, i) => (
               <span key={line} className="block overflow-hidden pb-[0.06em]">
                 <span className="block rise-line" style={delay(0.08 + i * 0.09)}>
@@ -69,13 +69,13 @@ export function Hero() {
             ))}
             <span className="block overflow-hidden pb-[0.1em]">
               <span className="block rise-line" style={delay(0.35)}>
-                <span className="text-emphasis-invert">the next.</span>
+                <span className="text-emphasis">the next.</span>
               </span>
             </span>
           </h1>
 
           <p
-            className="mt-8 max-w-xl fade-up text-[1.0625rem] leading-relaxed font-medium text-white/65 sm:text-lg"
+            className="mt-8 max-w-xl fade-up text-[1.0625rem] leading-relaxed font-medium text-ink-2 sm:text-lg"
             style={delay(0.42)}
           >
             The {siteConfig.org}&rsquo;s first hackathon. One continuous build against problems our
@@ -87,12 +87,12 @@ export function Hero() {
             <AnnouncementPlate />
             <div className="flex flex-wrap items-center gap-3">
               <Magnetic>
-                <ButtonLink href={NOTIFY_MAILTO} variant="invert">
+                <ButtonLink href={NOTIFY_MAILTO} variant="primary">
                   Notify me when applications open
                   <ArrowIcon />
                 </ButtonLink>
               </Magnetic>
-              <ButtonLink href="#process" variant="outlineInvert">
+              <ButtonLink href="#process" variant="outline">
                 See how it works
               </ButtonLink>
             </div>
@@ -104,19 +104,19 @@ export function Hero() {
           {STATS.map((stat, i) => (
             <div
               key={stat.label}
-              className="fade-up border-t border-white/15 pt-5"
+              className="fade-up border-t border-ink/12 pt-5"
               style={delay(0.62 + i * 0.07)}
             >
               <dt className="sr-only">{stat.label}</dt>
               <dd>
-                <span className="flex items-baseline text-[clamp(2.1rem,9vw,2.6rem)] leading-none font-bold tracking-[-0.04em] text-white">
-                  {stat.prefix ? <span className="text-glow">{stat.prefix}</span> : null}
+                <span className="flex items-baseline text-[clamp(2.1rem,9vw,2.6rem)] leading-none font-bold tracking-[-0.04em] text-ink">
+                  {stat.prefix ? <span className="text-ember">{stat.prefix}</span> : null}
                   <Counter value={stat.value} />
                   {stat.unit ? (
-                    <span className="ml-1 text-[1.35rem] text-glow">{stat.unit}</span>
+                    <span className="ml-1 text-[1.35rem] text-ember">{stat.unit}</span>
                   ) : null}
                 </span>
-                <span className="mt-2.5 block text-[0.8125rem] leading-snug font-medium text-white/55">
+                <span className="mt-2.5 block text-[0.8125rem] leading-snug font-medium text-ink-3">
                   {stat.label}
                 </span>
               </dd>
@@ -126,9 +126,9 @@ export function Hero() {
       </motion.div>
 
       {/* ------------------------------------------------------- ribbon */}
-      {/* A solid lotus band rather than another pane of white glass: it closes
-          the dark hero and hands off to the cream page below. */}
-      <div className="relative bg-lotus py-3.5 text-ink">
+      {/* The hero above is light, so the band goes dark: it draws the line
+          under the sky and hands off to the cream page below. */}
+      <div className="relative bg-night py-3.5 text-glow">
         <Marquee items={RIBBON} duration={46} />
       </div>
     </section>
@@ -139,7 +139,7 @@ function HeroPill({ children, dot }: { children: React.ReactNode; dot?: boolean 
   return (
     <Pill
       dot={dot}
-      className="border-white/18 bg-white/8 text-white/85 backdrop-blur-md hover:bg-white/12"
+      className="border-ink/12 bg-paper/60 text-ink-2 backdrop-blur-md hover:bg-paper/85"
     >
       {children}
     </Pill>
@@ -157,28 +157,17 @@ function HeroPill({ children, dot }: { children: React.ReactNode; dot?: boolean 
 function HeroBackdrop() {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      {/* Ground: dawn breaking from the lower right. */}
-      <div className="absolute inset-0 bg-[radial-gradient(130%_105%_at_74%_106%,#7a3f4c_0%,#4a2b35_44%,#2e1b21_100%)]" />
-
-      {/* Type scrim first, scene second: the scrim protects the headline on
-          the left, and the mask already keeps the scene clear of it, so the
-          water is free to stay bright instead of being dimmed to mud. */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(46,27,33,0.88)_0%,rgba(46,27,33,0.62)_46%,rgba(46,27,33,0.78)_100%)] lg:bg-[linear-gradient(90deg,rgba(46,27,33,0.96)_0%,rgba(46,27,33,0.9)_38%,rgba(46,27,33,0.4)_62%,rgba(46,27,33,0.12)_100%)]" />
-
-      {/* The scene holds the right of the frame on desktop and sinks to a
-          lower band on a phone, where the copy needs the room. It fades out
-          before the bottom so the stats never sit on lit water. */}
-      <div className="absolute inset-x-0 bottom-0 h-[54%] [mask-image:linear-gradient(180deg,transparent,black_42%,black_72%,transparent)] opacity-60 sm:opacity-75 lg:inset-y-0 lg:left-auto lg:h-full lg:w-[54%] lg:[mask-image:linear-gradient(90deg,transparent,black_34%),linear-gradient(180deg,black_74%,transparent)] lg:[mask-image:linear-gradient(90deg,transparent,black_34%)] lg:[mask-composite:intersect]">
+      {/* The scene holds the right of the frame on desktop and the upper band
+          on a phone, above the copy rather than behind it. */}
+      <div className="absolute inset-x-0 top-0 h-[54%] [mask-image:linear-gradient(180deg,black_58%,transparent)] opacity-80 lg:inset-y-0 lg:left-auto lg:h-full lg:w-[58%] lg:[mask-image:linear-gradient(90deg,transparent,black_38%)]">
         <HeroScene className="h-full w-full" />
       </div>
 
-      <div className="absolute inset-0 grid-lines [mask-image:linear-gradient(180deg,black,transparent_62%)] opacity-70" />
+      {/* Keeps the headline off the brightest part of the sky without
+          flattening the gradient behind it. */}
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(250,246,238,0.34)_0%,rgba(250,246,238,0)_40%)] lg:bg-[linear-gradient(90deg,rgba(250,246,238,0.58)_0%,rgba(250,246,238,0.18)_44%,rgba(250,246,238,0)_72%)]" />
 
-      <div className="absolute top-[-22%] right-[-8%] size-[46rem] drift-a rounded-full bg-[radial-gradient(circle,rgba(217,155,160,0.28),transparent_66%)] blur-3xl" />
-      <div className="absolute bottom-[-28%] left-[-12%] size-[36rem] drift-b rounded-full bg-[radial-gradient(circle,rgba(232,163,60,0.20),transparent_66%)] blur-3xl" />
-
-      {/* Floor gradient, so the ribbon reads as ground. */}
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,transparent,rgba(31,17,21,0.72))]" />
+      <div className="absolute top-[-18%] left-[-10%] size-[38rem] drift-b rounded-full bg-[radial-gradient(circle,rgba(217,155,160,0.34),transparent_66%)] blur-3xl" />
     </div>
   );
 }
