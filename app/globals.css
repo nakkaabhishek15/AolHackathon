@@ -327,8 +327,37 @@
     transform-origin: center;
   }
 
+  .hero-lift {
+    animation: lift 7s ease-in-out infinite alternate;
+  }
+
+  .hero-flame {
+    animation: flame 0.42s ease-in-out infinite alternate;
+    transform-box: fill-box;
+  }
+
   .hero-breathe {
     animation: breathe-scale 9s ease-in-out infinite;
+  }
+}
+
+@keyframes lift {
+  from {
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    transform: translate3d(4px, -10px, 0);
+  }
+}
+
+@keyframes flame {
+  from {
+    transform: scaleY(0.82) scaleX(1.04);
+    opacity: 0.85;
+  }
+  to {
+    transform: scaleY(1.12) scaleX(0.95);
+    opacity: 1;
   }
 }
 

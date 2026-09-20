@@ -160,14 +160,17 @@ function HeroBackdrop() {
       {/* Ground: dawn breaking from the lower right. */}
       <div className="absolute inset-0 bg-[radial-gradient(130%_105%_at_74%_106%,#7a3f4c_0%,#4a2b35_44%,#2e1b21_100%)]" />
 
-      {/* The dawn scene itself. It holds the right of the frame on desktop and
-          sinks to the lower band on a phone, where the copy needs the room. */}
-      <div className="absolute inset-x-0 bottom-0 h-[62%] [mask-image:linear-gradient(180deg,transparent,black_38%)] opacity-70 sm:opacity-80 lg:inset-y-0 lg:left-auto lg:h-full lg:w-[74%] lg:[mask-image:linear-gradient(90deg,transparent_4%,black_46%)]">
+      {/* Type scrim first, scene second: the scrim protects the headline on
+          the left, and the mask already keeps the scene clear of it, so the
+          water is free to stay bright instead of being dimmed to mud. */}
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(46,27,33,0.88)_0%,rgba(46,27,33,0.62)_46%,rgba(46,27,33,0.78)_100%)] lg:bg-[linear-gradient(90deg,rgba(46,27,33,0.96)_0%,rgba(46,27,33,0.9)_38%,rgba(46,27,33,0.4)_62%,rgba(46,27,33,0.12)_100%)]" />
+
+      {/* The scene holds the right of the frame on desktop and sinks to a
+          lower band on a phone, where the copy needs the room. It fades out
+          before the bottom so the stats never sit on lit water. */}
+      <div className="absolute inset-x-0 bottom-0 h-[54%] [mask-image:linear-gradient(180deg,transparent,black_42%,black_72%,transparent)] opacity-60 sm:opacity-75 lg:inset-y-0 lg:left-auto lg:h-full lg:w-[54%] lg:[mask-image:linear-gradient(90deg,transparent,black_34%),linear-gradient(180deg,black_74%,transparent)] lg:[mask-image:linear-gradient(90deg,transparent,black_34%)] lg:[mask-composite:intersect]">
         <HeroScene className="h-full w-full" />
       </div>
-
-      {/* Type scrim: heavy on the left, lifting toward the light. */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(46,27,33,0.86)_0%,rgba(46,27,33,0.6)_46%,rgba(46,27,33,0.72)_100%)] lg:bg-[linear-gradient(90deg,rgba(46,27,33,0.94)_0%,rgba(46,27,33,0.78)_42%,rgba(46,27,33,0.3)_100%)]" />
 
       <div className="absolute inset-0 grid-lines [mask-image:linear-gradient(180deg,black,transparent_62%)] opacity-70" />
 
