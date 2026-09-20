@@ -59,92 +59,54 @@ const FAQS = [
     q: "What happens to what we build?",
     a: "The strongest solutions get support to move toward real use inside the organization, so the work does not stop at the demo. You will hear what happened to your build rather than watching it disappear after the weekend.",
   },
-  {
-    q: "Still have a question?",
-    a: `Write to us at ${siteConfig.email} and a person will answer. If it is a question other people are likely to have, it ends up on this list.`,
-  },
 ] as const;
 
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
+  /* Split down the middle rather than dealing left-right, so reading order
+     still runs top-to-bottom within a column. */
+  const half = Math.ceil(FAQS.length / 2);
+  const columns = [FAQS.slice(0, half), FAQS.slice(half)];
+
   return (
     <section id="faq" className="scroll-mt-24 py-24 sm:py-32">
-      <div className="container-page max-w-3xl">
+      <div className="container-page max-w-5xl">
         <SectionHeading
           eyebrow="Good questions"
           title="Everything we know so far"
           lede="More detail lands here as dates, venue and challenges are locked in."
         />
 
-        <Reveal className="mt-12 divide-y divide-line border-y border-line">
-          {FAQS.map((item, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={item.q}>
-                <h3>
-                  <button
-                    type="button"
-                    onClick={() => setOpen(isOpen ? null : i)}
-                    aria-expanded={isOpen}
-                    aria-controls={`faq-panel-${i}`}
-                    className="group flex w-full items-start justify-between gap-6 py-6 text-left"
-                  >
-                    <span
-                      className={cn(
-                        "text-[1.1rem] leading-snug font-bold tracking-[-0.02em] transition-colors duration-300 sm:text-[1.22rem]",
-                        isOpen ? "text-ink" : "text-ink-2 hover:text-ink",
-                      )}
-                    >
-                      {item.q}
-                    </span>
-                    <span
-                      className={cn(
-                        "mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full border transition-colors duration-300",
-                        isOpen
-                          ? "border-accent bg-tint text-accent"
-                          : "border-line text-ink-3 group-hover:border-ink-4",
-                      )}
-                    >
-                      <motion.svg
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                        className="size-3.5"
-                        animate={{ rotate: isOpen ? 180 : 0 }}
-                        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                        aria-hidden="true"
-                      >
-                        <path d="m4 6 4 4 4-4" />
-                      </motion.svg>
-                    </span>
-                  </button>
-                </h3>
+        <div className="mt-12 grid md:grid-cols-2 md:gap-x-14">
+          {columns.map((column, c) => (
+            <Reveal
+              key={c}
+              index={c}
+              className={cn(
+                "divide-y divide-line border-y border-line",
+                /* Stacked on a phone the two blocks meet, and two 1px borders
+                   would read as one thick one. */
+                c > 0 && "-mt-px md:mt-0",
+              )}
+            >
+              {column.map((item, j) => {
+                const i = c * half + j;
+                return (
+                  <FaqItem
+                    key={item.q}
+                    item={item}
+                    index={i}
+                    isOpen={open === i}
+                    onToggle={() => setOpen(open === i ? null : i)}
+                  />
+                );
+              })}
+            </Reveal>
+          ))}
+        </div>
 
-                <AnimatePresence initial={false}>
-                  {isOpen ? (
-                    <motion.div
-                      id={`faq-panel-${i}`}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p className="max-w-2xl pr-10 pb-7 text-[0.9875rem] leading-relaxed font-medium text-ink-2">
-                        {item.a}
-                      </p>
-                    </motion.div>
-                  ) : null}
-                </AnimatePresence>
-              </div>
-            );
-          })}
-        </Reveal>
-
-        <Reveal className="mt-8 text-center text-[0.9375rem] font-medium text-ink-3">
+        <Reveal className="mt-10 text-center text-[0.9375rem] font-medium text-ink-3">
           Still have a question?{" "}
           <a
             href={`mailto:${siteConfig.email}`}
@@ -156,5 +118,79 @@ export function Faq() {
         </Reveal>
       </div>
     </section>
+  );
+}
+
+function FaqItem({
+  item,
+  index,
+  isOpen,
+  onToggle,
+}: {
+  item: (typeof FAQS)[number];
+  index: number;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <div>
+      <h3>
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-expanded={isOpen}
+          aria-controls={`faq-panel-${index}`}
+          className="group flex w-full items-start justify-between gap-5 py-6 text-left"
+        >
+          <span
+            className={cn(
+              "text-[1.05rem] leading-snug font-bold tracking-[-0.02em] transition-colors duration-300 sm:text-[1.14rem]",
+              isOpen ? "text-ink" : "text-ink-2 hover:text-ink",
+            )}
+          >
+            {item.q}
+          </span>
+          <span
+            className={cn(
+              "mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full border transition-colors duration-300",
+              isOpen
+                ? "border-accent bg-tint text-accent"
+                : "border-line text-ink-3 group-hover:border-ink-4",
+            )}
+          >
+            <motion.svg
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              className="size-3.5"
+              animate={{ rotate: isOpen ? 180 : 0 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              aria-hidden="true"
+            >
+              <path d="m4 6 4 4 4-4" />
+            </motion.svg>
+          </span>
+        </button>
+      </h3>
+
+      <AnimatePresence initial={false}>
+        {isOpen ? (
+          <motion.div
+            id={`faq-panel-${index}`}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
+          >
+            <p className="pr-6 pb-7 text-[0.9375rem] leading-relaxed font-medium text-ink-2">
+              {item.a}
+            </p>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </div>
   );
 }

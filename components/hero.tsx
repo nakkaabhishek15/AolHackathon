@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef, type CSSProperties } from "react";
 import { NOTIFY_MAILTO, siteConfig } from "@/lib/site-config";
 import { AnnouncementPlate } from "./announcement-plate";
+import { HeroScene } from "./hero-scene";
 import { ArrowIcon, ButtonLink, Counter, Magnetic, Marquee, Pill } from "./primitives";
 
 const STATS = [
@@ -160,27 +160,14 @@ function HeroBackdrop() {
       {/* Ground: dawn breaking from the lower right. */}
       <div className="absolute inset-0 bg-[radial-gradient(130%_105%_at_74%_106%,#7a3f4c_0%,#4a2b35_44%,#2e1b21_100%)]" />
 
-      {/* Sky. Masked so it only ever surfaces away from the headline. */}
-      <div className="absolute inset-0 [mask-image:linear-gradient(180deg,transparent,black_48%)] opacity-55 lg:[mask-image:linear-gradient(90deg,transparent_16%,black_64%)]">
-        <Image
-          src="/photos/sunrise.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
+      {/* The dawn scene itself. It holds the right of the frame on desktop and
+          sinks to the lower band on a phone, where the copy needs the room. */}
+      <div className="absolute inset-x-0 bottom-0 h-[62%] [mask-image:linear-gradient(180deg,transparent,black_38%)] opacity-70 sm:opacity-80 lg:inset-y-0 lg:left-auto lg:h-full lg:w-[74%] lg:[mask-image:linear-gradient(90deg,transparent_4%,black_46%)]">
+        <HeroScene className="h-full w-full" />
       </div>
 
-      {/* Pulls the photograph into the palette instead of letting its own
-          colour temperature sit next to the plum. */}
-      <div className="absolute inset-0 bg-[linear-gradient(200deg,rgba(217,155,160,0.26),rgba(232,163,60,0.20))] mix-blend-overlay" />
-
       {/* Type scrim: heavy on the left, lifting toward the light. */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(46,27,33,0.9)_0%,rgba(46,27,33,0.74)_52%,rgba(46,27,33,0.8)_100%)] lg:bg-[linear-gradient(90deg,rgba(46,27,33,0.95)_0%,rgba(46,27,33,0.84)_46%,rgba(46,27,33,0.46)_100%)]" />
-
-      {/* The sun itself, just clear of the horizon and breathing slowly. */}
-      <div className="absolute top-[16%] right-[8%] size-[22rem] animate-breathe rounded-full bg-[radial-gradient(circle,rgba(232,163,60,0.55),rgba(217,155,160,0.26)_46%,transparent_70%)] blur-2xl sm:size-[27rem]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(46,27,33,0.86)_0%,rgba(46,27,33,0.6)_46%,rgba(46,27,33,0.72)_100%)] lg:bg-[linear-gradient(90deg,rgba(46,27,33,0.94)_0%,rgba(46,27,33,0.78)_42%,rgba(46,27,33,0.3)_100%)]" />
 
       <div className="absolute inset-0 grid-lines [mask-image:linear-gradient(180deg,black,transparent_62%)] opacity-70" />
 

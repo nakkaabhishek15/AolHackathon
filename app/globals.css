@@ -299,6 +299,52 @@
 }
 
 /* ============================================================
+   Hero scene
+
+   Plain classes rather than utilities: HeroScene applies them to SVG
+   nodes and tunes each one's duration and delay inline.
+   ============================================================ */
+@layer components {
+  .hero-glide {
+    animation: glide 46s ease-in-out infinite alternate;
+  }
+
+  .hero-bob {
+    animation: bob 6.5s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .hero-ripple {
+    animation: ripple-out 5s ease-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .hero-shimmer {
+    animation: shimmer-band 4.2s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .hero-breathe {
+    animation: breathe-scale 9s ease-in-out infinite;
+  }
+}
+
+@keyframes breathe-scale {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.92;
+  }
+  50% {
+    transform: scale(1.045);
+    opacity: 1;
+  }
+}
+
+/* ============================================================
    Keyframes
    ============================================================ */
 @keyframes rise-line {
@@ -356,6 +402,48 @@
   }
   50% {
     transform: translateY(-5px);
+  }
+}
+
+@keyframes glide {
+  from {
+    transform: translateX(-9%);
+  }
+  to {
+    transform: translateX(9%);
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-2.5px) rotate(-0.8deg);
+  }
+}
+
+@keyframes ripple-out {
+  0% {
+    transform: scale(0.72);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes shimmer-band {
+  0%,
+  100% {
+    opacity: 0.18;
+    transform: scaleX(0.9);
+  }
+  50% {
+    opacity: 0.46;
+    transform: scaleX(1.08);
   }
 }
 
